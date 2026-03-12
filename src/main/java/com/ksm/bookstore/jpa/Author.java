@@ -24,7 +24,8 @@ public class Author {
     @Column(name = "AUTHOR_NAME", length = 50, nullable = false, unique = false)
     private String name;
 
-    public Author() {}      // Constructor
+    // Constructor + Getters and Setters
+    public Author() {}
 
     public String getName() {
         return name;
@@ -34,7 +35,8 @@ public class Author {
         this.name = name;
     }
 
-    public Long getId() {       // Doesn't need setter, hibernate generates it
+    // Doesn't need setter, hibernate generates it
+    public Long getId() {      
         return id;
     }
 }

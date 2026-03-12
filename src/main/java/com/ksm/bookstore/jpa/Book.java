@@ -42,7 +42,8 @@ public class Book {
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
-    public Book() {}        // Constructor
+    // Constructor + Getters and Setters
+    public Book() {}
 
     public String getTitle() {
         return title;
@@ -76,7 +77,8 @@ public class Book {
         this.price = price;
     }
 
-    public Long getId() {       // Doesn't need setter, hibernate generates it
+    // Doesn't need setter, hibernate generates it
+    public Long getId() {
         return id;
     }
 }

@@ -9,7 +9,8 @@ public class Address {
     private String state;
     private String zip;
     
-    public Address() {}         // Constructor
+    // Constructor + Getters and Setters
+    public Address() {}
 
     public String getStreet() {
         return street;
