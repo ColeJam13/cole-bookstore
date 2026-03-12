@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import com.ksm.bookstore.qualifier.DatasourceSchedule;
 
 @Entity
-@Table(name="AUTHOR", schema = DatasourceSchedule.SCHEMA)
+@Table(name = "AUTHOR", schema = DatasourceSchedule.SCHEMA)
 public class Author {
 
     @Id
@@ -21,7 +21,7 @@ public class Author {
 
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name="AUTHOR_NAME", length=50, nullable=false, unique=false)
+    @Column(name = "AUTHOR_NAME", length = 50, nullable = false, unique = false)
     private String name;
 
     public Author() {}      // Constructor
