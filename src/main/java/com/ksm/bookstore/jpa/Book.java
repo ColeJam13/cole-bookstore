@@ -22,7 +22,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long bookId;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -78,7 +78,7 @@ public class Book {
     }
 
     // Doesn't need setter, hibernate generates it
-    public Long getId() {
-        return id;
+    public Long getBookId() {
+        return bookId;
     }
 }

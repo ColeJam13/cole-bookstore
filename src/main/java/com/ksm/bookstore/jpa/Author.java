@@ -17,7 +17,7 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long authorId;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -37,6 +37,6 @@ public class Author {
 
     // Doesn't need setter, hibernate generates it
     public Long getId() {      
-        return id;
+        return authorId;
     }
 }
