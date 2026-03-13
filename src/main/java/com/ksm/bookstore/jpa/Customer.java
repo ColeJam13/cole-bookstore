@@ -38,7 +38,7 @@ public class Customer {
     @Column(name = "CUSTOMER_EMAIL", nullable = false, unique = true)
     private String email;
 
-    // Embedding the Address from an outside entity to prevent mixup between Billing and Shipping columns
+    // Embedding the Address from an outside entity to prevent mixup between Billing and Shipping columns (LOOK AT THIS)
     @Embedded                                       
     @AttributeOverrides({
         @AttributeOverride(name = "street", column = @Column(name = "BILL_STREET")),
