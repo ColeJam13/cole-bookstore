@@ -3,11 +3,10 @@ package com.ksm.bookstore.jpa;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,23 +37,13 @@ public class Customer {
     @Column(name = "CUSTOMER_EMAIL", nullable = false, unique = true)
     private String email;
 
-    // Embedding the Address from an outside entity to prevent mixup between Billing and Shipping columns (LOOK AT THIS)
-    @Embedded                                       
-    @AttributeOverrides({
-        @AttributeOverride(name = "street", column = @Column(name = "BILL_STREET")),
-        @AttributeOverride(name = "city", column = @Column(name = "BILL_CITY")),
-        @AttributeOverride(name = "state", column = @Column(name = "BILL_STATE")),
-        @AttributeOverride(name = "zip", column = @Column(name = "BILL_ZIP"))
-    })
+    // Addresses now have own Column where the address type is identified with a primary key
+    @ManyToOne
+    @JoinColumn(name = "BILLING_ADDRESS_ID")
     private Address billingAddress;
 
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "street", column = @Column(name = "SHIP_STREET")),
-        @AttributeOverride(name = "city", column = @Column(name = "SHIP_CITY")),
-        @AttributeOverride(name = "state", column = @Column(name = "SHIP_STATE")),
-        @AttributeOverride(name = "zip", column = @Column(name = "SHIP_ZIP"))
-    })
+    @ManyToOne
+    @JoinColumn(name = "SHIPPING_ADDRESS_ID")
     private Address shippingAddress;
 
     // Constructor + Getters and Setters
