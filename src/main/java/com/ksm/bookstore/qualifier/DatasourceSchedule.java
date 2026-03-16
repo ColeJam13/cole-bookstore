@@ -22,7 +22,9 @@ public @interface DatasourceSchedule {
 
    /**
     * Constant for the database schema so we can change it in one place.
+    * 
     */
-   public static final String SCHEMA = "BOOKSTORE";
 
+   // Database Schema Constant now lives in standalone.xml and is referenced in persistance.xml
+   // ask if this is correct, and if now this file would host our table name constants
 }

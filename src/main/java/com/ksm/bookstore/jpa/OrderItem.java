@@ -8,20 +8,27 @@ import javax.persistence.Table;
 
 import java.math.BigDecimal;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
 
-import com.ksm.bookstore.qualifier.DatasourceSchedule;
-
 @Entity
-@Table(name = "ITEMS", schema = DatasourceSchedule.SCHEMA)
+@Table(name = "ITEMS")
+@Getter
+@Setter
+@NoArgsConstructor
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ITEM_ID")
+    @Setter(AccessLevel.NONE)
     private Long orderItemId;
 
     // Many to One relationship (Many OrderItems to one Order)
@@ -41,44 +48,5 @@ public class OrderItem {
     @NotNull
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
-
-    // Constructor + Getters and Setters
-    public OrderItem() {}
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    // Doesn't need setter, hibernate generates it
-    public Long getOrderItemId() {
-        return orderItemId;
-    }
+    
 }

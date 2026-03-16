@@ -11,10 +11,16 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.ksm.bookstore.qualifier.DatasourceSchedule;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "CUSTOMER", schema = DatasourceSchedule.SCHEMA)
+@Table(name = "CUSTOMER")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Customer {
 
     @NotNull
@@ -30,6 +36,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CUSTOMER_ID", nullable = false)
+    @Setter(AccessLevel.NONE)
     private Long customerId;
 
     @NotNull
@@ -46,52 +53,5 @@ public class Customer {
     @JoinColumn(name = "SHIPPING_ADDRESS_ID")
     private Address shippingAddress;
 
-    // Constructor + Getters and Setters
-    public Customer() {}
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    // Doesn't need setter, hibernate generates it
-    public Long getCustomerId() {
-        return customerId;
-    }
 }
  

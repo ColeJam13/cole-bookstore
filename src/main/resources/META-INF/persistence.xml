@@ -11,6 +11,8 @@
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="${jpa.showsql:true}" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+			<!-- Reference the default schema to BOOKSTORE in standalone.xml -->
+			<property name="hibernate.default_schema" value="${bookstore.schema}"/>
 		</properties>
 	</persistence-unit>
 </persistence>

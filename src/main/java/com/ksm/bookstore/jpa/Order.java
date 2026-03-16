@@ -17,16 +17,24 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import com.ksm.bookstore.qualifier.DatasourceSchedule;
+import com.ksm.bookstore.model.OrderStatus;
 
 @Entity
-@Table(name = "BOOK_ORDER", schema = DatasourceSchedule.SCHEMA)
+@Table(name = "BOOK_ORDER")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_NUMBER", nullable = false)
+    @Setter(AccessLevel.NONE)
     private Long orderNumber;
 
     // Many to One Relationship (Many Orders to one Customer ID)
@@ -47,46 +55,4 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
-    // Constructor + Getters and Setters
-    public Order() {}
-
-    public Long getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(Long orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public BigDecimal getOrderTotal() {
-        return orderTotal;
-    }
-
-    public void setOrderTotal(BigDecimal orderTotal) {
-        this.orderTotal = orderTotal;
-    }
 }

@@ -14,14 +14,21 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.Size;
 import javax.persistence.JoinColumn;
 
-import com.ksm.bookstore.qualifier.DatasourceSchedule;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "BOOK", schema = DatasourceSchedule.SCHEMA)
+@Table(name = "BOOK")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long bookId;
 
     @NotNull
@@ -42,43 +49,4 @@ public class Book {
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
-    // Constructor + Getters and Setters
-    public Book() {}
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor (Author author) {
-        this.author = author;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    // Doesn't need setter, hibernate generates it
-    public Long getBookId() {
-        return bookId;
-    }
 }

@@ -1,4 +1,4 @@
-package com.ksm.bookstore.jpa;
+package com.ksm.bookstore.model;
 
 public enum OrderStatus {
     SUBMITTED,
