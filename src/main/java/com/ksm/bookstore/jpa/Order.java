@@ -24,6 +24,14 @@ import lombok.NoArgsConstructor;
 
 import com.ksm.bookstore.model.OrderStatus;
 
+/**
+ * Entity representing an Order (or cart). Shares many (orders) to one (customer)
+ * relationship with Customer, and a One (order) to many (order items) relationship
+ * with OrderItems
+ * 
+ * @author Cole
+ */
+
 @Entity
 @Table(name = "BOOK_ORDER")
 @Getter
@@ -37,7 +45,6 @@ public class Order {
     @Setter(AccessLevel.NONE)
     private Long orderNumber;
 
-    // Many to One Relationship (Many Orders to one Customer ID)
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
@@ -51,7 +58,6 @@ public class Order {
     @Column(name = "ORDER_STATUS", nullable = false)
     private OrderStatus orderStatus;
 
-    // One to Many relationship (One order to Many order items)
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 

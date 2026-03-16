@@ -16,6 +16,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing a customer object.
+ * 
+ * @author Cole
+ */
+
 @Entity
 @Table(name = "CUSTOMER")
 @Getter
@@ -44,7 +50,8 @@ public class Customer {
     @Column(name = "CUSTOMER_EMAIL", nullable = false, unique = true)
     private String email;
 
-    // Addresses now have own Column where the address type is identified with a primary key
+    // Billing and shipping addresses are seperate Address entities
+    // distinguished by their own foreign key columns on this table
     @ManyToOne
     @JoinColumn(name = "BILLING_ADDRESS_ID")
     private Address billingAddress;

@@ -14,6 +14,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing an author of a book object.
+ * 
+ * @author Cole
+ */
+
 @Entity
 @Table(name = "AUTHOR")
 @Getter

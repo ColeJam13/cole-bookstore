@@ -19,6 +19,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing a book object. Linked to Author by
+ * a many (books) to one (author) relationship.
+ * 
+ * @author Cole
+ */
+
 @Entity
 @Table(name = "BOOK")
 @Getter

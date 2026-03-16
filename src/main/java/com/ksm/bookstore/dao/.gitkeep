@@ -1,1 +1,3 @@
 Data Access Objects (Managers) should go here. Ex: BookManager.java
+
+// talks to hibernate

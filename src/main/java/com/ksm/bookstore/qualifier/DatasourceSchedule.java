@@ -26,5 +26,6 @@ public @interface DatasourceSchedule {
     */
 
    // Database Schema Constant now lives in standalone.xml and is referenced in persistance.xml
-   // ask if this is correct, and if now this file would host our table name constants
+   // ask if this is correct, and if now this file would host our table name constants or if those
+   // are better served in a utility folder
 }
