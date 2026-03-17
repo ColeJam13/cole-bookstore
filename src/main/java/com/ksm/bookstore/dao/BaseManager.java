@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.ejb.Stateless;
 
 /**
  * Base abstract DAO that sets up the framework for the rest of the managers
@@ -13,11 +12,11 @@ import javax.ejb.Stateless;
  * @author Cole
  */
 
-@Stateless
 public abstract class BaseManager<T> {
 
+    // The JPA EntityManager, injected by CDI, used to interact with Database
     @Inject
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     private Class<T> entityClass;
 
@@ -29,6 +28,7 @@ public abstract class BaseManager<T> {
         return entityManager.find(entityClass, id);
     }
 
+    // JPQL query which returns all results from a class
     public List<T> findAll() {
         String query = "SELECT e FROM " + entityClass.getSimpleName() + " e";
         return entityManager.createQuery(query, entityClass).getResultList();
