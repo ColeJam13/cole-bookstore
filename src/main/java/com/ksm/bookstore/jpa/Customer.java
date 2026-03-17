@@ -32,13 +32,13 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
     @NotNull
-    @Size(min = 2, max = 50)
-    @Column(name = "CUSTOMER_FIRST_NAME", length = 50, nullable = false, unique = false)
+    @Size(min = 2, max = 20)
+    @Column(name = "CUSTOMER_FIRST_NAME", length = 20, nullable = false, unique = false)
     private String firstName;
 
     @NotNull
-    @Size(min = 2, max = 50)
-    @Column(name = "CUSTOMER_LAST_NAME", length = 50, nullable = false, unique = false)
+    @Size(min = 2, max = 20)
+    @Column(name = "CUSTOMER_LAST_NAME", length = 20, nullable = false, unique = false)
     private String lastName;
 
     @Id

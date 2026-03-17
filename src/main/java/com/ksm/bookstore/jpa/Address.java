@@ -31,10 +31,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Address {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Setter(AccessLevel.NONE)
-private Long addressId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    private Long addressId;
 
     @NotNull
     @Size(min = 1, max = 50)
