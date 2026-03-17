@@ -38,6 +38,7 @@ public class OrderManager extends BaseManager<Order>{
 *        return entityManager.createQuery(query, Order.class)
 *                                [J]       [K]
 *                .setParameter("status", status)
+*                       [L]
 *                .getResultList();
 *    }
 *
@@ -52,5 +53,6 @@ public class OrderManager extends BaseManager<Order>{
 *[I] Order.class — tells Hibernate what type to return
 *[J] "status" — matches the placeholder name at [G]
 *[K] status — the actual enum value passed into the method at [C], fills in the blank
-*getResultList() — returns multiple results as a list
+*[L] getResultList() — returns multiple results as a list
+*
 */
