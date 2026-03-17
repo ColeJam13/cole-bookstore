@@ -1,5 +1,7 @@
 package com.ksm.bookstore.jpa;
 
+import com.ksm.bookstore.util.TableConstants;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,7 +35,7 @@ import com.ksm.bookstore.model.OrderStatus;
  */
 
 @Entity
-@Table(name = "BOOK_ORDER")
+@Table(name = TableConstants.BOOK_ORDER)
 @Getter
 @Setter
 @NoArgsConstructor
