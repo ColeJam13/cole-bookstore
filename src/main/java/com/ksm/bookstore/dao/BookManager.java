@@ -21,7 +21,7 @@ public class BookManager extends BaseManager<Book> {
     }
 
     public Book findByTitle(String title) {
-        String query = "SELECT b FROM Book b WHERE b.title = :title";
+        String query = "SELECT t FROM Book t WHERE t.title = :title";
         return entityManager.createQuery(query, Book.class)
                 .setParameter("title", title)
                 .getSingleResult();
