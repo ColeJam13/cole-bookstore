@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 /**
  * DAO for accessing/updating information on Order objects
  * 
- * @author Cole
  */
 
 @Stateless

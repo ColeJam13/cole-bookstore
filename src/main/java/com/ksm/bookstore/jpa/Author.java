@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 /**
  * Entity representing an author of a book object.
  * 
- * @author Cole
  */
 
 @Entity

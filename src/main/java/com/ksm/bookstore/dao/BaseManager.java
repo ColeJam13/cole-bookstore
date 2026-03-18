@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
  * Base abstract DAO that sets up the framework for the rest of the managers
  * to recieve and send information from the database
  * 
- * @author Cole
  */
 
 public abstract class BaseManager<T> {

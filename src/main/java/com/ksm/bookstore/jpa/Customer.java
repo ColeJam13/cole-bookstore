@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 /**
  * Entity representing a customer object.
  * 
- * @author Cole
  */
 
 @Entity

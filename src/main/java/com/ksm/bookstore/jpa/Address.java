@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
  * Entity that stores and creates addresses for customers. Shipping and billing
  * addresses are differentiated by foreign key references form Customer entity.
  *
- * @author Cole
  */
 
 @Entity

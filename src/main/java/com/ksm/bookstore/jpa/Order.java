@@ -31,7 +31,6 @@ import com.ksm.bookstore.model.OrderStatus;
  * relationship with Customer, and a One (order) to many (order items) relationship
  * with OrderItems
  * 
- * @author Cole
  */
 
 @Entity

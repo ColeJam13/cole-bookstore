@@ -25,7 +25,6 @@ import javax.persistence.JoinColumn;
  * a many (items) to one (order) relationship with Order, and a 
  * many (items) to one (book) relationship with book.
  * 
- * @author Cole
  */
 
 @Entity

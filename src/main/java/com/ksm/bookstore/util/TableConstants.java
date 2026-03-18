@@ -4,7 +4,6 @@ package com.ksm.bookstore.util;
  * Utility Class to set the Table names as constants and refer
  * to them in entities
  * 
- * @author Cole
  */
 
 public final class TableConstants {

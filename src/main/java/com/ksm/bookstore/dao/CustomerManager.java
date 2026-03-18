@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 /**
  * DAO for accessing/updating information on Customer objects
  * 
- * @author Cole
  */
 
 @Stateless
