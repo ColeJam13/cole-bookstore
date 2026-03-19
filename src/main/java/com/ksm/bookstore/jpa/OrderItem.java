@@ -1,7 +1,5 @@
 package com.ksm.bookstore.jpa;
 
-import com.ksm.bookstore.util.TableConstants;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,11 +26,13 @@ import javax.persistence.JoinColumn;
  */
 
 @Entity
-@Table(name = TableConstants.ORDER_ITEM)
+@Table(name = OrderItem.TABLE_NAME)
 @Getter
 @Setter
 @NoArgsConstructor
 public class OrderItem {
+
+    static final String TABLE_NAME = "ORDER_ITEM";
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

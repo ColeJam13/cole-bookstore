@@ -39,3 +39,6 @@
 hs_err_pid*
 target/
 target-ide/
+
+# personal notes
+dev-notes/

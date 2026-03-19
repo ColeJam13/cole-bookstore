@@ -1,7 +1,5 @@
 package com.ksm.bookstore.jpa;
 
-import com.ksm.bookstore.util.TableConstants;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,11 +22,13 @@ import lombok.NoArgsConstructor;
  */
 
 @Entity
-@Table(name = TableConstants.ADDRESS)
+@Table(name = Address.TABLE_NAME)
 @Getter
 @Setter
 @NoArgsConstructor
 public class Address {
+
+    static final String TABLE_NAME = "ADDRESS";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
