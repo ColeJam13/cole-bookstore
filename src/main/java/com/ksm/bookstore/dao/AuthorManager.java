@@ -18,7 +18,12 @@ public class AuthorManager extends BaseManager<Author> {
         super(Author.class);
     }
     
-    // SELECT (nickname) FROM Author (class) (nickname) WHERE (nickname).(name field on Author) = :blank
+    /**
+     * Finds a single author by their name
+     *
+     * @param name the name to search for
+     * @return the matching Author entity
+     */
     public Author findByName(String name) {
         return entityManager.createQuery(QUERY_FIND_BY_NAME, Author.class)
                 .setParameter("name", name)

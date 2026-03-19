@@ -19,6 +19,12 @@ public class CustomerManager extends BaseManager<Customer>{
         super(Customer.class);
     }
 
+    /**
+     * Finds a single customer by their email address
+     *
+     * @param email the email address to search for
+     * @return the matching Customer entity
+     */
     public Customer findByEmail(String email) {
         return entityManager.createQuery(QUERY_FIND_BY_EMAIL, Customer.class)
                 .setParameter("email", email)

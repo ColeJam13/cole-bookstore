@@ -22,6 +22,12 @@ public class OrderManager extends BaseManager<Order>{
         super(Order.class);
     }
 
+    /**
+     * Finds all orders matching a given status
+     *
+     * @param status the OrderStatus to filter by
+     * @return a list of orders with the given status
+     */
     public List<Order> findByStatus(OrderStatus status) {
         return entityManager.createQuery(QUERY_FIND_BY_STATUS, Order.class)
                 .setParameter("status", status)
