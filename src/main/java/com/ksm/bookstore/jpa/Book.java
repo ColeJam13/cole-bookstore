@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -33,9 +34,11 @@ import lombok.NoArgsConstructor;
 public class Book {
 
     static final String TABLE_NAME = "BOOK";
+    private static final String SEQUENCE_NAME = "BOOK_ID_SEQ";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "BOOK_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
     private Long bookId;
 

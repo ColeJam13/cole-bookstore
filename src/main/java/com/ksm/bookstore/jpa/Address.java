@@ -3,6 +3,7 @@ package com.ksm.bookstore.jpa;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
@@ -29,9 +30,11 @@ import lombok.NoArgsConstructor;
 public class Address {
 
     static final String TABLE_NAME = "ADDRESS";
+    private static final String SEQUENCE_NAME = "ADDRESS_ID_SEQ";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "ADDRESS_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
     private Long addressId;
 

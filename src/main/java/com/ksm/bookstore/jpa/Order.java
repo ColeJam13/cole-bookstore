@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import java.math.BigDecimal;
@@ -39,10 +40,11 @@ import com.ksm.bookstore.model.OrderStatus;
 public class Order {
 
     static final String TABLE_NAME = "BOOK_ORDER";
+    private static final String SEQUENCE_NAME = "BOOK_ORDER_ID_SEQ";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ORDER_NUMBER", nullable = false)
+    @SequenceGenerator(name = "BOOK_ORDER_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_ORDER_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
     private Long orderNumber;
 

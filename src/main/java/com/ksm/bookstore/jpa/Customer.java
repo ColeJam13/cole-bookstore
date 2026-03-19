@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
@@ -29,6 +30,13 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
     static final String TABLE_NAME = "CUSTOMER";
+    private static final String SEQUENCE_NAME = "CUSTOMER_ID_SEQ";
+
+    @Id
+    @SequenceGenerator(name = "CUSTOMER_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_ID_GENERATOR")
+    @Setter(AccessLevel.NONE)
+    private Long customerId;
 
     @NotNull(message = "Customer First Name {javax.validation.constraints.NotNull.message}")
     @Size(min = 2, max = 20)
@@ -39,12 +47,6 @@ public class Customer {
     @Size(min = 2, max = 20)
     @Column(name = "CUSTOMER_LAST_NAME", length = 20, nullable = false, unique = false)
     private String lastName;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CUSTOMER_ID", nullable = false)
-    @Setter(AccessLevel.NONE)
-    private Long customerId;
 
     @NotNull(message = "Customer Email {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 50)

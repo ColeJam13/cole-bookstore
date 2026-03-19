@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import java.math.BigDecimal;
@@ -33,10 +34,11 @@ import javax.persistence.JoinColumn;
 public class OrderItem {
 
     static final String TABLE_NAME = "ORDER_ITEM";
+    private static final String SEQUENCE_NAME = "ORDER_ITEM_ID_SEQ";
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ORDER_ITEM_ID")
+    @SequenceGenerator(name = "ORDER_ITEM_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDER_ITEM_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
     private Long orderItemId;
 
