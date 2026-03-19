@@ -15,27 +15,31 @@ import javax.ejb.Stateless;
 @Stateless
 public class BookManager extends BaseManager<Book> {
 
+    private static final String QUERY_FIND_BY_TITLE = "SELECT t FROM Book t WHERE t.title = :title";
+
+    private static final String QUERY_FIND_BY_ISBN = "SELECT i FROM Book i WHERE i.isbn = :isbn";
+
+    private static final String QUERY_FIND_BY_AUTHOR = "SELECT a FROM Book a WHERE a.author = :author";
+
+
     public BookManager() {
         super(Book.class);
     }
 
     public Book findByTitle(String title) {
-        String query = "SELECT t FROM Book t WHERE t.title = :title";
-        return entityManager.createQuery(query, Book.class)
+        return entityManager.createQuery(QUERY_FIND_BY_TITLE, Book.class)
                 .setParameter("title", title)
                 .getSingleResult();
     }
 
     public Book findByIsbn(String isbn) {
-        String query = "SELECT i FROM Book i WHERE i.isbn = :isbn";
-        return entityManager.createQuery(query, Book.class)
+        return entityManager.createQuery(QUERY_FIND_BY_ISBN, Book.class)
                 .setParameter("isbn", isbn)
                 .getSingleResult();
     }
 
     public List<Book> findByAuthor(Author author) {
-        String query = "SELECT a FROM Book a WHERE a.author = :author";
-        return entityManager.createQuery(query, Book.class)
+        return entityManager.createQuery(QUERY_FIND_BY_AUTHOR, Book.class)
                 .setParameter("author", author)
                 .getResultList();
     }

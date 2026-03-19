@@ -12,13 +12,15 @@ import javax.ejb.Stateless;
 @Stateless
 public class CustomerManager extends BaseManager<Customer>{
 
+    private static final String QUERY_FIND_BY_EMAIL = "SELECT e FROM Customer e WHERE e.email = :email";
+
+
     public CustomerManager() {
         super(Customer.class);
     }
 
     public Customer findByEmail(String email) {
-        String query = "SELECT e FROM Customer e WHERE e.email = :email";
-        return entityManager.createQuery(query, Customer.class)
+        return entityManager.createQuery(QUERY_FIND_BY_EMAIL, Customer.class)
                 .setParameter("email", email)
                 .getSingleResult();
     }

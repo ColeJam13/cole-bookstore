@@ -15,13 +15,15 @@ import javax.ejb.Stateless;
 @Stateless
 public class OrderManager extends BaseManager<Order>{
 
+    private static final String QUERY_FIND_BY_STATUS = "SELECT s FROM Order s WHERE s.orderStatus = :status";
+
+
     public OrderManager() {
         super(Order.class);
     }
 
     public List<Order> findByStatus(OrderStatus status) {
-        String query = "SELECT s FROM Order s WHERE s.orderStatus = :status";
-        return entityManager.createQuery(query, Order.class)
+        return entityManager.createQuery(QUERY_FIND_BY_STATUS, Order.class)
                 .setParameter("status", status)
                 .getResultList();
     }

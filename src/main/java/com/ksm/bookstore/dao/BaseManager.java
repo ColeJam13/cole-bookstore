@@ -28,6 +28,8 @@ public abstract class BaseManager<T> {
     }
 
     // JPQL query which returns all results from a class
+    // Jimmy mentioned SQL injection vulnerability: two alternatives = 
+    // Criteria Builder and @NamedQuery
     public List<T> findAll() {
         String query = "SELECT e FROM " + entityClass.getSimpleName() + " e";
         return entityManager.createQuery(query, entityClass).getResultList();
