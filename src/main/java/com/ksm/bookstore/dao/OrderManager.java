@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 @Stateless
 public class OrderManager extends BaseManager<Order>{
 
-    private static final String QUERY_FIND_BY_STATUS = "SELECT s FROM Order s WHERE s.orderStatus = :status";
+    private static final String QUERY_FIND_BY_STATUS = "SELECT o FROM Order o WHERE o.orderStatus = :status";
 
 
     public OrderManager() {

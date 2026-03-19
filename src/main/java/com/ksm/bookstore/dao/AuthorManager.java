@@ -12,7 +12,7 @@ import javax.ejb.Stateless;
 @Stateless
 public class AuthorManager extends BaseManager<Author> {
 
-    private static final String QUERY_FIND_BY_NAME = "SELECT n FROM Author n WHERE n.name = :name";
+    private static final String QUERY_FIND_BY_NAME = "SELECT a FROM Author a WHERE a.name = :name";
 
     public AuthorManager() {
         super(Author.class);
