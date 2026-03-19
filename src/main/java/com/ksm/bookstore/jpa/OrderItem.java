@@ -48,11 +48,11 @@ public class OrderItem {
     @JoinColumn(name = "BOOK_ID", nullable = false)
     private Book book;
 
-    @NotNull
+    @NotNull(message = "Quantity {javax.validation.constraints.NotNull.message}")
     @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
     
-    @NotNull
+    @NotNull(message = "Price {javax.validation.constraints.NotNull.message}")
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
     

@@ -30,12 +30,12 @@ public class Customer {
 
     static final String TABLE_NAME = "CUSTOMER";
 
-    @NotNull
+    @NotNull(message = "Customer First Name {javax.validation.constraints.NotNull.message}")
     @Size(min = 2, max = 20)
     @Column(name = "CUSTOMER_FIRST_NAME", length = 20, nullable = false, unique = false)
     private String firstName;
 
-    @NotNull
+    @NotNull(message = "Customer Last Name {javax.validation.constraints.NotNull.message}")
     @Size(min = 2, max = 20)
     @Column(name = "CUSTOMER_LAST_NAME", length = 20, nullable = false, unique = false)
     private String lastName;
@@ -46,7 +46,7 @@ public class Customer {
     @Setter(AccessLevel.NONE)
     private Long customerId;
 
-    @NotNull
+    @NotNull(message = "Customer Email {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 50)
     @Column(name = "CUSTOMER_EMAIL", nullable = false, unique = true)
     private String email;

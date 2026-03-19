@@ -39,7 +39,7 @@ public class Book {
     @Setter(AccessLevel.NONE)
     private Long bookId;
 
-    @NotNull
+    @NotNull(message = "Title {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 50)
     @Column(name = "BOOK_TITLE", length = 50, nullable = false, unique = true)
     private String title;
@@ -48,12 +48,12 @@ public class Book {
     @JoinColumn(name = "AUTHOR_ID", nullable = false)
     private Author author;
 
-    @NotNull
+    @NotNull(message = "Isbn {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 13)
     @Column(name = "ISBN", length = 13, nullable = false, unique = true)
     private String isbn;
 
-    @NotNull
+    @NotNull(message = "Price {javax.validation.constraints.NotNull.message}")
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 

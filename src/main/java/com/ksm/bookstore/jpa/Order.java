@@ -50,11 +50,11 @@ public class Order {
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 
-    @NotNull
+    @NotNull(message = "Order Total {javax.validation.constraints.NotNull.message}")
     @Column(name = "ORDER_TOTAL", nullable = false)
     private BigDecimal orderTotal;
 
-    @NotNull
+    @NotNull(message = "Order Status {javax.validation.constraints.NotNull.message}")
     @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_STATUS", nullable = false)
     private OrderStatus orderStatus;

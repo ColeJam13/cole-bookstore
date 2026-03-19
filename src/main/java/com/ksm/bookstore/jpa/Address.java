@@ -35,22 +35,22 @@ public class Address {
     @Setter(AccessLevel.NONE)
     private Long addressId;
 
-    @NotNull
+    @NotNull(message = "Street {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 50)
     @Column(name = "STREET", length = 50, nullable = false)
     private String street;
 
-    @NotNull
+    @NotNull(message = "City {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 20)
     @Column(name = "CITY", length = 20, nullable = false)
     private String city;
 
-    @NotNull
+    @NotNull(message = "State {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 20)
     @Column(name = "STATE", length = 20, nullable = false)
     private String state;
 
-    @NotNull
+    @NotNull(message = "Zip {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 15)
     @Column(name = "ZIP", length = 15, nullable = false)
     private String zip;

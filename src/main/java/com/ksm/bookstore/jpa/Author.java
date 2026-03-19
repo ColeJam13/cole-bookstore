@@ -33,7 +33,7 @@ public class Author {
     @Setter(AccessLevel.NONE)
     private Long authorId;
 
-    @NotNull
+    @NotNull(message = "Author Name {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 50)
     @Column(name = "AUTHOR_NAME", length = 50, nullable = false)
     private String name;
