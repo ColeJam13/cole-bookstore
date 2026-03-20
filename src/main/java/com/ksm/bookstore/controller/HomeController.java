@@ -13,6 +13,7 @@ import javax.inject.Named;
 @ViewScoped
 public class HomeController implements Serializable {
 
+    
     private static final long serialVersionUID = 1L;
     
 }
