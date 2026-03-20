@@ -3,6 +3,10 @@ package com.ksm.bookstore.controller;
 import java.io.Serializable;
 
 import org.omnifaces.cdi.ViewScoped;
+
+import com.ksm.bookstore.service.BookService;
+
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -12,6 +16,9 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class BookController implements Serializable {
+
+    @Inject
+    private BookService bookService;
 
     private static final long serialVersionUID = 1L;
     
