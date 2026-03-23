@@ -10,7 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Controller that interacts with the Order Object
+ * Controller for managing individual orders within the admin section.
+ * Handles order status updates such as cancellation and completion for administrators.
+ * Communicates with OrderService to retrieve and update order data.
  */
 
 @Named

@@ -9,9 +9,10 @@ import com.ksm.bookstore.service.OrderService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
 /**
- * Controller that interacts with the Checkout page
+ * Controller for the checkout page of the bookstore application.
+ * Handles order submission and customer identification for public users.
+ * Communicates with OrderService and CustomerService to process purchases.
  */
 
 @Named

@@ -10,7 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Controller that interacts with the Home page of the application
+ * Controller for the public home page of the bookstore application.
+ * Handles book browsing and search functionality for public users.
+ * Communicates with BookService to retrieve and filter book data.
  */
 
 @Named

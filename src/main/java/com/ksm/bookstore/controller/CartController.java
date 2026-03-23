@@ -11,7 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Controller that interacts with the Cart page
+ * Controller for the shopping cart page of the bookstore application.
+ * Handles adding, removing, and displaying books in the users cart.
+ * Communicates with BookService and OrderService to manage cart contents.
  */
 
 @Named

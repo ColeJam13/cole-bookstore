@@ -11,7 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Controller that interacts with the Admin Inventory page
+ * Controller for the admin inventory management page of the bookstore application.
+ * Handles adding, editing, and deleting books and authors for administrators.
+ * Communicates with BookService and AuthorService to manage inventory data.
  */
 
 @Named

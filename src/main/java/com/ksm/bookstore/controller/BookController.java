@@ -10,7 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Controller that interacts with the Book object
+ * Controller for the book detail page of the bookstore application.
+ * Handles display of individual book information for public users.
+ * Communicates with BookService to retrieve book data.
  */
 
 @Named

@@ -10,7 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Controller that interacts with the Admin Dashboard Page
+ * Controller for the admin dashboard page of the bookstore application.
+ * Handles display and filtering of submitted orders for administrators.
+ * Communicates with OrderService to retrieve and manage order data.
  */
 
 @Named
