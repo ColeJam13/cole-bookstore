@@ -6,7 +6,32 @@
 	<ui:define name="body">
 		<p:panel id="pnlHome" >
 			<h:form id="frmHome">
+				<!-- User Input text search box -->
+				<p:inputText id="txtSearch" value="#{homeController.searchTerm}"/>
+				<!-- Drop down menu for search type -->
+				<p:selectOneMenu id="drpSearchType" value ="#{homeController.searchType}">
+					<f:selectItem itemValue="title" itemLabel="title"/>
+					<f:selectItem itemValue="author" itemLabel="author"/>
+					<f:selectItem itemValue="isbn" itemLabel="isbn"/>
+				</p:selectOneMenu>
+				<!-- Button that user clicks to initiate search -->
+				<p:commandButton value="Search" action="#{homeController.search}" update="tblResults" ajax="true"/> 
 			</h:form>
+		<!-- The Data Table the results show up in -->
+		<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults">
+			<p:column headerText="Title">
+				<h:outputText value="#{book.title}"/>
+			</p:column>
+			<p:column headerText="Author">
+				<h:outputText value="#{book.author.name}" />
+			</p:column>
+			<p:column headerText="ISBN">
+				<h:outputText value="#{book.isbn}" />
+			</p:column>
+			<p:column headerText="Price">
+				<h:outputText value="#{book.price}" />
+			</p:column>
+		</p:dataTable>
 		</p:panel>
 	</ui:define>
 </ui:composition>
