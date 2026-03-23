@@ -15,11 +15,11 @@ import javax.ejb.Stateless;
 @Stateless
 public class BookManager extends BaseManager<Book> {
 
-    private static final String QUERY_FIND_BY_TITLE = "SELECT t FROM Book t WHERE t.title = :title";
+    private static final String QUERY_FIND_BY_TITLE = "SELECT b FROM Book b WHERE b.title = :title";
 
-    private static final String QUERY_FIND_BY_ISBN = "SELECT i FROM Book i WHERE i.isbn = :isbn";
+    private static final String QUERY_FIND_BY_ISBN = "SELECT b FROM Book b WHERE b.isbn = :isbn";
 
-    private static final String QUERY_FIND_BY_AUTHOR = "SELECT a FROM Book a WHERE a.author = :author";
+    private static final String QUERY_FIND_BY_AUTHOR = "SELECT b FROM Book b WHERE b.author = :author";
 
 
     public BookManager() {

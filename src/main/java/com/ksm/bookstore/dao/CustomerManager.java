@@ -12,7 +12,7 @@ import javax.ejb.Stateless;
 @Stateless
 public class CustomerManager extends BaseManager<Customer>{
 
-    private static final String QUERY_FIND_BY_EMAIL = "SELECT e FROM Customer e WHERE e.email = :email";
+    private static final String QUERY_FIND_BY_EMAIL = "SELECT c FROM Customer c WHERE c.email = :email";
 
 
     public CustomerManager() {
