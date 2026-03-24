@@ -15,11 +15,11 @@
 					<f:selectItem itemValue="isbn" itemLabel="ISBN"/>
 				</p:selectOneMenu>
 				<!-- Button that user clicks to initiate search -->
-				<p:commandButton value="Search" action="#{homeController.search}" update="tblResults" ajax="true" icon="ui-icon-search"/>
+				<p:commandButton value="Search" action="#{homeController.search}" update="tblResults" ajax="true" icon="pi pi-search"/>
 			</h:form>
 		</p:panel>
 		<!-- The Data Table the results show up in -->
-		<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults" paginator="true" rows="15" paginatorPosition="bottom">
+		<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults" paginator="true" rows="15" paginatorPosition="bottom" stripedRows="true">
 			<p:column headerText="Title" sortBy="#{book.title}">
 				<h:outputText value="#{book.title}"/>
 			</p:column>
