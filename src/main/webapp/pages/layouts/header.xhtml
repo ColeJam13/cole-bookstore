@@ -7,15 +7,12 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:p="http://primefaces.org/ui">
 
-	<title>KSM Bookstore Application</title>
-	<h:head>
-		<p:panelGrid columns="12" styleClass="bookstoreHeaderGrid">
-			<p:spacer/>
-			<p:commandLink value="KSM Bookstore" action="home" styleClass="bookstoreHeader"/>
-			<p:commandLink value="Login" action="login" rendered="#{!userProvider.userLoggedIn}"/>
-			<p:commandLink value="Logout" action="#{userProvider.logout()}" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="Admin" action="admin" rendered="#{userProvider.adminUser}"/>
-			<p:outputLabel value="Welcome: #{userProvider.userName}" rendered="#{userProvider.userLoggedIn}"/>
-		</p:panelGrid>
-	</h:head>
+	<p:panelGrid columns="6" styleClass="bookstoreHeaderGrid">
+		<p:spacer/>
+		<p:commandLink value="Home" action="home" styleClass="bookstoreHeader"/>
+		<p:commandLink value="Login" action="login" rendered="#{!userProvider.userLoggedIn}"/>
+		<p:commandLink value="Logout" action="#{userProvider.logout()}" rendered="#{userProvider.userLoggedIn}"/>
+		<p:commandLink value="Admin" action="admin" rendered="#{userProvider.adminUser}"/>
+		<p:outputLabel value="Welcome: #{userProvider.userName}" rendered="#{userProvider.userLoggedIn}"/>
+	</p:panelGrid>
 </ui:composition>
