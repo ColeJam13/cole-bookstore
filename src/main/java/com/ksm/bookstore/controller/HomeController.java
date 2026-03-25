@@ -29,6 +29,9 @@ import java.util.Collections;
 public class HomeController implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final String SEARCH_BY_TITLE = "title";
+    private static final String SEARCH_BY_AUTHOR = "author";
+    private static final String SEARCH_BY_ISBN = "isbn";
 
     @Inject
     private BookService bookService;
@@ -40,10 +43,9 @@ public class HomeController implements Serializable {
     private String sortField;
 
     private List<Book> searchResults;
-    
 
     /**
-     * Method that runs automatically once the page is contructed to
+     * Method that runs automatically once the page is constructed to
      * get All the books from the database and have them available to search 
      */
     @PostConstruct
@@ -56,12 +58,13 @@ public class HomeController implements Serializable {
      * user input, will select the matching field to search by
      */
     public void search() {
-        if (searchType.equals("title")) {
+        if (SEARCH_BY_TITLE.equals(searchType)) {
             searchResults = Collections.singletonList(bookService.getBookByTitle(searchTerm));
-        } else if (searchType.equals("author")) {
+        } else if (SEARCH_BY_AUTHOR.equals(searchType)) {
             searchResults = bookService.getBookByAuthor(searchTerm);
-        } else if (searchType.equals("isbn")) {
+        } else if (SEARCH_BY_ISBN.equals(searchType)) {
             searchResults = Collections.singletonList(bookService.getBookByIsbn(searchTerm));
         }
     }
+
 }

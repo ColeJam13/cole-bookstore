@@ -20,7 +20,7 @@
 		</p:panel>
 		<!-- The Data Table the results show up in -->
 		<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults" paginator="true" rows="15" paginatorPosition="bottom" stripedRows="true">
-			<p:column headerText="Title" sortBy="#{book.title}">
+			<p:column headerText="Title" field="title">
 				<h:outputText value="#{book.title}"/>
 			</p:column>
 			<p:column headerText="Author" sortBy="#{book.author.name}">
