@@ -4,34 +4,27 @@
 	template="/pages/layouts/customer-template.xhtml">
 
 	<ui:define name="body">
-		<p:panel header="Search Books">
-			<h:form id="frmHome">
-				<!-- User Input text search box -->
-				<p:inputText id="txtSearch" value="#{homeController.searchTerm}" placeholder="Enter search term..."/>
-				<!-- Drop down menu for search type -->
-				<p:selectOneMenu id="drpSearchType" value="#{homeController.searchType}">
-					<f:selectItem itemValue="title" itemLabel="Title"/>
-					<f:selectItem itemValue="author" itemLabel="Author"/>
-					<f:selectItem itemValue="isbn" itemLabel="ISBN"/>
-				</p:selectOneMenu>
-				<!-- Button that user clicks to initiate search -->
-				<p:commandButton value="Search" action="#{homeController.search}" update="tblResults" ajax="true" icon="pi pi-search"/>
-			</h:form>
-		</p:panel>
-		<!-- The Data Table the results show up in -->
-		<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults" paginator="true" rows="15" paginatorPosition="bottom" stripedRows="true">
-			<p:column headerText="Title" field="title">
-				<h:outputText value="#{book.title}"/>
-			</p:column>
-			<p:column headerText="Author" sortBy="#{book.author.name}">
-				<h:outputText value="#{book.author.name}" />
-			</p:column>
-			<p:column headerText="ISBN" sortBy="#{book.isbn}">
-				<h:outputText value="#{book.isbn}" />
-			</p:column>
-			<p:column headerText="Price" sortBy="#{book.price}">
-				<h:outputText value="#{book.price}" />
-			</p:column>
-		</p:dataTable>
+		<h:form>
+			<!-- The Data Table the results show up in -->
+			<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults" paginator="true" rows="15" 
+			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar">
+				<f:facet name="header">
+					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
+						placeholder="Search by title, author, or ISBN..."/>
+				</f:facet>
+					<p:column headerText="Title" field="title" filterStyle="display:none">
+						<h:outputText value="#{book.title}"/>
+					</p:column>
+					<p:column headerText="Author" field="author.name" filterStyle="display:none">
+						<h:outputText value="#{book.author.name}" />
+					</p:column>
+					<p:column headerText="ISBN" field="isbn" filterStyle="display:none">
+						<h:outputText value="#{book.isbn}" />
+					</p:column>
+					<p:column headerText="Price" field="price" filterStyle="display:none">
+						<h:outputText value="#{book.price}" />
+					</p:column>
+				</p:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
