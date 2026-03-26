@@ -10,7 +10,7 @@
 			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar">
 				<f:facet name="header">
 					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
-						placeholder="Search by title, author, or ISBN..."/>
+						placeholder="Search by title, author, or ISBN..." style="width: 400px" />
 				</f:facet>
 					<p:column headerText="Title" field="title" filterStyle="display:none">
 						<h:outputText value="#{book.title}"/>

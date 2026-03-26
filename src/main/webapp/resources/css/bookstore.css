@@ -5,41 +5,6 @@ html, body {
 	width:100%;
 }
 
-/* Center the search panel contents */
-.ui-panel-content {
-    text-align: center;
-}
-
-/* Add some spacing between the search controls */
-.ui-panel-content .ui-inputtext {
-    margin-right: 8px;
-}
-
-/* Add spacing between the search button and the dropdown */
-.ui-panel-content .ui-selectonemenu {
-    margin-right: 8px;
-}
-
-/* Center the Search Books panel header text */
-.ui-panel-titlebar {
-    text-align: center;
-}
-
-/* Vertically align the search controls so they sit flush */
-.ui-panel-content .ui-inputtext,
-.ui-panel-content .ui-selectonemenu,
-.ui-panel-content .ui-button {
-    vertical-align: middle;
-}
-
-/* Center text within the search button */
-.ui-panel-content .ui-button .ui-button-text {
-    padding: 0.4em 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 /* Fit the banner image to the height set in the header */
 #banner img {
 	width: 100%;
@@ -68,4 +33,14 @@ html, body {
     margin: 0;
     padding: 0;
     line-height: 0;
+}
+
+/* Center the global filter input in the table header */
+.ui-datatable-header {
+    text-align: center;
+}
+
+.ui-datatable-header input {
+    display: block;
+    margin: 0 auto;
 }
