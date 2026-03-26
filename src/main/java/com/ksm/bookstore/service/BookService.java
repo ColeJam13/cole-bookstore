@@ -1,5 +1,6 @@
 package com.ksm.bookstore.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -49,8 +50,13 @@ public class BookService {
      */
     public List<Book> getBookByAuthor(String author) {
         Author foundAuthor = authorManager.findByName(author);
+
+        if (foundAuthor == null) {
+            return Collections.emptyList();
+            }
         return bookManager.findByAuthor(foundAuthor);
     }
+    
 
     /**
      * Method that returns a single Book object based on isbn

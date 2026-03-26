@@ -40,7 +40,7 @@ public class BookManager extends BaseManager<Book> {
                 .setParameter("title", title)
                 .getSingleResult();
         } catch (NoResultException e) {
-            return null;
+        return null;
         }
     }
 
