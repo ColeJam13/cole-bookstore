@@ -12,6 +12,10 @@
 					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
 						placeholder="Search by title, author, or ISBN..." style="width: 400px" />
 				</f:facet>
+					<p:column headerText="Cover" filterable="false" sortable="false">
+						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" 
+							height="100" alt="#{book.title}"/>
+					</p:column>
 					<p:column headerText="Title" field="title" filterStyle="display:none">
 						<h:outputText value="#{book.title}"/>
 					</p:column>
