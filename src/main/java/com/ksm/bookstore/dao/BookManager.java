@@ -6,6 +6,7 @@ import com.ksm.bookstore.jpa.Author;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 /**
  * DAO for accessing/updating information on Book objects
@@ -34,9 +35,13 @@ public class BookManager extends BaseManager<Book> {
      * @return the matching Book entity
      */
     public Book findByTitle(String title) {
+        try {
         return entityManager.createQuery(QUERY_FIND_BY_TITLE, Book.class)
                 .setParameter("title", title)
                 .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     /**
@@ -46,9 +51,13 @@ public class BookManager extends BaseManager<Book> {
      * @return the matching Book entity
      */
     public Book findByIsbn(String isbn) {
+        try {
         return entityManager.createQuery(QUERY_FIND_BY_ISBN, Book.class)
                 .setParameter("isbn", isbn)
                 .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     /**
@@ -58,6 +67,7 @@ public class BookManager extends BaseManager<Book> {
      * @return a list of books by the given author
      */
     public List<Book> findByAuthor(Author author) {
+
         return entityManager.createQuery(QUERY_FIND_BY_AUTHOR, Book.class)
                 .setParameter("author", author)
                 .getResultList();

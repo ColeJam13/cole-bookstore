@@ -3,6 +3,7 @@ package com.ksm.bookstore.dao;
 import com.ksm.bookstore.jpa.Customer;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 /**
  * DAO for accessing/updating information on Customer objects
@@ -26,9 +27,12 @@ public class CustomerManager extends BaseManager<Customer>{
      * @return the matching Customer entity
      */
     public Customer findByEmail(String email) {
+        try {
         return entityManager.createQuery(QUERY_FIND_BY_EMAIL, Customer.class)
                 .setParameter("email", email)
                 .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
-    
 }
