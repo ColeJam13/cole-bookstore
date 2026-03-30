@@ -9,22 +9,18 @@
     </f:metadata>
 	<ui:define name="body">
 		<h:form>
-
             <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailController.book.isbn}-L.jpg" 
             alt="#{bookDetailController.book.title}"/>
-
             <h:outputText value="Title: "/>
             <h:outputText value="#{bookDetailController.book.title}"/>
-
             <h:outputText value="Author: "/>
             <h:outputText value="#{bookDetailController.book.author.name}"/>
-
             <h:outputText value="ISBN: "/>
             <h:outputText value="#{bookDetailController.book.isbn}"/>
-
             <h:outputText value="Price: "/>
             <h:outputText value="#{bookDetailController.book.price}"/>
-
+            <h:outputText value="Description: "/>
+            <h:outputText value="#{bookDetailController.description}"/>
 		</h:form>
 	</ui:define>
 </ui:composition>
