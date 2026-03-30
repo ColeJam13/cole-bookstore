@@ -5,6 +5,7 @@
 
     <f:metadata>
         <f:viewParam name="isbn" value="#{bookDetailController.isbn}"/>
+        <f:viewAction action="#{bookDetailController.init()}"/>
     </f:metadata>
 	<ui:define name="body">
 		<h:form>

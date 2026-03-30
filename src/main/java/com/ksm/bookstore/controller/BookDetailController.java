@@ -2,7 +2,6 @@ package com.ksm.bookstore.controller;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,11 +35,10 @@ public class BookDetailController implements Serializable{
     private String isbn;
 
     /**
-     * Method that runs automatically once the page is constructed to
-     * populate the book details page with a book that matches the
-     * requested ISBN
+     * Loads the book details for the requested ISBN.
+     * Triggered by f:viewAction after view parameters have been injected,
+     * ensuring the ISBN is available before the book is fetched.
      */
-    @PostConstruct
     public void init() {
         if (isbn == null) {
             return;
