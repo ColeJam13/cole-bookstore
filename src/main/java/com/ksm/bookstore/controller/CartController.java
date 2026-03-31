@@ -31,6 +31,8 @@ public class CartController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private static final double TAX_RATE = 0.06;
+
     @Inject
     private BookService bookService;
 
@@ -48,7 +50,7 @@ public class CartController implements Serializable {
     }
 
     /**
-     * Adds the selected book to the cart when the user clicks "Add to Cart"
+     * Method that adds the selected book to the cart when the user clicks "Add to Cart"
      * @param book
      */
     public void addToCart(Book book) {
@@ -56,7 +58,7 @@ public class CartController implements Serializable {
     }
     
     /**
-     * Removes the selected book from the cart when the user clicks "Remove from Cart"
+     * Method that removes the selected book from the cart when the user clicks "Remove from Cart"
      * @param book
      */
     public void removeFromCart(Book book) {
@@ -64,15 +66,32 @@ public class CartController implements Serializable {
     }
 
     /**
-     * Loops through the list of selected books in the cart and returns 
-     * the sum of total prices in the cart
+     * Method that loops through the list of selected books in the cart and returns 
+     * the subtotal of the book prices in the cart
      * @return
      */
-    public double getTotal() {
+    public double getSubTotal() {
         double cartTotal = 0.0;
         for (Book book : cartItems) {
             cartTotal = cartTotal + book.getPrice().doubleValue();
         }
         return cartTotal;
     }
+
+    /**
+     * Method that calculates the carts total tax amount based on the items in the cart
+     * @return
+     */
+    public double getTax() {
+        return getSubTotal() * TAX_RATE;
+    }
+
+    /**
+     * Method that returns the carts Total
+     * @return
+     */
+    public double getTotal() {
+        return getSubTotal() + getTax();
+    }
+
 }

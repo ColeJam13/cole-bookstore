@@ -31,6 +31,9 @@
                         <h:outputText value="Price: " styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailController.book.price}" styleClass="fieldValue"/>
                     </div>
+                    <div class="bookField">
+                        <p:commandButton value="Add to Cart" action="#{cartController.addToCart(bookDetailController.book)}"/>
+                    </div>
                     <div id="bookDescription">
                         <h:outputText value="Description: "/>
                         <h:outputText value="#{bookDetailController.description}"/>
