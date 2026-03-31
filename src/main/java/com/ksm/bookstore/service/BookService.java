@@ -24,25 +24,7 @@ public class BookService {
 
     @Inject 
     private AuthorManager authorManager;
-    
-
-    /**
-     * Method that returns all Books in database
-     * @return a list of all Book objects
-     */
-    public List<Book> getAllBooks() {
-        return bookManager.findAll();
-    }
-
-    /**
-     * Method that returns a single Book object by title
-     * @param title
-     * @return single Book object by title
-     */
-    public Book getBookByTitle(String title) {
-        return bookManager.findByTitle(title);
-    }
-
+   
     /**
      * Method that returns a list of books written by the searched Author
      * @param author
@@ -55,15 +37,5 @@ public class BookService {
             return Collections.emptyList();
             }
         return bookManager.findByAuthor(foundAuthor);
-    }
-    
-
-    /**
-     * Method that returns a single Book object based on isbn
-     * @param isbn
-     * @return single book object based on isbn
-     */
-    public Book getBookByIsbn(String isbn) {
-        return bookManager.findByIsbn(isbn);
     }
 }

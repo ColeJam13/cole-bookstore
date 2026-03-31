@@ -14,7 +14,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonArray;
 
-import com.ksm.bookstore.service.BookService;
+import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.form.BookDetailForm;
 
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class BookDetailController implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private BookService bookService;
+    private BookManager bookManager;
 
     @Inject
     private BookDetailForm bookDetailForm;
@@ -84,7 +84,7 @@ public class BookDetailController implements Serializable{
         if (isbn == null) {
             return;
         }
-        bookDetailForm.setBook(bookService.getBookByIsbn(isbn));
+        bookDetailForm.setBook(bookManager.findByIsbn(isbn));
         
         try {
             fetchDescription();

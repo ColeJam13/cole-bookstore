@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 
-import com.ksm.bookstore.service.BookService;
+import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.form.BookSearchForm;
 import com.ksm.bookstore.jpa.Book;
 
@@ -32,7 +32,7 @@ public class HomeController implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private BookService bookService;
+    private BookManager bookManager;
 
     @Inject
     private BookSearchForm bookSearchForm;
@@ -45,7 +45,7 @@ public class HomeController implements Serializable {
      */
     @PostConstruct
     public void init() {
-        bookSearchForm.setSearchResults(bookService.getAllBooks());
+        bookSearchForm.setSearchResults(bookManager.findAll());
     }
 
     /**
