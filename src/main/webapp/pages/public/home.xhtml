@@ -6,7 +6,7 @@
 	<ui:define name="body">
 		<h:form>
 			<!-- The Data Table the results show up in -->
-			<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults" paginator="true" rows="15" 
+			<p:dataTable var="book" value="#{bookSearchForm.searchResults}" id="tblResults" paginator="true" rows="15" 
 			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" selectionMode="single" 
 			rowKey="#{book.isbn}" selection="#{homeController.selectedBook}">
 				<p:ajax event="rowSelect" listener="#{homeController.navigate()}"/>

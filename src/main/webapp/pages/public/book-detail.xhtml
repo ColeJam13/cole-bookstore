@@ -11,33 +11,34 @@
         <h:form>
             <div id="bookDetail">
                 <div id="bookCover">
-                    <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailController.book.isbn}-L.jpg" 
-                        alt="#{bookDetailController.book.title}"/>
+                    <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailForm.book.isbn}-L.jpg" 
+                        alt="#{bookDetailForm.book.title}"/>
                 </div>
                 <div id="bookInfo">
                     <div class="bookField">
                         <h:outputText value="Title: " styleClass="fieldLabel"/>
-                        <h:outputText value="#{bookDetailController.book.title}" styleClass="fieldValue"/>
+                        <h:outputText value="#{bookDetailForm.book.title}" styleClass="fieldValue"/>
                     </div>
                     <div class="bookField">
                         <h:outputText value="Author: " styleClass="fieldLabel"/>
-                        <h:outputText value="#{bookDetailController.book.author.name}" styleClass="fieldValue"/>
+                        <h:outputText value="#{bookDetailForm.book.author.name}" styleClass="fieldValue"/>
                     </div>
                     <div class="bookField">
                         <h:outputText value="ISBN: " styleClass="fieldLabel"/>
-                        <h:outputText value="#{bookDetailController.book.isbn}" styleClass="fieldValue"/>
+                        <h:outputText value="#{bookDetailForm.book.isbn}" styleClass="fieldValue"/>
                     </div>
                     <div class="bookField">
                         <h:outputText value="Price: " styleClass="fieldLabel"/>
-                        <h:outputText value="#{bookDetailController.book.price}" styleClass="fieldValue"/>
+                        <h:outputText value="#{bookDetailForm.book.price}" styleClass="fieldValue"/>
                     </div>
                     <div class="bookField">
                         <p:commandButton value="Add to Cart" 
-                            action="#{cartController.addToCart(bookDetailController.book)}"/>
+                            action="#{cartController.addToCart(bookDetailForm.book)}"
+                            update="navForm"/>
                     </div>
                     <div id="bookDescription">
                         <h:outputText value="Description: "/>
-                        <h:outputText value="#{bookDetailController.description}"/>
+                        <h:outputText value="#{bookDetailForm.description}"/>
                     </div>
                 </div>
             </div>

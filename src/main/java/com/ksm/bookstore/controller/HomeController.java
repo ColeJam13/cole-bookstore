@@ -3,19 +3,19 @@ package com.ksm.bookstore.controller;
 import java.io.Serializable;
 import java.io.IOException;
 
-import org.omnifaces.cdi.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import com.ksm.bookstore.service.BookService;
+import com.ksm.bookstore.form.BookSearchForm;
 import com.ksm.bookstore.jpa.Book;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.List;
 
 /**
  * Controller for the public home page of the bookstore application.
@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @Named
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 public class HomeController implements Serializable {
@@ -34,7 +34,8 @@ public class HomeController implements Serializable {
     @Inject
     private BookService bookService;
 
-    private List<Book> searchResults;
+    @Inject
+    private BookSearchForm bookSearchForm;
 
     private Book selectedBook;
 
@@ -44,7 +45,7 @@ public class HomeController implements Serializable {
      */
     @PostConstruct
     public void init() {
-        searchResults = bookService.getAllBooks();
+        bookSearchForm.setSearchResults(bookService.getAllBooks());
     }
 
     /**

@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.InputStreamReader;
 
-import org.omnifaces.cdi.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.Json;
@@ -15,7 +15,7 @@ import javax.json.JsonObject;
 import javax.json.JsonArray;
 
 import com.ksm.bookstore.service.BookService;
-import com.ksm.bookstore.jpa.Book;
+import com.ksm.bookstore.form.BookDetailForm;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ import lombok.Setter;
  */
 
 @Named
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 public class BookDetailController implements Serializable{
@@ -36,9 +36,8 @@ public class BookDetailController implements Serializable{
     @Inject
     private BookService bookService;
 
-    private Book book;
-
-    private String description;
+    @Inject
+    private BookDetailForm bookDetailForm;
 
     private String isbn;
 
@@ -71,7 +70,7 @@ public class BookDetailController implements Serializable{
         if (items != null && !items.isEmpty()) {
             JsonObject volumeInfo = items.getJsonObject(0).getJsonObject("volumeInfo");
             if (volumeInfo.containsKey("description")) {
-                description = volumeInfo.getString("description");
+                bookDetailForm.setDescription(volumeInfo.getString("description"));
             }
         }
     }
@@ -85,12 +84,12 @@ public class BookDetailController implements Serializable{
         if (isbn == null) {
             return;
         }
-        book = bookService.getBookByIsbn(isbn);
+        bookDetailForm.setBook(bookService.getBookByIsbn(isbn));
         
         try {
             fetchDescription();
         } catch (IOException e) {
-            description = null;
+            bookDetailForm.setDescription(null);
         }
     }
 }
