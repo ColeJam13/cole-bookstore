@@ -44,3 +44,45 @@ html, body {
     display: block;
     margin: 0 auto;
 }
+
+/* Book detail page layout */
+#bookDetail {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+}
+
+#bookCover img {
+    width: 300px;
+}
+
+#bookInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+#bookDescription {
+    padding: 20px;
+}
+
+/* Individual field rows on book detail page */
+.bookField {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Bold label styling */
+.fieldLabel {
+    font-weight: bold;
+}
+
+/* Description section */
+#bookDescription {
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+}

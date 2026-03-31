@@ -8,19 +8,35 @@
         <f:viewAction action="#{bookDetailController.init()}"/>
     </f:metadata>
 	<ui:define name="body">
-		<h:form>
-            <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailController.book.isbn}-L.jpg" 
-            alt="#{bookDetailController.book.title}"/>
-            <h:outputText value="Title: "/>
-            <h:outputText value="#{bookDetailController.book.title}"/>
-            <h:outputText value="Author: "/>
-            <h:outputText value="#{bookDetailController.book.author.name}"/>
-            <h:outputText value="ISBN: "/>
-            <h:outputText value="#{bookDetailController.book.isbn}"/>
-            <h:outputText value="Price: "/>
-            <h:outputText value="#{bookDetailController.book.price}"/>
-            <h:outputText value="Description: "/>
-            <h:outputText value="#{bookDetailController.description}"/>
-		</h:form>
+        <h:form>
+            <div id="bookDetail">
+                <div id="bookCover">
+                    <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailController.book.isbn}-L.jpg" 
+                        alt="#{bookDetailController.book.title}"/>
+                </div>
+                <div id="bookInfo">
+                    <div class="bookField">
+                        <h:outputText value="Title: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{bookDetailController.book.title}" styleClass="fieldValue"/>
+                    </div>
+                    <div class="bookField">
+                        <h:outputText value="Author: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{bookDetailController.book.author.name}" styleClass="fieldValue"/>
+                    </div>
+                    <div class="bookField">
+                        <h:outputText value="ISBN: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{bookDetailController.book.isbn}" styleClass="fieldValue"/>
+                    </div>
+                    <div class="bookField">
+                        <h:outputText value="Price: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{bookDetailController.book.price}" styleClass="fieldValue"/>
+                    </div>
+                    <div id="bookDescription">
+                        <h:outputText value="Description: "/>
+                        <h:outputText value="#{bookDetailController.description}"/>
+                    </div>
+                </div>
+            </div>
+        </h:form>
 	</ui:define>
 </ui:composition>

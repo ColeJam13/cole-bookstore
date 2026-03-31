@@ -43,11 +43,10 @@ public class BookDetailController implements Serializable{
     private String isbn;
 
     /**
-     * Fetches a description for each book by using the Subtitle field on GoogleBooks API
+     * Fetches a description for each book by using the description field on GoogleBooks API
      * via the books ISBN. Key is located within the Standalone file
      * @throws IOException
      */
-
     private void fetchDescription() throws IOException {
         String urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn + "&key=" + System.getProperty("google.books.api.key");
         URL url = new URL(urlString);
@@ -76,7 +75,6 @@ public class BookDetailController implements Serializable{
             }
         }
     }
-
 
     /**
      * Loads the book details for the requested ISBN.
