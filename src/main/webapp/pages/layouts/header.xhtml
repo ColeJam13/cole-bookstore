@@ -7,15 +7,20 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:p="http://primefaces.org/ui">
 
-	<title>KSM Bookstore Application</title>
-	<h:head>
-		<p:panelGrid columns="12" styleClass="bookstoreHeaderGrid">
-			<p:spacer/>
-			<p:commandLink value="KSM Bookstore" action="home" styleClass="bookstoreHeader"/>
-			<p:commandLink value="Login" action="login" rendered="#{!userProvider.userLoggedIn}"/>
-			<p:commandLink value="Logout" action="#{userProvider.logout()}" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="Admin" action="admin" rendered="#{userProvider.adminUser}"/>
-			<p:outputLabel value="Welcome: #{userProvider.userName}" rendered="#{userProvider.userLoggedIn}"/>
-		</p:panelGrid>
-	</h:head>
+	<!-- Full width banner image -->
+	<div id="banner">
+		<p:graphicImage library="images" name="ColependiumHeader.png" />
+	</div>
+
+	<!-- Navigation bar sitting below the banner -->
+	<div id="navbar">
+		<h:form id="navForm">
+			<p:commandLink value="Home" action="home" styleClass="navLink"/>
+			<p:commandLink value="Login" action="login" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}"/>
+			<p:commandLink value="Logout" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
+			<p:commandLink value="Admin" action="admin" styleClass="navLink" rendered="#{userProvider.adminUser}"/>
+			<p:outputLabel value="Welcome: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
+		</h:form>
+	</div>
+
 </ui:composition>

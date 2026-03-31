@@ -13,10 +13,6 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
 			<!-- Reference the default schema to BOOKSTORE in standalone.xml -->
 			<property name="hibernate.default_schema" value="${bookstore.schema}"/>
-			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:tester;LOCK_TIMEOUT=20000;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE" />
-            <property name="javax.persistence.jdbc.user" value="sa" />
-            <property name="javax.persistence.jdbc.password" value="sa" />
 		</properties>
 	</persistence-unit>
 </persistence>

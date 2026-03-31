@@ -36,6 +36,7 @@ public class Customer {
     @SequenceGenerator(name = "CUSTOMER_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
+    @Column(name = "CUSTOMER_ID")
     private Long customerId;
 
     @NotNull(message = "Customer First Name {javax.validation.constraints.NotNull.message}")

@@ -36,6 +36,7 @@ public class Address {
     @SequenceGenerator(name = "ADDRESS_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
+    @Column(name = "ADDRESS_ID")
     private Long addressId;
 
     @NotNull(message = "Street {javax.validation.constraints.NotNull.message}")

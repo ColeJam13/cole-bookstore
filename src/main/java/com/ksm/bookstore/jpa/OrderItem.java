@@ -40,6 +40,7 @@ public class OrderItem {
     @SequenceGenerator(name = "ORDER_ITEM_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDER_ITEM_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
+    @Column(name = "ORDER_ITEM_ID")
     private Long orderItemId;
 
     @ManyToOne

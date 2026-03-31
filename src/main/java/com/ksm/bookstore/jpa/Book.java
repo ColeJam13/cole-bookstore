@@ -40,11 +40,12 @@ public class Book {
     @SequenceGenerator(name = "BOOK_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
+    @Column(name = "BOOK_ID")
     private Long bookId;
 
     @NotNull(message = "Title {javax.validation.constraints.NotNull.message}")
-    @Size(min = 1, max = 50)
-    @Column(name = "BOOK_TITLE", length = 50, nullable = false, unique = true)
+    @Size(min = 1, max = 255)
+    @Column(name = "BOOK_TITLE", length = 255, nullable = false, unique = true)
     private String title;
     
     @ManyToOne

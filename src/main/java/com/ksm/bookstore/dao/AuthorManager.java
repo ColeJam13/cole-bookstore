@@ -3,6 +3,7 @@ package com.ksm.bookstore.dao;
 import com.ksm.bookstore.jpa.Author;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 /**
  * DAO for accessing/updating information on Author objects
@@ -25,8 +26,12 @@ public class AuthorManager extends BaseManager<Author> {
      * @return the matching Author entity
      */
     public Author findByName(String name) {
+        try {
         return entityManager.createQuery(QUERY_FIND_BY_NAME, Author.class)
                 .setParameter("name", name)
                 .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

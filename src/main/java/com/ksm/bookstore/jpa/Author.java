@@ -34,6 +34,7 @@ public class Author {
     @SequenceGenerator(name = "AUTHOR_ID_GENERATOR", sequenceName = SEQUENCE_NAME, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AUTHOR_ID_GENERATOR")
     @Setter(AccessLevel.NONE)
+    @Column(name = "AUTHOR_ID")
     private Long authorId;
 
     @NotNull(message = "Author Name {javax.validation.constraints.NotNull.message}")

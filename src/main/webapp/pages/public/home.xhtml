@@ -4,9 +4,31 @@
 	template="/pages/layouts/customer-template.xhtml">
 
 	<ui:define name="body">
-		<p:panel id="pnlHome" >
-			<h:form id="frmHome">
-			</h:form>
-		</p:panel>
+		<h:form>
+			<!-- The Data Table the results show up in -->
+			<p:dataTable var="book" value="#{homeController.searchResults}" id="tblResults" paginator="true" rows="15" 
+			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar">
+				<f:facet name="header">
+					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
+						placeholder="Search by title, author, or ISBN..." style="width: 400px" />
+				</f:facet>
+					<p:column headerText="Cover" filterable="false" sortable="false">
+						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" 
+							height="100" alt="#{book.title}"/>
+					</p:column>
+					<p:column headerText="Title" field="title" filterStyle="display:none">
+						<h:outputText value="#{book.title}"/>
+					</p:column>
+					<p:column headerText="Author" field="author.name" filterStyle="display:none">
+						<h:outputText value="#{book.author.name}" />
+					</p:column>
+					<p:column headerText="ISBN" field="isbn" filterStyle="display:none">
+						<h:outputText value="#{book.isbn}" />
+					</p:column>
+					<p:column headerText="Price" field="price" filterStyle="display:none">
+						<h:outputText value="#{book.price}" />
+					</p:column>
+				</p:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
