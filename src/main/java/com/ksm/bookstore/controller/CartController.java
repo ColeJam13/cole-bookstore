@@ -98,4 +98,15 @@ public class CartController implements Serializable {
         return getSubTotal() + getTax();
     }
 
+    /**
+     * Clears all items from the cart and redirects to the home page
+     * @throws IOException
+     */
+    public void clearCart() throws IOException {
+        cartItems.clear();
+        FacesContext.getCurrentInstance()
+            .getExternalContext()
+            .redirect("home.jsf");
+    }
+
 }

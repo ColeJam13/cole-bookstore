@@ -40,6 +40,11 @@
                     </h:outputText>
                 </div>
             </h:panelGroup>
+            <div id="cartActions">
+                <p:commandButton value="Complete Purchase" action="checkout?faces-redirect=true"/>
+                <p:commandButton value="Continue Shopping" action="home?faces-redirect=true"/>
+                <p:commandButton value="Cancel Order" action="#{cartController.clearCart()}"/>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>
