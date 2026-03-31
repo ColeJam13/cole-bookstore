@@ -3,9 +3,13 @@ package com.ksm.bookstore.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.ksm.bookstore.jpa.Book;
 import com.ksm.bookstore.service.BookService;
@@ -13,9 +17,6 @@ import com.ksm.bookstore.service.OrderService;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * Controller for the shopping cart page of the bookstore application.
@@ -61,8 +62,11 @@ public class CartController implements Serializable {
      * Method that removes the selected book from the cart when the user clicks "Remove from Cart"
      * @param book
      */
-    public void removeFromCart(Book book) {
+    public void removeFromCart(Book book) throws IOException {
         cartItems.remove(book);
+        FacesContext.getCurrentInstance()
+            .getExternalContext()
+            .redirect("cart.jsf");
     }
 
     /**
