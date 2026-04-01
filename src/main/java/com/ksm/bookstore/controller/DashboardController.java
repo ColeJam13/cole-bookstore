@@ -16,7 +16,7 @@ import javax.inject.Named;
  */
 
 @Named
-@ViewScoped
+@ViewScoped // CHANGE TO REQUEST SCOPE AND CREATE FORM
 public class DashboardController implements Serializable {
 
     private static final long serialVersionUID = 1L;

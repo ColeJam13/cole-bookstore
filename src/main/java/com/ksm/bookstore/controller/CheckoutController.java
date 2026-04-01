@@ -16,7 +16,7 @@ import javax.inject.Named;
  */
 
 @Named
-@ViewScoped
+@ViewScoped // CHANGE TO REQUEST SCOPED AND MAKE FORM
 public class CheckoutController implements Serializable {
 
     private static final long serialVersionUID = 1L;
