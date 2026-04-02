@@ -11,6 +11,10 @@ import org.omnifaces.cdi.Param;
 import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Named;
 
+/**
+ * Form that holds view state data for the book detail page
+ */
+
 @Named
 @ViewScoped
 @Getter

@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Named;
-
+/**
+ * Form that holds the view state data for the Confirmation page
+ */
 @Named
 @ViewScoped
 @Getter
