@@ -11,6 +11,9 @@ import java.io.Serializable;
 import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Named;
 
+/**
+ * Form that holds the view state data for the home page
+ */
 @Named
 @ViewScoped
 @Getter
