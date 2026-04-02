@@ -56,6 +56,6 @@ public class CartController implements Serializable {
      */
     public void clearCart() throws IOException {
         cartForm.getCartItems().clear();
-    }
-
+        }
+        
 }
