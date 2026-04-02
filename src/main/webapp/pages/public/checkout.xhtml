@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	template="/pages/layouts/customer-template.xhtml">
+
+    <ui:define name ="body">
+        <h:form id="checkoutForm">
+            <div class="formField">
+                <h:outputLabel value="Email: " />
+                <p:inputText value="#{checkoutForm.email}">
+                    <p:ajax event="blur"
+                            listener="#{checkoutController.lookupCustomer()}"
+                            update="checkoutForm"/>
+                </p:inputText>
+            </div>
+            <div class="formField">
+                <h:outputLabel value="First Name: " />
+                <p:inputText value="#{checkoutForm.firstName}" />
+            </div>
+            <div class="formField">
+                <h:outputLabel value="Last Name:" />
+                <p:inputText value="#{checkoutForm.lastName}" />
+            </div>
+            <div class="shippingAddress">
+                <h:outputLabel value="Street Address: " />
+                <p:inputText value="#{checkoutForm.streetAddress}" />
+                <h:outputLabel value="City: " />
+                <p:inputText value="#{checkoutForm.city}" />
+                <h:outputLabel value="State: " />
+                <p:inputText value="#{checkoutForm.state}" />
+                <h:outputLabel value="Zip: " />
+                <p:inputText value="#{checkoutForm.zip}" />
+            </div>
+            <div class="formField">
+                <h:outputLabel value="Billing Address same as shipping?" />
+                <p:selectBooleanCheckbox value="#{checkoutForm.sameAsShipping}">
+                    <p:ajax update="billingAddress" />
+                </p:selectBooleanCheckbox>
+            </div>
+            <p:outputPanel id="billingAddress" rendered="#{!checkoutForm.sameAsShipping}">
+                <div class="billingAddress">
+                    <h:outputLabel value="Street Address: " />
+                    <p:inputText value="#{checkoutForm.billingStreetAddress}" />
+                    <h:outputLabel value="City: " />
+                    <p:inputText value="#{checkoutForm.billingCity}" />
+                    <h:outputLabel value="State: " />
+                    <p:inputText value="#{checkoutForm.billingState}" />
+                    <h:outputLabel value="Zip: " />
+                    <p:inputText value="#{checkoutForm.billingZip}" />
+                </div>
+            </p:outputPanel>
+            <p:commandButton value="Submit Order" action="#{checkoutController.submitOrder()}" />
+        </h:form>
+    </ui:define>
+</ui:composition>

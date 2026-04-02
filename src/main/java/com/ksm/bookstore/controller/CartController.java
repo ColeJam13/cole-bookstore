@@ -30,7 +30,6 @@ public class CartController implements Serializable {
 
     private static final double TAX_RATE = 0.06;
 
-
     private List<Book> cartItems;
 
     /**
