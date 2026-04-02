@@ -18,6 +18,7 @@ import lombok.Setter;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
 /**
  * Controller for the checkout page of the bookstore application.
  * Handles order submission and customer identification for public users.

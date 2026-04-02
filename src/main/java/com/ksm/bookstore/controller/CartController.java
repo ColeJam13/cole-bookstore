@@ -30,7 +30,6 @@ public class CartController implements Serializable {
     @Inject
     private CartForm cartForm;
 
-
     /**
      * Method that adds the selected book to the cart when the user clicks "Add to Cart"
      * @param book
