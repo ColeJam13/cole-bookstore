@@ -8,12 +8,9 @@ import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.ksm.bookstore.jpa.Book;
-import com.ksm.bookstore.service.BookService;
-import com.ksm.bookstore.service.OrderService;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +18,6 @@ import lombok.Setter;
 /**
  * Controller for the shopping cart page of the bookstore application.
  * Handles adding, removing, and displaying books in the users cart.
- * Communicates with BookService and OrderService to manage cart contents.
  */
 
 @Named
@@ -34,11 +30,6 @@ public class CartController implements Serializable {
 
     private static final double TAX_RATE = 0.06;
 
-    @Inject
-    private BookService bookService;
-
-    @Inject
-    private OrderService orderService;
 
     private List<Book> cartItems;
 
@@ -72,7 +63,7 @@ public class CartController implements Serializable {
     /**
      * Method that loops through the list of selected books in the cart and returns 
      * the subtotal of the book prices in the cart
-     * @return
+     * @return the subtotal of all items in cart
      */
     public double getSubTotal() {
         double cartTotal = 0.0;
@@ -84,7 +75,7 @@ public class CartController implements Serializable {
 
     /**
      * Method that calculates the carts total tax amount based on the items in the cart
-     * @return
+     * @return the tax based on items in cart
      */
     public double getTax() {
         return getSubTotal() * TAX_RATE;
@@ -92,21 +83,17 @@ public class CartController implements Serializable {
 
     /**
      * Method that returns the carts Total
-     * @return
+     * @return Total of the Cart
      */
     public double getTotal() {
         return getSubTotal() + getTax();
     }
 
     /**
-     * Clears all items from the cart and redirects to the home page
-     * @throws IOException
+     * Clears all items from the cart
      */
-    public void clearCart() throws IOException {
+    public void clearCart() {
         cartItems.clear();
-        FacesContext.getCurrentInstance()
-            .getExternalContext()
-            .redirect("home.jsf");
     }
 
 }
