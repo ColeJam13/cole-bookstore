@@ -7,7 +7,6 @@ import javax.faces.context.FacesContext;
 
 import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.form.BookSearchForm;
-import com.ksm.bookstore.jpa.Book;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +19,7 @@ import javax.inject.Named;
 /**
  * Controller for the public home page of the bookstore application.
  * Handles book browsing and search functionality for public users.
- * Communicates with BookService to retrieve and filter book data.
+ * Communicates with BookManager to retrieve and filter book data.
  */
 
 @Named
@@ -36,8 +35,6 @@ public class HomeController implements Serializable {
 
     @Inject
     private BookSearchForm bookSearchForm;
-
-    private Book selectedBook;
 
     /**
      * Method that runs automatically once the page is constructed to
@@ -56,7 +53,7 @@ public class HomeController implements Serializable {
     public void navigate() throws IOException {
         FacesContext.getCurrentInstance()
             .getExternalContext()
-            .redirect("book-detail.jsf?isbn=" + selectedBook.getIsbn());
+            .redirect("book-detail.jsf?isbn=" + bookSearchForm.getSelectedBook().getIsbn());
     }
 
 }

@@ -24,7 +24,7 @@ public class BookService {
 
     @Inject 
     private AuthorManager authorManager;
-   
+
     /**
      * Method that returns a list of books written by the searched Author
      * @param author

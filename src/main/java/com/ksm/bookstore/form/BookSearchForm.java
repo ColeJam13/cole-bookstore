@@ -21,4 +21,6 @@ public class BookSearchForm implements Serializable {
     
     private List<Book> searchResults;
 
+    private Book selectedBook; 
+
 }
