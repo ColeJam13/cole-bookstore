@@ -15,12 +15,12 @@
 	<!-- Navigation bar sitting below the banner -->
 	<div id="navbar">
 		<h:form id="navForm">
-			<p:commandLink value="Home" action="home?faces-redirect=true" styleClass="navLink"/>
-			<p:commandLink value="Login" action="login" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}"/>
-			<p:commandLink value="Logout" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="Admin" action="admin" styleClass="navLink" rendered="#{userProvider.adminUser}"/>
+			<p:commandLink value="Home" action="home" styleClass="navLink" ajax="false"/>
+			<p:commandLink value="Login" action="admin" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" ajax="false"/>
+			<p:commandLink value="Logout" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false"/>
+			<p:commandLink value="Admin" action="admin" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false"/>
 			<p:outputLabel value="Welcome: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="Cart (#{cartForm.cartItems.size()})" action="cart?faces-redirect=true" styleClass="navLink"/>
+			<p:commandLink value="Cart (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink" ajax="false" />
 		</h:form>
 	</div>
 </ui:composition>
