@@ -3,6 +3,7 @@ package com.ksm.bookstore.controller;
 import com.ksm.bookstore.jpa.Address;
 import com.ksm.bookstore.jpa.Customer;
 import com.ksm.bookstore.dao.CustomerManager;
+import com.ksm.bookstore.form.CartForm;
 import com.ksm.bookstore.form.CheckoutForm;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class CheckoutController implements Serializable {
     private CheckoutForm checkoutForm;
 
     @Inject
-    private CartController cartController;
+    private CartForm cartForm;
 
     /**
      * Helper Method that will autofill the shipping address if it is
@@ -97,8 +98,8 @@ public class CheckoutController implements Serializable {
      * @throws IOException
      */
     public void submitOrder() throws IOException {
-        Long orderNumber = orderService.submitOrder(checkoutForm, cartController.getCartItems());
-        cartController.clearCart();
+        Long orderNumber = orderService.submitOrder(checkoutForm, cartForm.getCartItems());
+        cartForm.getCartItems().clear();
         FacesContext.getCurrentInstance()
             .getExternalContext()
             .redirect("confirmation.jsf?orderNumber=" + orderNumber);

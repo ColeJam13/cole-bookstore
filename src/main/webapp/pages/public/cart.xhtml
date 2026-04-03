@@ -4,8 +4,8 @@
 	template="/pages/layouts/customer-template.xhtml">
 
     <ui:define name="body">
-        <h:form id="cartForm">
-            <p:dataTable var="cart" value="#{cartController.cartItems}" id="cartTable">
+        <h:form id="cartPageForm">
+            <p:dataTable var="cart" value="#{cartForm.cartItems}" id="cartTable">
 					<p:column headerText="Cover" filterable="false" sortable="false">
 						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{cart.isbn}-M.jpg" 
 							height="100" alt="#{cart.title}"/>
@@ -23,19 +23,19 @@
             <h:panelGroup id="cartSummary">
                 <div class="summaryField">
                     <h:outputText value="Subtotal: "/>
-                    <h:outputText value="#{cartController.subTotal}">
+                    <h:outputText value="#{cartForm.subTotal}">
                         <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
                     </h:outputText>
                 </div>
                 <div class="summaryField">
                     <h:outputText value="Tax: "/>
-                    <h:outputText value="#{cartController.tax}">
+                    <h:outputText value="#{cartForm.tax}">
                         <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
                     </h:outputText>
                 </div>
                 <div class="summaryField">
                     <h:outputText value="Total: "/>
-                    <h:outputText value="#{cartController.total}">
+                    <h:outputText value="#{cartForm.total}">
                         <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
                     </h:outputText>
                 </div>
