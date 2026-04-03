@@ -21,7 +21,7 @@ import lombok.Setter;
  */
 
 @Named
-@SessionScoped
+@SessionScoped // CHANGE THIS!! MAKE A FORM!!!
 @Getter
 @Setter
 public class CartController implements Serializable {

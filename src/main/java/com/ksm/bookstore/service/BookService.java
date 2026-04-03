@@ -16,7 +16,7 @@ import com.ksm.bookstore.jpa.Book;
  * Acts as an intermediary between BookManager and AuthorManager and the controller layer.
  */
 
-@ApplicationScoped
+@ApplicationScoped // USE @STATELESS
 public class BookService {
 
     @Inject
