@@ -8,7 +8,7 @@
 			<!-- The Data Table the results show up in -->
 			<p:dataTable var="book" value="#{bookSearchForm.searchResults}" id="tblResults" paginator="true" rows="15" 
 			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" selectionMode="single" 
-			rowKey="#{book.isbn}" selection="#{homeController.selectedBook}">
+			rowKey="#{book.isbn}" selection="#{bookSearchForm.selectedBook}">
 				<p:ajax event="rowSelect" listener="#{homeController.navigate()}"/>
 				<f:facet name="header">
 					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 

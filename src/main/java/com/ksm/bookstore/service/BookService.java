@@ -3,7 +3,7 @@ package com.ksm.bookstore.service;
 import java.util.Collections;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.ksm.bookstore.dao.AuthorManager;
@@ -16,7 +16,7 @@ import com.ksm.bookstore.jpa.Book;
  * Acts as an intermediary between BookManager and AuthorManager and the controller layer.
  */
 
-@ApplicationScoped // USE @STATELESS
+@Stateless
 public class BookService {
 
     @Inject
@@ -24,7 +24,7 @@ public class BookService {
 
     @Inject 
     private AuthorManager authorManager;
-   
+
     /**
      * Method that returns a list of books written by the searched Author
      * @param author

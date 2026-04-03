@@ -39,15 +39,13 @@ public class BookDetailController implements Serializable{
     @Inject
     private BookDetailForm bookDetailForm;
 
-    private String isbn;
-
     /**
      * Fetches a description for each book by using the description field on GoogleBooks API
      * via the books ISBN. Key is located within the Standalone file
      * @throws IOException
      */
     private void fetchDescription() throws IOException {
-        String urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn + "&key=" + System.getProperty("google.books.api.key");
+        String urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + bookDetailForm.getIsbn() + "&key=" + System.getProperty("google.books.api.key");
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -81,10 +79,10 @@ public class BookDetailController implements Serializable{
      * ensuring the ISBN is available before the book is fetched.
      */
     public void init() {
-        if (isbn == null) {
+        if (bookDetailForm.getIsbn() == null) {
             return;
         }
-        bookDetailForm.setBook(bookManager.findByIsbn(isbn));
+        bookDetailForm.setBook(bookManager.findByIsbn(bookDetailForm.getIsbn()));
         
         try {
             fetchDescription();
