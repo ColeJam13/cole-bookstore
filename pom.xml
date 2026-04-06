@@ -43,6 +43,7 @@
 		<testng.version>7.11.0</testng.version>
 		<war.plugin>3.2.0</war.plugin>
 		<lombok.version>1.18.36</lombok.version>
+		<javax.json.version>1.1.4</javax.json.version>
 		<!-- Code Cleanliness Reports -->
 		<jacoco.version>0.8.14</jacoco.version>
 		<spotbugs.impl.version>4.9.8</spotbugs.impl.version>
@@ -146,6 +147,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.json</groupId>
+			<artifactId>javax.json-api</artifactId>
+			<version>${javax.json.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

@@ -1,31 +1,61 @@
 package com.ksm.bookstore.controller;
 
 import java.io.Serializable;
+import java.io.IOException;
 
-import org.omnifaces.cdi.ViewScoped;
-
-import com.ksm.bookstore.service.BookService;
-import com.ksm.bookstore.service.OrderService;
-
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import com.ksm.bookstore.form.CartForm;
+import com.ksm.bookstore.jpa.Book;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Controller for the shopping cart page of the bookstore application.
  * Handles adding, removing, and displaying books in the users cart.
- * Communicates with BookService and OrderService to manage cart contents.
  */
 
 @Named
-@ViewScoped
+@RequestScoped
+@Getter
+@Setter
 public class CartController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private BookService bookService;
+    private CartForm cartForm;
 
-    @Inject
-    private OrderService orderService;
+
+    /**
+     * Method that adds the selected book to the cart when the user clicks "Add to Cart"
+     * @param book
+     */
+    public void addToCart(Book book) {
+        cartForm.getCartItems().add(book);
+    }
     
+    /**
+     * Method that removes the selected book from the cart when the user clicks "Remove from Cart"
+     * @param book
+     */
+    public void removeFromCart(Book book) throws IOException {
+        cartForm.getCartItems().remove(book);
+        FacesContext.getCurrentInstance()
+            .getExternalContext()
+            .redirect("cart.jsf");
+    }
+
+    /**
+     * Clears all items from the cart and redirects to the home page
+     * @throws IOException
+     */
+    public void clearCart() throws IOException {
+        cartForm.getCartItems().clear();
+    }
+
 }

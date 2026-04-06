@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	template="/pages/layouts/customer-template.xhtml">
+
+    <ui:define name="body">
+        <h:form id="cartForm">
+            <p:dataTable var="cart" value="#{cartController.cartItems}" id="cartTable">
+					<p:column headerText="Cover" filterable="false" sortable="false">
+						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{cart.isbn}-M.jpg" 
+							height="100" alt="#{cart.title}"/>
+					</p:column>
+					<p:column headerText="Title" field="title" filterStyle="display:none">
+						<h:outputText value="#{cart.title}"/>
+					</p:column>
+					<p:column headerText="Price" field="price" filterStyle="display:none">
+						<h:outputText value="#{cart.price}" />
+					</p:column>
+                    <p:column headerText="Remove" filterable="false" sortable="false">
+                        <p:commandButton value="Remove" action="#{cartController.removeFromCart(cart)}"/>
+                    </p:column>
+            </p:dataTable>
+            <h:panelGroup id="cartSummary">
+                <div class="summaryField">
+                    <h:outputText value="Subtotal: "/>
+                    <h:outputText value="#{cartController.subTotal}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                    </h:outputText>
+                </div>
+                <div class="summaryField">
+                    <h:outputText value="Tax: "/>
+                    <h:outputText value="#{cartController.tax}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                    </h:outputText>
+                </div>
+                <div class="summaryField">
+                    <h:outputText value="Total: "/>
+                    <h:outputText value="#{cartController.total}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                    </h:outputText>
+                </div>
+            </h:panelGroup>
+            <div id="cartActions">
+                <p:commandButton value="Complete Purchase" action="checkout?faces-redirect=true"/>
+                <p:commandButton value="Continue Shopping" action="home?faces-redirect=true"/>
+                <p:commandButton value="Cancel Order" action="#{cartController.clearCart()}"/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
