@@ -8,14 +8,14 @@
 
     <ui:define name="body">
         <p:panelGrid columns="3">
-			<p:panel headerText="Total Books in Library">
+			<p:panel header="Total Books in Library">
 				<h:outputText value="#{dashboardForm.totalBooks}" />
 			</p:panel>
-			<p:panel headerText="Total Current Orders">
-				<h:outputText value="#{dashboardForm.totalOrders}" />
-			</p:panel>
-			<p:panel headerText="Total Authors in Library">
+			<p:panel header="Total Authors in Library">
 				<h:outputText value="#{dashboardForm.totalAuthors}" />
+			</p:panel>
+			<p:panel header="Total Current Orders">
+				<h:outputText value="#{dashboardForm.totalOrders}" />
 			</p:panel>
 		</p:panelGrid>
     </ui:define>

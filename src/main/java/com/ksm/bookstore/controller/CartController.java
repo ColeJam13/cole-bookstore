@@ -51,11 +51,14 @@ public class CartController implements Serializable {
     }
 
     /**
-     * Clears all items from the cart and redirects to the home page
+     * Clears all items from the cart and shows an empty cart
      * @throws IOException
      */
     public void clearCart() throws IOException {
         cartForm.getCartItems().clear();
+        FacesContext.getCurrentInstance()
+            .getExternalContext()
+            .redirect("cart.jsf");
     }
 
 }
