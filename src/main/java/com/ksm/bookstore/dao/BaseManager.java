@@ -22,6 +22,8 @@ public abstract class BaseManager<T> {
 
     private Class<T> entityClass;
 
+    private static final String COUNT_QUERY = "SELECT COUNT(e) FROM ";
+
     /**
      * Constructs a BaseManager for the given entity class
      *
@@ -76,5 +78,15 @@ public abstract class BaseManager<T> {
      */
     public void delete(T entity) {
         entityManager.remove(entity);
+    }
+
+    /**
+     * Query that lives in base manager inherited by all subclass managers, 
+     * returns the total row count for that manager's entity table
+     * @return count of queried item
+     */
+    public long count() {
+        String query = COUNT_QUERY + entityClass.getSimpleName() + " e";
+        return entityManager.createQuery(query, Long.class).getSingleResult();
     }
 }
