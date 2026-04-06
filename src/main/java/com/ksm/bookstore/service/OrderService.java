@@ -3,7 +3,7 @@ package com.ksm.bookstore.service;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.ksm.bookstore.dao.AddressManager;
@@ -23,7 +23,7 @@ import com.ksm.bookstore.jpa.Book;
  * Acts as an intermediary between OrderManager and CustomerManager and the controller layer.
  */
 
-@ApplicationScoped
+@Stateless
 public class OrderService {
     
     @Inject

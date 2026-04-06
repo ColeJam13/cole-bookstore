@@ -7,7 +7,6 @@ import com.ksm.bookstore.form.CartForm;
 import com.ksm.bookstore.form.CheckoutForm;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -30,9 +29,7 @@ import javax.inject.Named;
 @RequestScoped 
 @Getter
 @Setter
-public class CheckoutController implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class CheckoutController {
     
     @Inject
     private OrderService orderService;

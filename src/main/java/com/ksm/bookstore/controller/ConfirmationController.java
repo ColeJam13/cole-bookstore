@@ -1,7 +1,5 @@
 package com.ksm.bookstore.controller;
 
-import java.io.Serializable;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,10 +20,8 @@ import lombok.Setter;
 @RequestScoped
 @Getter
 @Setter
-public class ConfirmationController implements Serializable{
+public class ConfirmationController {
     
-    private static final long serialVersionUID = 1L;
-
     @Inject
     private OrderManager orderManager;
 
