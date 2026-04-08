@@ -2,6 +2,8 @@ package com.ksm.bookstore.dao;
 
 import com.ksm.bookstore.jpa.Author;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
@@ -14,6 +16,9 @@ import javax.persistence.NoResultException;
 public class AuthorManager extends BaseManager<Author> {
 
     private static final String QUERY_FIND_BY_NAME = "SELECT a FROM Author a WHERE a.name = :name";
+
+    private static final String QUERY_FIND_ALL_ACTIVE_AUTHORS = "SELECT a FROM Author a WHERE a.active = true";
+
 
     public AuthorManager() {
         super(Author.class);
@@ -33,5 +38,15 @@ public class AuthorManager extends BaseManager<Author> {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    /**
+     * Method that finds and returns all authors where the active tag is true
+     * @return all active authors
+     */
+    public List<Author> findAllActiveAuthors() {
+
+        return entityManager.createQuery(QUERY_FIND_ALL_ACTIVE_AUTHORS, Author.class)
+                .getResultList();
     }
 }

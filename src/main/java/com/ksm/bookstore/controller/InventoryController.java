@@ -5,6 +5,7 @@ import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.form.InventoryForm;
 import com.ksm.bookstore.jpa.Author;
 import com.ksm.bookstore.jpa.Book;
+import com.ksm.bookstore.service.AuthorService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -28,6 +29,9 @@ public class InventoryController {
     @Inject
     private InventoryForm inventoryForm;
 
+    @Inject
+    private AuthorService authorService;
+
     /**
      * Method that will either save a new Book object if the ID does not exist,
      * or updates existing book if ID does exist
@@ -42,11 +46,12 @@ public class InventoryController {
     }
 
     /**
-     * Method that will delete an existing book
-     * @param book
+     * Method that will set a books "isActive" flag to false
+     * @param book the book to be deactivated
      */
-    public void deleteBook(Book book) {
-        bookManager.delete(book);
+    public void deactivateBook(Book book) {
+        book.setActive(false);
+        bookManager.update(book);
         inventoryForm.setBookList(bookManager.findAll());
     }
 
@@ -64,11 +69,11 @@ public class InventoryController {
     }
 
     /**
-     * Method that will delete an existing author
-     * @param author
+     * Method that will deactivate an existing author
+     * @param author the Author to be deactivated
      */
-    public void deleteAuthor(Author author) {
-        authorManager.delete(author);
+    public void deactivateAuthor(Author author) {
+        authorService.deactivateAuthor(author);
         inventoryForm.setAuthorList(authorManager.findAll());
     }
     
