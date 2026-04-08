@@ -42,4 +42,6 @@ public class Author {
     @Column(name = "AUTHOR_NAME", length = 50, nullable = false)
     private String name;
 
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active = true;
 }

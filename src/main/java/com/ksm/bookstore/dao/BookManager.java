@@ -22,11 +22,11 @@ public class BookManager extends BaseManager<Book> {
 
     private static final String QUERY_FIND_BY_AUTHOR = "SELECT b FROM Book b WHERE b.author = :author";
 
+    private static final String QUERY_FIND_ALL_ACTIVE_BOOKS = "SELECT b FROM Book b WHERE b.active = true";
 
     public BookManager() {
         super(Book.class);
     }
-
 
     /**
      * Finds a single book by its title
@@ -70,6 +70,16 @@ public class BookManager extends BaseManager<Book> {
 
         return entityManager.createQuery(QUERY_FIND_BY_AUTHOR, Book.class)
                 .setParameter("author", author)
+                .getResultList();
+    }
+
+    /**
+     * Method that finds and returns all books where the active tag is true
+     * @return all active books
+     */
+    public List<Book> findAllActiveBooks() {
+
+        return entityManager.createQuery(QUERY_FIND_ALL_ACTIVE_BOOKS, Book.class)
                 .getResultList();
     }
 

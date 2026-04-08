@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/layouts/admin-template.xhtml">
+
+    <ui:define name="body">
+		<h:form>
+			<p:dataTable var="book" value="#{inventoryForm.bookList}" id="tblResults" paginator="true" rows="15" 
+			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" selectionMode="single" 
+			rowKey="#{book.isbn}" selection="#{inventoryForm.selectedBook}">
+				<p:ajax event="rowSelect" />
+				<f:facet name="header">
+					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
+						placeholder="Search by title, author, or ISBN..." style="width: 400px" />
+				</f:facet>
+					<p:column headerText="Cover" filterable="false" sortable="false">
+						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" 
+							height="100" alt="#{book.title}"/>
+					</p:column>
+					<p:column headerText="Title" field="title" filterStyle="display:none">
+						<h:outputText value="#{book.title}"/>
+					</p:column>
+					<p:column headerText="Author" field="author.name" filterStyle="display:none">
+						<h:outputText value="#{book.author.name}" />
+					</p:column>
+					<p:column headerText="ISBN" field="isbn" filterStyle="display:none">
+						<h:outputText value="#{book.isbn}" />
+					</p:column>
+					<p:column headerText="Price" field="price" filterStyle="display:none">
+						<h:outputText value="#{book.price}" />
+					</p:column>
+                    <p:column headerText="Inventory Actions">
+                        <p:commandButton value="Delete Book" action="#{inventoryController.deleteBook(book)}" ajax="false"/>
+                    </p:column>
+				</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

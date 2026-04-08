@@ -46,6 +46,8 @@ public class InventoryForm implements Serializable {
     public void init() {
         bookList = bookManager.findAll();
         authorList = authorManager.findAll();
+        selectedBook = new Book();
+        selectedAuthor = new Author();
     }
     
 }

@@ -61,4 +61,6 @@ public class Book {
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active = true;
 }
