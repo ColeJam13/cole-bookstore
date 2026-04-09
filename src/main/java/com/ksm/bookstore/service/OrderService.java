@@ -38,42 +38,44 @@ public class OrderService {
     @Inject
     private OrderItemManager orderItemManager;
 
+    @Inject
+    private CheckoutForm checkoutForm;
+
     /**
      * Submits a customer order by creating or identifying the customer,
      * persisting their addresses, creating the order, and saving each
      * book in the cart as an order item.
      *
-     * @param form the checkout form containing customer and address information
      * @param cartItems the list of books the customer is purchasing
      * @return the order number of the newly created order
      */
-    public Long submitOrder(CheckoutForm form, List<Book> cartItems) {
-        Customer customer = customerManager.findByEmail(form.getEmail());
+    public Long submitOrder(List<Book> cartItems) {
+        Customer customer = customerManager.findByEmail(checkoutForm.getEmail());
 
             if (customer == null) {
                 Address shippingAddress = new Address();
-                shippingAddress.setStreet(form.getStreetAddress());
-                shippingAddress.setCity(form.getCity());
-                shippingAddress.setState(form.getState());
-                shippingAddress.setZip(form.getZip());
+                shippingAddress.setStreet(checkoutForm.getStreetAddress());
+                shippingAddress.setCity(checkoutForm.getCity());
+                shippingAddress.setState(checkoutForm.getState());
+                shippingAddress.setZip(checkoutForm.getZip());
                 addressManager.create(shippingAddress);
 
                 Address billingAddress;
-                if (form.isSameAsShipping()) {
+                if (checkoutForm.isSameAsShipping()) {
                     billingAddress = shippingAddress;
                 } else {
                     billingAddress = new Address();
-                    billingAddress.setStreet(form.getBillingStreetAddress());
-                    billingAddress.setCity(form.getBillingCity());
-                    billingAddress.setState(form.getBillingState());
-                    billingAddress.setZip(form.getBillingZip());
+                    billingAddress.setStreet(checkoutForm.getBillingStreetAddress());
+                    billingAddress.setCity(checkoutForm.getBillingCity());
+                    billingAddress.setState(checkoutForm.getBillingState());
+                    billingAddress.setZip(checkoutForm.getBillingZip());
                     addressManager.create(billingAddress);
                 }
 
                 customer = new Customer();
-                    customer.setFirstName(form.getFirstName());
-                    customer.setLastName(form.getLastName());
-                    customer.setEmail(form.getEmail());
+                    customer.setFirstName(checkoutForm.getFirstName());
+                    customer.setLastName(checkoutForm.getLastName());
+                    customer.setEmail(checkoutForm.getEmail());
                     customer.setShippingAddress(shippingAddress);
                     customer.setBillingAddress(billingAddress);
 

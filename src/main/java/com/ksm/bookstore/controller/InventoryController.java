@@ -33,15 +33,10 @@ public class InventoryController {
     private AuthorService authorService;
 
     /**
-     * Method that will either save a new Book object if the ID does not exist,
-     * or updates existing book if ID does exist
+     * Saves a book to the database, creating it if new or updating if existing
      */
     public void saveBook() {
-        if (inventoryForm.getSelectedBook().getBookId() == null) {
-            bookManager.create(inventoryForm.getSelectedBook());
-        } else {
-            bookManager.update(inventoryForm.getSelectedBook());
-        }
+        bookManager.update(inventoryForm.getSelectedBook());
         inventoryForm.setBookList(bookManager.findAll());
     }
 
@@ -56,15 +51,10 @@ public class InventoryController {
     }
 
     /**
-     * Method that will either save a new Author object if the ID does not exist,
-     * or updates existing Author if ID does exist
+     * Saves an author to the database, creating it if new or updating if existing
      */
     public void saveAuthor() {
-        if (inventoryForm.getSelectedAuthor().getAuthorId() == null) {
-            authorManager.create(inventoryForm.getSelectedAuthor());
-        } else {
-            authorManager.update(inventoryForm.getSelectedAuthor());
-        }
+        authorManager.update(inventoryForm.getSelectedAuthor());
         inventoryForm.setAuthorList(authorManager.findAll());
     }
 
