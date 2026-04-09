@@ -9,6 +9,7 @@ import com.ksm.bookstore.jpa.OrderItem;
 import java.io.Serializable;
 import java.util.List;
 
+import org.omnifaces.cdi.Param;
 import org.omnifaces.cdi.ViewScoped;
 import javax.inject.Named;
 /**
@@ -25,5 +26,7 @@ public class ConfirmationForm implements Serializable {
     private Order order;
 
     private List<OrderItem> orderItems;
-    
+
+    @Param
+    private Long orderNumber;
 }

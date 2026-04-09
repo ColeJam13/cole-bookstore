@@ -8,9 +8,6 @@ import com.ksm.bookstore.dao.OrderItemManager;
 import com.ksm.bookstore.dao.OrderManager;
 import com.ksm.bookstore.form.ConfirmationForm;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Controller for the Confirmation page. Handles grabbing order details
  * and giving the customer a summary of their purchase.
@@ -18,8 +15,6 @@ import lombok.Setter;
 
 @Named
 @RequestScoped
-@Getter
-@Setter
 public class ConfirmationController {
     
     @Inject
@@ -31,14 +26,12 @@ public class ConfirmationController {
     @Inject
     private ConfirmationForm confirmationForm;
 
-    private Long orderNumber;
-
     /**
      * Method that fills in the confirmation page with the completed
      * order determined via Order Number
      */
     public void init() {
-        confirmationForm.setOrder(orderManager.findById(orderNumber));
+        confirmationForm.setOrder(orderManager.findById(confirmationForm.getOrderNumber()));
         confirmationForm.setOrderItems(orderItemManager.findByOrder(confirmationForm.getOrder()));
     }
 }
