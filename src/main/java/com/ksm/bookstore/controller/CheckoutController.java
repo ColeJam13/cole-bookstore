@@ -95,7 +95,7 @@ public class CheckoutController {
      * @throws IOException
      */
     public void submitOrder() throws IOException {
-        Long orderNumber = orderService.submitOrder(checkoutForm, cartForm.getCartItems());
+        Long orderNumber = orderService.submitOrder(cartForm.getCartItems());
         cartForm.getCartItems().clear();
         FacesContext.getCurrentInstance()
             .getExternalContext()
