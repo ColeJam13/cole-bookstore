@@ -36,6 +36,8 @@ public class InventoryForm implements Serializable {
 
     private Author selectedAuthor;
 
+    private List<Author> activeAuthorList;
+
     @Inject
     private BookManager bookManager;
 
@@ -48,6 +50,7 @@ public class InventoryForm implements Serializable {
         authorList = authorManager.findAll();
         selectedBook = new Book();
         selectedAuthor = new Author();
+        activeAuthorList = authorManager.findAllActiveAuthors();
     }
     
 }
