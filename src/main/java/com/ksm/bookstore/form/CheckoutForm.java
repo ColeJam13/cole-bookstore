@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.omnifaces.cdi.ViewScoped;
 
@@ -45,14 +48,14 @@ public class CheckoutForm implements Serializable{
     @PostConstruct
     public void init() {
         String username = userProvider.getUserName();
-        Customer existing = customerManager.findByEmail(username);
+        customer = Optional.ofNullable(customerManager.findByEmail(username))
+                    .orElse(createCustomer());
+    }
 
-        if (existing != null) {
-            customer = existing;
-        } else {
-            customer = new Customer();
-            customer.setShippingAddress(new Address());
-            customer.setBillingAddress(new Address());
-        }
+    private Customer createCustomer() {
+        Customer customer = new Customer();
+        customer.setShippingAddress(new Address());
+        customer.setBillingAddress(new Address());
+        return customer;
     }
 }
