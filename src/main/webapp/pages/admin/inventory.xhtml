@@ -9,9 +9,8 @@
     <ui:define name="body">
 		<h:form>
 			<p:dataTable var="book" value="#{inventoryForm.bookList}" id="tblResults" paginator="true" rows="15" 
-			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" selectionMode="single" 
-			rowKey="#{book.isbn}" selection="#{inventoryForm.selectedBook}">
-				<p:ajax event="rowSelect" />
+			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" 
+			rowKey="#{book.isbn}" >
 				<f:facet name="header">
 					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
 						placeholder="Search by title, author, or ISBN..." style="width: 400px" />
@@ -29,11 +28,14 @@
 					<p:column headerText="ISBN" field="isbn" filterStyle="display:none">
 						<h:outputText value="#{book.isbn}" />
 					</p:column>
+					<p:column headerText="Active?" field="active" filterStyle="display:none">
+						<h:outputText value="#{book.active}" />
+					</p:column>
 					<p:column headerText="Price" field="price" filterStyle="display:none">
 						<h:outputText value="#{book.price}" />
 					</p:column>
                     <p:column headerText="Inventory Actions">
-                        <p:commandButton value="Delete Book" action="#{inventoryController.deleteBook(book)}" ajax="false"/>
+                        <p:commandButton value="Deactivate Book" action="#{inventoryController.deactivateBook(book)}" ajax="false" rendered="#{book.active}"/>
                     </p:column>
 				</p:dataTable>
 		</h:form>

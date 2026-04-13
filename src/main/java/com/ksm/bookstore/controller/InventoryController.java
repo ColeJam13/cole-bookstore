@@ -33,6 +33,21 @@ public class InventoryController {
     private AuthorService authorService;
 
     /**
+     * Creates a new book when an Admin calls it from InventoryForm
+     */
+    public void newBook() {
+        inventoryForm.setSelectedBook(new Book());
+    }
+
+    /**
+     * Sets the selected book when called from InventoryForm
+     * @param book the book selected
+     */
+    public void selectBook(Book book) {
+        inventoryForm.setSelectedBook(book);
+    }
+
+    /**
      * Saves a book to the database, creating it if new or updating if existing
      */
     public void saveBook() {
