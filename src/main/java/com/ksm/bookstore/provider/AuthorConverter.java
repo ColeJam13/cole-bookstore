@@ -1,19 +1,18 @@
 package com.ksm.bookstore.provider;
 
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.enterprise.inject.spi.CDI;
 
 import com.ksm.bookstore.jpa.Author;
 import com.ksm.bookstore.dao.AuthorManager;
 
+@ApplicationScoped
 @FacesConverter(value = "authorConverter", managed = true)
 public class AuthorConverter implements Converter<Author>{
-
-    @Inject
-    private AuthorManager authorManager;
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Author author) {
@@ -28,6 +27,6 @@ public class AuthorConverter implements Converter<Author>{
         if (value == null || value.isEmpty()) {
             return null;
         }
-        return authorManager.findById(Long.valueOf(value));
+        return CDI.current().select(AuthorManager.class).get().findById(Long.valueOf(value));
     }
 }
