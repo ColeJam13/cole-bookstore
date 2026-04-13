@@ -37,20 +37,21 @@
 							<h:outputText value="#{book.price}" />
 						</p:column>
 						<p:column headerText="Inventory Actions">
+							<p:commandButton value="Activate Book" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{!book.active}"/>
 							<p:commandButton value="Deactivate Book" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}"/>
 							<p:commandButton value="Edit" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
 						</p:column>
 				</p:dataTable>
 			<p:dialog id="bookDialog" header="Book" widgetVar="bookDialog" modal="true">
-					<h:outputLabel value="Title" />
-						<p:inputText value="#{inventoryForm.selectedBook.title}" />
-					<h:outputLabel value="ISBN" />
-						<p:inputText value="#{inventoryForm.selectedBook.isbn}" />
-					<h:outputLabel value="Price" />
-						<p:inputText value="#{inventoryForm.selectedBook.price}" />
-					<p:selectOneMenu value="#{inventoryForm.selectedBook.author}" converter="authorConverter">
-						<f:selectItems value="#{inventoryForm.activeAuthorList}" var="author" itemLabel="#{author.name}" itemValue="#{author}" />
-					</p:selectOneMenu>
+				<h:outputLabel value="Title" />
+					<p:inputText value="#{inventoryForm.selectedBook.title}" />
+				<h:outputLabel value="ISBN" />
+					<p:inputText value="#{inventoryForm.selectedBook.isbn}" />
+				<h:outputLabel value="Price" />
+					<p:inputText value="#{inventoryForm.selectedBook.price}" />
+				<p:selectOneMenu value="#{inventoryForm.selectedBook.author}" converter="authorConverter">
+					<f:selectItems value="#{inventoryForm.activeAuthorList}" var="author" itemLabel="#{author.name}" itemValue="#{author}" />
+				</p:selectOneMenu>
 				<p:commandButton value="Save" action="#{inventoryController.saveBook()}" process="@form" update=":invForm:messages :invForm:tblResults" oncomplete="PF('bookDialog').hide()" />
 			</p:dialog>
 		</h:form>

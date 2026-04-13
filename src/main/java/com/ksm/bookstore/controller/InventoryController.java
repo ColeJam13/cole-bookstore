@@ -66,6 +66,16 @@ public class InventoryController {
     }
 
     /**
+     * Method that will set a books "isActive" flag to true
+     * @param book the book to be activated
+     */
+    public void activateBook(Book book) {
+        book.setActive(true);
+        bookManager.update(book);
+        inventoryForm.setBookList(bookManager.findAll());
+    }
+
+    /**
      * Saves an author to the database, creating it if new or updating if existing
      */
     public void saveAuthor() {
