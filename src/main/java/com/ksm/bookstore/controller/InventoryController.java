@@ -76,11 +76,28 @@ public class InventoryController {
     }
 
     /**
-     * Saves an author to the database, creating it if new or updating if existing
+     * Method that admins can use to create a new Author
+     */
+    public void newAuthor() {
+        inventoryForm.setSelectedAuthor(new Author());
+    }
+
+    /**
+     * Method that sets the author selected by the admin
+     * @param author the Author selected
+     */
+    public void selectAuthor(Author author) {
+        inventoryForm.setSelectedAuthor(author);
+    }
+
+    /**
+     * Saves an author to the database, creating it if new or updating it if existing
      */
     public void saveAuthor() {
         authorManager.update(inventoryForm.getSelectedAuthor());
         inventoryForm.setAuthorList(authorManager.findAll());
+        inventoryForm.setBookList(bookManager.findAll());
+        inventoryForm.setActiveAuthorList(authorManager.findAllActiveAuthors());
     }
 
     /**
@@ -89,6 +106,17 @@ public class InventoryController {
      */
     public void deactivateAuthor(Author author) {
         authorService.deactivateAuthor(author);
+        inventoryForm.setAuthorList(authorManager.findAll());
+        inventoryForm.setBookList(bookManager.findAll());
+    }
+
+    /**
+     * Method that will activate the selected author
+     * @param author the Author to be activated
+     */
+    public void activateAuthor(Author author) {
+        author.setActive(true);
+        authorManager.update(author);
         inventoryForm.setAuthorList(authorManager.findAll());
     }
     

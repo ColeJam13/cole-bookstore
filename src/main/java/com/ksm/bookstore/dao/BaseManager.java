@@ -2,8 +2,8 @@ package com.ksm.bookstore.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * Base abstract DAO that sets up the framework for the rest of the managers
@@ -14,10 +14,10 @@ import javax.persistence.EntityManager;
 public abstract class BaseManager<T> {
 
     /** 
-     * The JPA EntityManager, injected by CDI, used to interact with Database
+     * The JPA EntityManager, injected by PersistenceContext, used to interact with Database
      * 
      */
-    @Inject
+    @PersistenceContext
     protected EntityManager entityManager;
 
     private Class<T> entityClass;
