@@ -37,7 +37,7 @@
 							<h:outputText value="#{book.price}" />
 						</p:column>
 						<p:column headerText="Inventory Actions">
-							<p:commandButton value="Activate Book" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{!book.active}"/>
+							<p:commandButton value="Activate Book" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}"/>
 							<p:commandButton value="Deactivate Book" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}"/>
 							<p:commandButton value="Edit" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
 						</p:column>

@@ -8,6 +8,8 @@ import com.ksm.bookstore.jpa.Book;
 import com.ksm.bookstore.service.AuthorService;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -52,7 +54,7 @@ public class InventoryController {
      */
     public void saveBook() {
         bookManager.update(inventoryForm.getSelectedBook());
-        inventoryForm.setBookList(bookManager.findAll());
+        inventoryForm.init();
     }
 
     /**
@@ -62,17 +64,24 @@ public class InventoryController {
     public void deactivateBook(Book book) {
         book.setActive(false);
         bookManager.update(book);
-        inventoryForm.setBookList(bookManager.findAll());
+        inventoryForm.init();
     }
 
     /**
-     * Method that will set a books "isActive" flag to true
+     * Method that will set a books "isActive" flag to true.
+     * Checks to ensure the author is active or throws error message
      * @param book the book to be activated
      */
     public void activateBook(Book book) {
+        if (!book.getAuthor().isActive()) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Cannot activate book with an inactive author.", null));
+        } else {
         book.setActive(true);
         bookManager.update(book);
-        inventoryForm.setBookList(bookManager.findAll());
+        inventoryForm.init();
+        }
     }
 
     /**
@@ -95,9 +104,7 @@ public class InventoryController {
      */
     public void saveAuthor() {
         authorManager.update(inventoryForm.getSelectedAuthor());
-        inventoryForm.setAuthorList(authorManager.findAll());
-        inventoryForm.setBookList(bookManager.findAll());
-        inventoryForm.setActiveAuthorList(authorManager.findAllActiveAuthors());
+        inventoryForm.init();
     }
 
     /**
@@ -106,9 +113,7 @@ public class InventoryController {
      */
     public void deactivateAuthor(Author author) {
         authorService.deactivateAuthor(author);
-        inventoryForm.setAuthorList(authorManager.findAll());
-        inventoryForm.setBookList(bookManager.findAll());
-        inventoryForm.setActiveAuthorList(authorManager.findAllActiveAuthors());
+        inventoryForm.init();
     }
 
     /**
@@ -118,7 +123,7 @@ public class InventoryController {
     public void activateAuthor(Author author) {
         author.setActive(true);
         authorManager.update(author);
-        inventoryForm.setAuthorList(authorManager.findAll());
-        inventoryForm.setActiveAuthorList(authorManager.findAllActiveAuthors());
+        inventoryForm.init();
     }
+    
 }
