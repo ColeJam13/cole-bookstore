@@ -44,13 +44,13 @@
 				</p:dataTable>
 			<p:dialog id="bookDialog" header="Book" widgetVar="bookDialog" modal="true">
 				<h:outputLabel value="Title" />
-					<p:inputText value="#{inventoryForm.selectedBook.title}" />
+					<p:inputText id="bookTitleInput" value="#{inventoryForm.selectedBook.title}" />
 				<h:outputLabel value="ISBN" />
-					<p:inputText value="#{inventoryForm.selectedBook.isbn}" />
+					<p:inputText id="bookIsbnInput" value="#{inventoryForm.selectedBook.isbn}" />
 				<h:outputLabel value="Price" />
-					<p:inputText value="#{inventoryForm.selectedBook.price}" />
-				<p:autoComplete value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" />
-				<p:commandButton value="Save" action="#{inventoryController.saveBook()}" process="@form" update=":invForm:messages :invForm:tblResults" oncomplete="PF('bookDialog').hide()" />
+					<p:inputText id="bookPriceInput" value="#{inventoryForm.selectedBook.price}" />
+				<p:autoComplete id="bookAuthorInput" value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" />
+				<p:commandButton value="Save" action="#{inventoryController.saveBook()}" process=":invForm:bookTitleInput :invForm:bookIsbnInput :invForm:bookPriceInput :invForm:bookAuthorInput @this" update=":invForm:messages :invForm:tblResults" oncomplete="PF('bookDialog').hide()" />
 			</p:dialog>
 			<p:commandButton value="Add Author" action="#{inventoryController.newAuthor()}" update="authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
 				<p:dataTable var="author" value="#{inventoryForm.authorList}" id="authorTblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="authorTblResultsVar" >
