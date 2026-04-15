@@ -24,6 +24,8 @@ public class BookManager extends BaseManager<Book> {
 
     private static final String QUERY_FIND_ALL_ACTIVE_BOOKS = "SELECT b FROM Book b WHERE b.active = true";
 
+    private static final String QUERY_FIND_ALL_WITH_AUTHORS = "SELECT b FROM Book b JOIN FETCH b.author";
+
     public BookManager() {
         super(Book.class);
     }
@@ -80,6 +82,18 @@ public class BookManager extends BaseManager<Book> {
     public List<Book> findAllActiveBooks() {
 
         return entityManager.createQuery(QUERY_FIND_ALL_ACTIVE_BOOKS, Book.class)
+                .getResultList();
+    }
+
+    /**
+     * Returns all books with their associated authors eagerly loaded
+     * in a single query
+     * 
+     * @return a list of all books with the author loaded
+     */
+    @Override
+    public List<Book> findAll() {
+        return entityManager.createQuery(QUERY_FIND_ALL_WITH_AUTHORS, Book.class)
                 .getResultList();
     }
 

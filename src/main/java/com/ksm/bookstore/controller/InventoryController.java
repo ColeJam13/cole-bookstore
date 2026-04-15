@@ -108,6 +108,7 @@ public class InventoryController {
         authorService.deactivateAuthor(author);
         inventoryForm.setAuthorList(authorManager.findAll());
         inventoryForm.setBookList(bookManager.findAll());
+        inventoryForm.setActiveAuthorList(authorManager.findAllActiveAuthors());
     }
 
     /**
@@ -118,6 +119,6 @@ public class InventoryController {
         author.setActive(true);
         authorManager.update(author);
         inventoryForm.setAuthorList(authorManager.findAll());
+        inventoryForm.setActiveAuthorList(authorManager.findAllActiveAuthors());
     }
-    
 }

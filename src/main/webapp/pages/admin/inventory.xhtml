@@ -55,6 +55,10 @@
 			</p:dialog>
 			<p:commandButton value="Add Author" action="#{inventoryController.newAuthor()}" update="authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
 				<p:dataTable var="author" value="#{inventoryForm.authorList}" id="authorTblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="authorTblResultsVar" >
+					<f:facet name="header">
+						<p:inputText id="globalFilter" onkeyup="PF('authorTblResultsVar').filter()" 
+							placeholder="Search by name..." style="width: 300px" />
+					</f:facet>
 					<p:column headerText="Name" field="name" filterStyle="display:none">
 						<h:outputText value="#{author.name}"/>
 					</p:column>
