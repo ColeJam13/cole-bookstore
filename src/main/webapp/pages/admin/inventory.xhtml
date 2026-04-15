@@ -49,9 +49,7 @@
 					<p:inputText value="#{inventoryForm.selectedBook.isbn}" />
 				<h:outputLabel value="Price" />
 					<p:inputText value="#{inventoryForm.selectedBook.price}" />
-				<p:selectOneMenu value="#{inventoryForm.selectedBook.author}" converter="authorConverter">
-					<f:selectItems value="#{inventoryForm.activeAuthorList}" var="author" itemLabel="#{author.name}" itemValue="#{author}" />
-				</p:selectOneMenu>
+				<p:autoComplete value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" />
 				<p:commandButton value="Save" action="#{inventoryController.saveBook()}" process="@form" update=":invForm:messages :invForm:tblResults" oncomplete="PF('bookDialog').hide()" />
 			</p:dialog>
 			<p:commandButton value="Add Author" action="#{inventoryController.newAuthor()}" update="authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />

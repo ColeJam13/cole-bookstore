@@ -8,7 +8,9 @@ import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.jpa.Book;
 import com.ksm.bookstore.jpa.Author;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.io.Serializable;
 
 import org.omnifaces.cdi.ViewScoped;
@@ -51,6 +53,19 @@ public class InventoryForm implements Serializable {
         selectedBook = new Book();
         selectedAuthor = new Author();
         activeAuthorList = authorManager.findAllActiveAuthors();
+    }
+
+    /**
+     * Method that takes the input typed by the admin, searches active authors, and
+     * returns a filtered and alphabetically sorted list of matching authors
+     * @param query the author searched by the admin
+     * @return list of matching authors
+     */
+    public List<Author> completeAuthor(String query) {
+        return activeAuthorList.stream()
+            .filter(a -> a.getName().toLowerCase().contains(query.toLowerCase()))
+            .sorted(Comparator.comparing(Author::getName))
+            .collect(Collectors.toList());
     }
     
 }
