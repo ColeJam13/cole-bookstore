@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	template="/pages/layouts/customer-template.xhtml">
+
+    <ui:define name="body">
+        <h:form>
+            <div id="profileDetail">
+                <div class="formField">
+                    <h:outputLabel value="Username/Email" styleClass="fieldLabel" />
+                    <h:outputText value="#{profileForm.customer.email}" />
+                </div>
+                <div class="formField">
+                    <h:outputLabel value="First Name: " />
+                    <p:inputText id="firstName" value="#{profileForm.customer.firstName}" required="true" />
+                    <p:message for="firstName" />
+                </div>
+                <div class="formField">
+                    <h:outputLabel value="Last Name:" />
+                    <p:inputText id="lastName" value="#{profileForm.customer.lastName}" required="true" />
+                    <p:message for="lastName" />
+                </div>
+                <h3>Shipping Address</h3>
+                <div class="shippingAddress">
+                    <div class="formField">
+                        <h:outputLabel value="Street Address: " />
+                        <p:inputText id="streetAddress" value="#{profileForm.customer.shippingAddress.street}" required="true" />
+                        <p:message for="streetAddress" />
+                    </div>
+                    <div class="formField">
+                        <h:outputLabel value="City: " />
+                        <p:inputText id="city" value="#{profileForm.customer.shippingAddress.city}" required="true" />
+                        <p:message for="city" />
+                    </div>
+                    <div class="formField">
+                        <h:outputLabel value="State: " />
+                        <p:inputText id="state" value="#{profileForm.customer.shippingAddress.state}" required="true" />
+                        <p:message for="state" />
+                    </div>
+                    <div class="formField">
+                        <h:outputLabel value="Zip: " />
+                        <p:inputText id="zip" value="#{profileForm.customer.shippingAddress.zip}" required="true" />
+                        <p:message for="zip" />
+                    </div>
+                </div>
+                <div class="formField">
+                    <h:outputLabel value="Billing Address same as shipping?" />
+                    <p:selectBooleanCheckbox value="#{profileForm.sameAsShipping}">
+                        <p:ajax update="billingPanel" />
+                    </p:selectBooleanCheckbox>
+                </div>
+                <h:panelGroup id="billingPanel" layout="block">
+                <p:outputPanel rendered="#{!profileForm.sameAsShipping}">
+                <h3>Billing Address</h3>
+                <div class="billingAddress">
+                    <div class="formField">
+                        <h:outputLabel value="Billing Address: " />
+                        <p:inputText id="billingStreetAddress" value="#{profileForm.customer.billingAddress.street}" required="true" />
+                        <p:message for="billingStreetAddress" />
+                        </div>
+                        <div class="formField">
+                            <h:outputLabel value="Billing City: " />
+                            <p:inputText id="billingCity" value="#{profileForm.customer.billingAddress.city}" required="true" />
+                            <p:message for="billingCity" />
+                        </div>
+                        <div class="formField">
+                            <h:outputLabel value="Billing State: " />
+                            <p:inputText id="billingState" value="#{profileForm.customer.billingAddress.state}" required="true" />
+                            <p:message for="billingState" />
+                        </div>
+                        <div class="formField">
+                            <h:outputLabel value="Billing Zip: " />
+                            <p:inputText id="billingZip" value="#{profileForm.customer.billingAddress.zip}" required="true" />
+                            <p:message for="billingZip" />
+                        </div>
+                    </div>
+                </p:outputPanel>
+                </h:panelGroup>
+                <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" />
+            </div>
+        </h:form>
+            <p:dataTable var="order" value="#{profileForm.orderHistory}">
+                <p:column headerText="Order Number" field="orderNumber" filterable="true" sortable="true">
+                    <h:outputText value="#{order.orderNumber}" />
+                </p:column>
+                <p:column headerText="Order Status" field="orderStatus" filterable="true" sortable="true">
+                    <h:outputText value="#{order.orderStatus}" />
+                </p:column>
+                <p:column headerText="Order Total" field="orderTotal" filterable="true" sortable="true">
+                    <h:outputText value="#{order.orderTotal}" >
+                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+    </ui:define>
+</ui:composition>
