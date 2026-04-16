@@ -10,6 +10,8 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.primefaces.PrimeFaces;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +30,8 @@ public class LoginController {
 
     private String password;
 
+    private boolean loginFailed;
+
     /**
      * Attempts a login via the inputted username and password, throws error message in incorrect or null
      */
@@ -39,6 +43,9 @@ public class LoginController {
             String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
             ec.redirect(ec.getRequestContextPath() + viewId.replace(".xhtml", ".jsf"));
         } catch (ServletException e) {
+            loginFailed = true;
+            password = null;
+            PrimeFaces.current().executeScript("PF('loginDialog').show()");
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username or password, please try again.", null));
         }

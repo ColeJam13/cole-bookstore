@@ -14,6 +14,7 @@ import com.ksm.bookstore.jpa.Order;
 import com.ksm.bookstore.jpa.OrderItem;
 import com.ksm.bookstore.model.OrderStatus;
 import com.ksm.bookstore.jpa.Book;
+import com.ksm.bookstore.jpa.Customer;
 
 /**
  * Service class containing business logic for Order related operations.
@@ -36,6 +37,17 @@ public class OrderService {
     private CheckoutForm checkoutForm;
 
     /**
+     * Private method that ensures that the billing address fields get filled
+     * if the "Same As Shipping" box is filled, preventing null errors
+     */
+    private void resolveBillingAddress() {
+        if (checkoutForm.isSameAsShipping()) {
+            checkoutForm.getCustomer().setBillingAddress(
+                checkoutForm.getCustomer().getShippingAddress());
+        }
+    }
+
+    /**
      * Submits a customer order by saving the customer, creating
      * the order, and saving each book in the cart as an order item
      *
@@ -43,10 +55,11 @@ public class OrderService {
      * @return the order number of the newly created order
      */
     public Long submitOrder(List<Book> cartItems) {
-        customerManager.update(checkoutForm.getCustomer());
-        
+        resolveBillingAddress();
+        Customer customer = customerManager.update(checkoutForm.getCustomer());  
+
         Order order = new Order();
-        order.setCustomer(checkoutForm.getCustomer());
+        order.setCustomer(customer);
         BigDecimal orderTotal = BigDecimal.ZERO;
             for (Book book : cartItems) {
                 orderTotal = orderTotal.add(book.getPrice());

@@ -35,7 +35,7 @@
 			<p:inputText value="#{loginController.username}" />
 			<h:outputLabel value="Password: " />
 			<p:password value="#{loginController.password}" />
-			<p:commandButton value="Login" action="#{loginController.login()}" update="loginMessages" process="@form @this" oncomplete="if(!args.validationFailed) PF('loginDialog').hide()" />
+			<p:commandButton value="Login" action="#{loginController.login()}" update="loginMessages :navForm" process="@form @this" />
 		</h:form>
 	</p:dialog>
 </h:body>
