@@ -58,9 +58,10 @@ public abstract class BaseManager<T> {
      * if there is not one there already via merge()
      *
      * @param entity the entity to update
+     * @return the manager entity returned by the merge
      */
-    public void update(T entity) {
-        entityManager.merge(entity);
+    public T update(T entity) {
+        return entityManager.merge(entity);
     }
 
     /**

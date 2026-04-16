@@ -54,7 +54,7 @@ public class OrderService {
 
         order.setOrderStatus(OrderStatus.SUBMITTED);
         order.setOrderTotal(orderTotal);
-        orderManager.update(order);
+        order = orderManager.update(order);
             for (Book book : cartItems) {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setOrder(order);
