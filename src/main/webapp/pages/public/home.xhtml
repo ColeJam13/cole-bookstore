@@ -30,6 +30,9 @@
 					<p:column headerText="Price" field="price" filterStyle="display:none">
 						<h:outputText value="#{book.price}" />
 					</p:column>
+					<p:column headerText="Add to Cart">
+						<p:commandButton value="Add to Cart" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" />
+					</p:column>
 				</p:dataTable>
 		</h:form>
 	</ui:define>
