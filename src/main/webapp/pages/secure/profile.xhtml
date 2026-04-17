@@ -79,7 +79,10 @@
                 <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" />
             </div>
         </h:form>
-            <p:dataTable var="order" value="#{profileForm.orderHistory}">
+            <p:dataTable var="order" value="#{profileForm.orderHistory}" rowKey="#{order.orderNumber}">
+                <p:column style="width:30px">
+                    <p:rowToggler />
+                </p:column>
                 <p:column headerText="Order Number" field="orderNumber" filterable="true" sortable="true">
                     <h:outputText value="#{order.orderNumber}" />
                 </p:column>
@@ -91,6 +94,18 @@
                         <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                     </h:outputText>
                 </p:column>
+                    <p:rowExpansion>
+                    <p:dataTable var="item" value="#{order.orderItems}">
+                        <p:column headerText="Title">
+                            <h:outputText value="#{item.book.title}" />
+                        </p:column>
+                        <p:column headerText="Price">
+                            <h:outputText value="#{item.price}">
+                                <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:rowExpansion>
             </p:dataTable>
     </ui:define>
 </ui:composition>
