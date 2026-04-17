@@ -5,6 +5,7 @@
 
     <ui:define name ="body">
         <h:form id="checkoutForm">
+            <p:remoteCommand autoRun="true" oncomplete="PF('checkoutPrompt').show()" rendered="#{!userProvider.userLoggedIn}" />
             <div class="formField">
                 <h:outputLabel value="Email: " />
                 <p:inputText id="email" value="#{checkoutForm.customer.email}" required="true" />
@@ -80,5 +81,10 @@
             action="#{checkoutController.submitOrder()}" 
             ajax="false" />
         </h:form>
+        <p:dialog header="Welcome" widgetVar="checkoutPrompt" modal="true" closable="false" appendTo="@none">
+            <p>Do you have an account?</p>
+            <p:commandButton value="Login" type="button" onclick="PF('checkoutPrompt').hide(); PF('loginDialog').show();" />
+            <p:commandButton value="Continue as Guest" type="button" onclick="PF('checkoutPrompt').hide();" />
+        </p:dialog>
     </ui:define>
 </ui:composition>
