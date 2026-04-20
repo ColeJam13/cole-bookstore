@@ -86,3 +86,55 @@ html, body {
     border-top: 1px solid #ccc;
     margin-top: 20px;
 }
+
+/* Cart page two-column layout */
+.cartLayout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+/* Left column - items table takes up most of the width */
+.cartItems {
+    flex: 1;
+}
+
+/* Right column - sticky summary panel */
+.cartSummaryPanel {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+/* Summary field rows */
+.summaryField {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+/* Divider above total */
+.summaryField:last-of-type {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+/* Stack action buttons vertically in the panel */
+#cartActions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#cartActions .ui-button {
+    width: 100%;
+}
