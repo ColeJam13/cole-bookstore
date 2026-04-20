@@ -28,7 +28,9 @@
 						<h:outputText value="#{book.isbn}" />
 					</p:column>
 					<p:column headerText="Price" field="price" filterStyle="display:none">
-						<h:outputText value="#{book.price}" />
+						<h:outputText value="#{book.price}" > 
+							<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+						</h:outputText>
 					</p:column>
 					<p:column headerText="Add to Cart">
 						<p:commandButton value="Add to Cart" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" />

@@ -14,7 +14,9 @@
 						<h:outputText value="#{cart.title}"/>
 					</p:column>
 					<p:column headerText="Price" field="price" filterStyle="display:none">
-						<h:outputText value="#{cart.price}" />
+						<h:outputText value="#{cart.price}" >
+                            <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                        </h:outputText>
 					</p:column>
                     <p:column headerText="Remove" filterable="false" sortable="false">
                         <p:commandButton value="Remove" action="#{cartController.removeFromCart(cart)}"/>
@@ -24,19 +26,19 @@
                 <div class="summaryField">
                     <h:outputText value="Subtotal: "/>
                     <h:outputText value="#{cartForm.subTotal}">
-                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2"/>
                     </h:outputText>
                 </div>
                 <div class="summaryField">
                     <h:outputText value="Tax: "/>
                     <h:outputText value="#{cartForm.tax}">
-                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2"/>
                     </h:outputText>
                 </div>
                 <div class="summaryField">
                     <h:outputText value="Total: "/>
                     <h:outputText value="#{cartForm.total}">
-                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2"/>
                     </h:outputText>
                 </div>
             </h:panelGroup>
