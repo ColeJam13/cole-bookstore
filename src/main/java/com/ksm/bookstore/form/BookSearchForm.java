@@ -35,10 +35,10 @@ public class BookSearchForm implements Serializable {
 
     /**
      * Method that runs automatically once the page is constructed to
-     * get All the books from the database and have them available to search 
+     * get All active books from the database and have them available to search 
      */
     @PostConstruct
     public void init() {
-        searchResults = bookManager.findAll();
+        searchResults = bookManager.findAllActiveBooks();
     }
 }

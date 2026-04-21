@@ -2,8 +2,8 @@ package com.ksm.bookstore.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * Base abstract DAO that sets up the framework for the rest of the managers
@@ -14,13 +14,15 @@ import javax.persistence.EntityManager;
 public abstract class BaseManager<T> {
 
     /** 
-     * The JPA EntityManager, injected by CDI, used to interact with Database
+     * The JPA EntityManager, injected by PersistenceContext, used to interact with Database
      * 
      */
-    @Inject
+    @PersistenceContext
     protected EntityManager entityManager;
 
     private Class<T> entityClass;
+
+    private static final String COUNT_QUERY = "SELECT COUNT(e) FROM ";
 
     /**
      * Constructs a BaseManager for the given entity class
@@ -50,18 +52,10 @@ public abstract class BaseManager<T> {
         String query = "SELECT e FROM " + entityClass.getSimpleName() + " e";
         return entityManager.createQuery(query, entityClass).getResultList();
     }
-    
-    /**
-     * Persists a new entity to the database
-     *
-     * @param entity the entity to create
-     */
-    public void create(T entity) {
-        entityManager.persist(entity);
-    }
 
     /**
-     * Updates an existing entity in the database
+     * Updates an existing entity in the database or creates a new entity
+     * if there is not one there already via merge()
      *
      * @param entity the entity to update
      */
@@ -76,5 +70,15 @@ public abstract class BaseManager<T> {
      */
     public void delete(T entity) {
         entityManager.remove(entity);
+    }
+
+    /**
+     * Query that lives in base manager inherited by all subclass managers, 
+     * returns the total row count for that manager's entity table
+     * @return count of queried item
+     */
+    public long count() {
+        String query = COUNT_QUERY + entityClass.getSimpleName() + " e";
+        return entityManager.createQuery(query, Long.class).getSingleResult();
     }
 }

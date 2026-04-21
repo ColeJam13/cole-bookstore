@@ -1,6 +1,5 @@
 package com.ksm.bookstore.controller;
 
-import java.io.Serializable;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
@@ -23,9 +22,7 @@ import javax.inject.Named;
 @RequestScoped
 @Getter
 @Setter
-public class HomeController implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class HomeController {
 
     @Inject
     private BookSearchForm bookSearchForm;

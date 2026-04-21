@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Inject;
 
 import com.ksm.bookstore.form.CartForm;
 import com.ksm.bookstore.jpa.Book;
@@ -50,11 +50,14 @@ public class CartController implements Serializable {
     }
 
     /**
-     * Clears all items from the cart and redirects to the home page
+     * Clears all items from the cart and shows an empty cart
      * @throws IOException
      */
     public void clearCart() throws IOException {
         cartForm.getCartItems().clear();
-        }
-        
+        FacesContext.getCurrentInstance()
+            .getExternalContext()
+            .redirect("cart.jsf");
+    }
+
 }

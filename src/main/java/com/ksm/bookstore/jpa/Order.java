@@ -49,6 +49,7 @@ public class Order {
     @Column(name = "BOOK_ORDER_ID")
     private Long orderNumber;
 
+    @NotNull(message = "Customer {javax.validation.constraints.NotNull.message}")
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;

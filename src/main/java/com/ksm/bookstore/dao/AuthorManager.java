@@ -2,6 +2,8 @@ package com.ksm.bookstore.dao;
 
 import com.ksm.bookstore.jpa.Author;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 

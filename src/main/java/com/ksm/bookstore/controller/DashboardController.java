@@ -1,27 +1,21 @@
 package com.ksm.bookstore.controller;
 
-import java.io.Serializable;
-
-import org.omnifaces.cdi.ViewScoped;
-
-import com.ksm.bookstore.service.OrderService;
+import com.ksm.bookstore.form.DashboardForm;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
 
 /**
  * Controller for the admin dashboard page of the bookstore application.
- * Handles display and filtering of submitted orders for administrators.
- * Communicates with OrderService to retrieve and manage order data.
+ * Handles all admin actions
  */
 
 @Named
-@ViewScoped // CHANGE TO REQUEST SCOPE AND CREATE FORM
-public class DashboardController implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@RequestScoped
+public class DashboardController {
 
     @Inject
-    private OrderService orderService;
+    private DashboardForm dashboardForm;
     
 }

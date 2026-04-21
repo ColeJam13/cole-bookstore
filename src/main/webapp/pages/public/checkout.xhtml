@@ -7,44 +7,39 @@
         <h:form id="checkoutForm">
             <div class="formField">
                 <h:outputLabel value="Email: " />
-                <p:inputText id="email" value="#{checkoutForm.email}" required="true">
-                    <p:ajax event="blur"
-                            listener="#{checkoutController.lookupCustomer()}"
-                            update="checkoutForm"/>
-
-                </p:inputText>
+                <p:inputText id="email" value="#{checkoutForm.customer.email}" required="true" />
                 <p:message for="email" />
             </div>
             <div class="formField">
                 <h:outputLabel value="First Name: " />
-                <p:inputText id="firstName" value="#{checkoutForm.firstName}" required="true" />
+                <p:inputText id="firstName" value="#{checkoutForm.customer.firstName}" required="true" />
                 <p:message for="firstName" />
             </div>
             <div class="formField">
                 <h:outputLabel value="Last Name:" />
-                <p:inputText id="lastName" value="#{checkoutForm.lastName}" required="true" />
+                <p:inputText id="lastName" value="#{checkoutForm.customer.lastName}" required="true" />
                 <p:message for="lastName" />
             </div>
             <h3>Shipping Address</h3>
             <div class="shippingAddress">
                 <div class="formField">
                     <h:outputLabel value="Street Address: " />
-                    <p:inputText id="streetAddress" value="#{checkoutForm.streetAddress}" required="true" />
+                    <p:inputText id="streetAddress" value="#{checkoutForm.customer.shippingAddress.street}" required="true" />
                     <p:message for="streetAddress" />
                 </div>
                 <div class="formField">
                     <h:outputLabel value="City: " />
-                    <p:inputText id="city" value="#{checkoutForm.city}" required="true" />
+                    <p:inputText id="city" value="#{checkoutForm.customer.shippingAddress.city}" required="true" />
                     <p:message for="city" />
                 </div>
                 <div class="formField">
                     <h:outputLabel value="State: " />
-                    <p:inputText id="state" value="#{checkoutForm.state}" required="true" />
+                    <p:inputText id="state" value="#{checkoutForm.customer.shippingAddress.state}" required="true" />
                     <p:message for="state" />
                 </div>
                 <div class="formField">
                     <h:outputLabel value="Zip: " />
-                    <p:inputText id="zip" value="#{checkoutForm.zip}" required="true" />
+                    <p:inputText id="zip" value="#{checkoutForm.customer.shippingAddress.zip}" required="true" />
                     <p:message for="zip" />
                 </div>
             </div>
@@ -60,22 +55,22 @@
                     <div class="billingAddress">
                         <div class="formField">
                             <h:outputLabel value="Billing Address: " />
-                            <p:inputText id="billingStreetAddress" value="#{checkoutForm.billingStreetAddress}" required="true" />
+                            <p:inputText id="billingStreetAddress" value="#{checkoutForm.customer.billingAddress.street}" required="true" />
                             <p:message for="billingStreetAddress" />
                         </div>
                         <div class="formField">
                             <h:outputLabel value="Billing City: " />
-                            <p:inputText id="billingCity" value="#{checkoutForm.billingCity}" required="true" />
+                            <p:inputText id="billingCity" value="#{checkoutForm.customer.billingAddress.city}" required="true" />
                             <p:message for="billingCity" />
                         </div>
                         <div class="formField">
                             <h:outputLabel value="Billing State: " />
-                            <p:inputText id="billingState" value="#{checkoutForm.billingState}" required="true" />
+                            <p:inputText id="billingState" value="#{checkoutForm.customer.billingAddress.state}" required="true" />
                             <p:message for="billingState" />
                         </div>
                         <div class="formField">
                             <h:outputLabel value="Billing Zip: " />
-                            <p:inputText id="billingZip" value="#{checkoutForm.billingZip}" required="true" />
+                            <p:inputText id="billingZip" value="#{checkoutForm.customer.billingAddress.zip}" required="true" />
                             <p:message for="billingZip" />
                         </div>
                     </div>

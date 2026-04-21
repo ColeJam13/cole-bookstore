@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/pages/layouts/admin-template.xhtml">
+
+    <ui:define name="body">
+		<h:form id="invForm">
+		<p:messages id="messages" showDetail="true" />
+			<p:commandButton value="Add Book" action="#{inventoryController.newBook()}" update="bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
+				<p:dataTable var="book" value="#{inventoryForm.bookList}" id="tblResults" paginator="true" rows="10" 
+				paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" 
+				rowKey="#{book.isbn}" >
+					<f:facet name="header">
+						<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
+							placeholder="Search by title, author, or ISBN..." style="width: 400px" />
+					</f:facet>
+						<p:column headerText="Cover" filterable="false" sortable="false">
+							<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" 
+								height="100" alt="#{book.title}"/>
+						</p:column>
+						<p:column headerText="Title" field="title" filterStyle="display:none">
+							<h:outputText value="#{book.title}"/>
+						</p:column>
+						<p:column headerText="Author" field="author.name" filterStyle="display:none">
+							<h:outputText value="#{book.author.name}" />
+						</p:column>
+						<p:column headerText="ISBN" field="isbn" filterStyle="display:none">
+							<h:outputText value="#{book.isbn}" />
+						</p:column>
+						<p:column headerText="Active?" field="active" filterStyle="display:none">
+							<h:outputText value="#{book.active}" />
+						</p:column>
+						<p:column headerText="Price" field="price" filterStyle="display:none">
+							<h:outputText value="#{book.price}" />
+						</p:column>
+						<p:column headerText="Inventory Actions">
+							<p:commandButton value="Activate Book" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}"/>
+							<p:commandButton value="Deactivate Book" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}"/>
+							<p:commandButton value="Edit" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
+						</p:column>
+				</p:dataTable>
+			<p:dialog id="bookDialog" header="Book" widgetVar="bookDialog" modal="true">
+				<h:outputLabel value="Title" />
+					<p:inputText id="bookTitleInput" value="#{inventoryForm.selectedBook.title}" />
+				<h:outputLabel value="ISBN" />
+					<p:inputText id="bookIsbnInput" value="#{inventoryForm.selectedBook.isbn}" />
+				<h:outputLabel value="Price" />
+					<p:inputText id="bookPriceInput" value="#{inventoryForm.selectedBook.price}" />
+				<h:outputLabel value="Author" />
+				<p:autoComplete id="bookAuthorInput" value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" />
+				<p:commandButton value="Save" action="#{inventoryController.saveBook()}" process=":invForm:bookTitleInput :invForm:bookIsbnInput :invForm:bookPriceInput :invForm:bookAuthorInput @this" update=":invForm:messages :invForm:tblResults" oncomplete="PF('bookDialog').hide()" />
+			</p:dialog>
+			<p:commandButton value="Add Author" action="#{inventoryController.newAuthor()}" update="authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
+				<p:dataTable var="author" value="#{inventoryForm.authorList}" id="authorTblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="authorTblResultsVar" >
+					<f:facet name="header">
+						<p:inputText id="globalFilter" onkeyup="PF('authorTblResultsVar').filter()" 
+							placeholder="Search by name..." style="width: 300px" />
+					</f:facet>
+					<p:column headerText="Name" field="name" filterStyle="display:none">
+						<h:outputText value="#{author.name}"/>
+					</p:column>
+					<p:column headerText="Active?" field="active" filterStyle="display:none">
+						<h:outputText value="#{author.active}" />
+					</p:column>
+					<p:column headerText="Inventory Actions">
+						<p:commandButton value="Activate Author" action="#{inventoryController.activateAuthor(author)}" process="@this" update=":invForm:authorTblResults" rendered="#{!author.active}"/>
+						<p:commandButton value="Deactivate Author" action="#{inventoryController.deactivateAuthor(author)}" process="@this" update=":invForm:authorTblResults :invForm:tblResults" rendered="#{author.active}"/>
+						<p:commandButton value="Edit" action="#{inventoryController.selectAuthor(author)}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
+					</p:column>
+				</p:dataTable>
+					<p:dialog id="authorDialog" header="Author" widgetVar="authorDialog" modal="true" appendTo="@none" >
+						<h:outputLabel value="Name" />
+						<p:inputText id="authorNameInput" value="#{inventoryForm.selectedAuthor.name}" />
+						<p:commandButton value="Save" action="#{inventoryController.saveAuthor()}" process=":invForm:authorNameInput @this" update=":invForm:messages :invForm:authorTblResults :invForm:tblResults" oncomplete="PF('authorDialog').hide()" />
+					</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

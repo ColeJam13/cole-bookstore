@@ -8,6 +8,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -31,7 +32,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Book {
+public class Book implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     static final String TABLE_NAME = "BOOK";
     private static final String SEQUENCE_NAME = "BOOK_ID_SEQ";
@@ -48,6 +51,7 @@ public class Book {
     @Column(name = "BOOK_TITLE", length = 255, nullable = false, unique = true)
     private String title;
     
+    @NotNull(message = "Author {javax.validation.constraints.NotNull.message}")
     @ManyToOne
     @JoinColumn(name = "AUTHOR_ID", nullable = false)
     private Author author;
@@ -61,4 +65,7 @@ public class Book {
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
+    @NotNull(message = "Active {javax.validation.constraints.NotNull.message}")
+    @Column(name = "ACTIVE", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private boolean active = true;
 }

@@ -5,12 +5,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -25,7 +29,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Author {
+@EqualsAndHashCode(of = "authorId")
+public class Author implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     static final String TABLE_NAME = "AUTHOR";
     private static final String SEQUENCE_NAME = "AUTHOR_ID_SEQ";
@@ -42,4 +49,7 @@ public class Author {
     @Column(name = "AUTHOR_NAME", length = 50, nullable = false)
     private String name;
 
+    @NotNull(message = "Active {javax.validation.constraints.NotNull.message}")
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active = true;
 }

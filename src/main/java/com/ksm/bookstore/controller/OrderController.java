@@ -1,10 +1,12 @@
 package com.ksm.bookstore.controller;
 
-import java.io.Serializable;
+import javax.enterprise.context.RequestScoped;
 
-import org.omnifaces.cdi.ViewScoped;
+import com.ksm.bookstore.dao.OrderManager;
+import com.ksm.bookstore.form.OrderForm;
+import com.ksm.bookstore.jpa.Order;
+import com.ksm.bookstore.model.OrderStatus;
 
-import com.ksm.bookstore.service.OrderService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,16 +14,27 @@ import javax.inject.Named;
 /**
  * Controller for managing individual orders within the admin section.
  * Handles order status updates such as cancellation and completion for administrators.
- * Communicates with OrderService to retrieve and update order data.
  */
 
 @Named
-@ViewScoped
-public class OrderController implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@RequestScoped
+public class OrderController {
 
     @Inject
-    private OrderService orderService; 
+    private OrderForm orderForm; 
+
+    @Inject
+    private OrderManager orderManager;
     
+    /**
+     * Method that controls setting and updating the order status, and 
+     * refreshes the list to show that new update
+     * @param order the order selected
+     * @param status the status to change the order to
+     */
+    public void updateOrderStatus(Order order, OrderStatus status) {
+        order.setOrderStatus(status);
+        orderManager.update(order);
+        orderForm.setOrderList(orderManager.findAll());
+    }
 }

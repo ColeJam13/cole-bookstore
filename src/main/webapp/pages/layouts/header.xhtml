@@ -18,7 +18,9 @@
 			<p:commandLink value="Home" action="home" styleClass="navLink" ajax="false"/>
 			<p:commandLink value="Login" action="admin" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" ajax="false"/>
 			<p:commandLink value="Logout" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false"/>
-			<p:commandLink value="Admin" action="admin" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false"/>
+			<p:commandLink value="Dashboard" action="dashboard" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+			<p:commandLink value="Orders" action="orders" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+			<p:commandLink value="Inventory" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
 			<p:outputLabel value="Welcome: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
 			<p:commandLink value="Cart (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink" ajax="false" />
 		</h:form>

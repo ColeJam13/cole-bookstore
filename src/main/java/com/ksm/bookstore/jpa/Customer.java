@@ -4,13 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.persistence.CascadeType;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -56,11 +57,11 @@ public class Customer {
 
     // Billing and shipping addresses are seperate Address entities
     // distinguished by their own foreign key columns on this table
-    @ManyToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "BILLING_ADDRESS_ID")
     private Address billingAddress;
 
-    @ManyToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "SHIPPING_ADDRESS_ID")
     private Address shippingAddress;
 

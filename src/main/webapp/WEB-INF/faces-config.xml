@@ -35,6 +35,30 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   <navigation-rule>
+      <from-view-id>*</from-view-id>
+      <navigation-case>
+         <from-outcome>dashboard</from-outcome>
+         <to-view-id>/pages/admin/dashboard.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>*</from-view-id>
+      <navigation-case>
+         <from-outcome>orders</from-outcome>
+         <to-view-id>/pages/admin/orders.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>*</from-view-id>
+      <navigation-case>
+         <from-outcome>inventory</from-outcome>
+         <to-view-id>/pages/admin/inventory.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
    <!-- Resource Bundles -->
    <application>
       <resource-bundle>
