@@ -52,7 +52,8 @@ public class InventoryForm implements Serializable {
         authorList = authorManager.findAll();
         selectedBook = new Book();
         selectedAuthor = new Author();
-        activeAuthorList = authorManager.findAllActiveAuthors();
+        activeAuthorList = authorList.stream().filter(Author::isActive)
+                .collect(Collectors.toList());
     }
 
     /**

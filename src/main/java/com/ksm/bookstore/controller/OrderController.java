@@ -27,31 +27,13 @@ public class OrderController {
     private OrderManager orderManager;
     
     /**
-     * Method that allows an admin to cancel an order (updates its status)
-     * @param order
+     * Method that controls setting and updating the order status, and 
+     * refreshes the list to show that new update
+     * @param order the order selected
+     * @param status the status to change the order to
      */
-    public void cancelOrder(Order order) {
-        order.setOrderStatus(OrderStatus.CANCELLED);
-        orderManager.update(order);
-        orderForm.setOrderList(orderManager.findAll());
-    }
-
-    /**
-     * Method that allows an admin to complete an order (updates its status)
-     * @param order
-     */
-    public void completeOrder(Order order) {
-        order.setOrderStatus(OrderStatus.COMPLETE);
-        orderManager.update(order);
-        orderForm.setOrderList(orderManager.findAll());
-    }
-
-    /**
-     * Method that allows an admin to change an orders status to submitted (protects edge case)
-     * @param order
-     */
-    public void submitOrder(Order order) {
-        order.setOrderStatus(OrderStatus.SUBMITTED);
+    public void updateOrderStatus(Order order, OrderStatus status) {
+        order.setOrderStatus(status);
         orderManager.update(order);
         orderForm.setOrderList(orderManager.findAll());
     }
