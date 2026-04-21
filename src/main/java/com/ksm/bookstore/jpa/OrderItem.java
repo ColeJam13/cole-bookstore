@@ -43,10 +43,12 @@ public class OrderItem {
     @Column(name = "ORDER_ITEM_ID")
     private Long orderItemId;
 
+    @NotNull(message = "Order {javax.validation.constraints.NotNull.message}")
     @ManyToOne
     @JoinColumn(name = "ORDER_NUMBER", nullable = false)
     private Order order;
 
+    @NotNull(message = "Book {javax.validation.constraints.NotNull.message}")
     @ManyToOne
     @JoinColumn(name = "BOOK_ID", nullable = false)
     private Book book;

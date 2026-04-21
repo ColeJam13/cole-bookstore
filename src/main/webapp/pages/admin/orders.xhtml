@@ -8,6 +8,7 @@
 
     <ui:define name="body">
         <h:form>
+            <p:importEnum type="com.ksm.bookstore.model.OrderStatus" />
             <p:dataTable var="orders" value="#{orderForm.orderList}" id="orderTable">
                 <p:column headerText="Order Number" field="orderNumber">
                     <h:outputText value="#{orders.orderNumber}" />
@@ -25,9 +26,9 @@
                     <h:outputText value="#{orders.orderStatus}" />
                 </p:column>
                 <p:column headerText="Order Actions">
-                    <p:commandButton value="Change to Submitted" action="#{orderController.submitOrder(orders)}" ajax="false"/>
-                    <p:commandButton value="Change to Cancelled" action="#{orderController.cancelOrder(orders)}" ajax="false"/>
-                    <p:commandButton value="Change to Complete" action="#{orderController.completeOrder(orders)}" ajax="false"/>
+                    <p:commandButton value="Change to Submitted" action="#{orderController.updateOrderStatus(orders, OrderStatus.SUBMITTED)}" update="orderTable" />
+                    <p:commandButton value="Change to Cancelled" action="#{orderController.updateOrderStatus(orders, OrderStatus.CANCELLED)}" update="orderTable" />
+                    <p:commandButton value="Change to Complete" action="#{orderController.updateOrderStatus(orders, OrderStatus.COMPLETE)}" update="orderTable" />
                 </p:column>
             </p:dataTable>
         </h:form>

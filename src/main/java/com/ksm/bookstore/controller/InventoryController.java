@@ -13,6 +13,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.SerializationUtils;
+
 /**
  * Controller for the admin inventory management page of the bookstore application.
  * Handles adding, editing, and deleting books and authors for administrators.
@@ -46,7 +48,7 @@ public class InventoryController {
      * @param book the book selected
      */
     public void selectBook(Book book) {
-        inventoryForm.setSelectedBook(book);
+       inventoryForm.setSelectedBook(SerializationUtils.clone(book));
     }
 
     /**
@@ -96,7 +98,7 @@ public class InventoryController {
      * @param author the Author selected
      */
     public void selectAuthor(Author author) {
-        inventoryForm.setSelectedAuthor(author);
+       inventoryForm.setSelectedAuthor(SerializationUtils.clone(author));
     }
 
     /**
