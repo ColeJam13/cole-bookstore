@@ -32,9 +32,9 @@
 		<h:form id="loginForm">
 			<p:messages id="loginMessages" showDetail="true" />
 			<h:outputLabel value="Username: " />
-			<p:inputText value="#{loginController.username}" />
+			<p:inputText value="#{loginForm.username}" />
 			<h:outputLabel value="Password: " />
-			<p:password value="#{loginController.password}" />
+			<p:password value="#{loginForm.password}" />
 			<p:commandButton value="Login" action="#{loginController.login()}" update="loginMessages :navForm" process="@form @this" />
 		</h:form>
 	</p:dialog>
