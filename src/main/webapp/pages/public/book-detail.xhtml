@@ -28,12 +28,14 @@
                     </div>
                     <div class="bookField">
                         <h:outputText value="Price: " styleClass="fieldLabel"/>
-                        <h:outputText value="#{bookDetailForm.book.price}" styleClass="fieldValue"/>
+                        <h:outputText value="#{bookDetailForm.book.price}" styleClass="fieldValue"> 
+                            <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                        </h:outputText>
                     </div>
                     <div class="bookField">
                         <p:commandButton value="Add to Cart" 
                             action="#{cartController.addToCart(bookDetailForm.book)}"
-                            update="navForm"/>
+                            update=":navForm"/>
                     </div>
                     <div id="bookDescription">
                         <h:outputText value="Description: "/>

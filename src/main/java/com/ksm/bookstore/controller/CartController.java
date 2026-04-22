@@ -1,6 +1,5 @@
 package com.ksm.bookstore.controller;
 
-import java.io.Serializable;
 import java.io.IOException;
 
 import javax.enterprise.context.RequestScoped;
@@ -11,9 +10,6 @@ import javax.inject.Inject;
 import com.ksm.bookstore.form.CartForm;
 import com.ksm.bookstore.jpa.Book;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Controller for the shopping cart page of the bookstore application.
  * Handles adding, removing, and displaying books in the users cart.
@@ -21,11 +17,7 @@ import lombok.Setter;
 
 @Named
 @RequestScoped
-@Getter
-@Setter
-public class CartController implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class CartController {
 
     @Inject
     private CartForm cartForm;

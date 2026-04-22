@@ -2,7 +2,6 @@ package com.ksm.bookstore.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.InputStreamReader;
@@ -16,9 +15,7 @@ import javax.json.JsonArray;
 
 import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.form.BookDetailForm;
-
-import lombok.Getter;
-import lombok.Setter;
+import com.ksm.bookstore.provider.DescriptionCache;
 
 /**
  * Controller for the Book Details page. Handles fetching
@@ -27,11 +24,7 @@ import lombok.Setter;
 
 @Named
 @RequestScoped
-@Getter
-@Setter
-public class BookDetailController implements Serializable{
-
-    private static final long serialVersionUID = 1L;
+public class BookDetailController {
 
     @Inject
     private BookManager bookManager;
@@ -39,12 +32,22 @@ public class BookDetailController implements Serializable{
     @Inject
     private BookDetailForm bookDetailForm;
 
+    @Inject
+    private DescriptionCache descriptionCache;
+
     /**
      * Fetches a description for each book by using the description field on GoogleBooks API
      * via the books ISBN. Key is located within the Standalone file
      * @throws IOException
      */
     private void fetchDescription() throws IOException {
+
+        String cached = descriptionCache.getDescription(bookDetailForm.getIsbn());
+        if (cached != null) {
+            bookDetailForm.setDescription(cached);
+            return;
+        }
+
         String urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + bookDetailForm.getIsbn() + "&key=" + System.getProperty("google.books.api.key");
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -68,7 +71,9 @@ public class BookDetailController implements Serializable{
         if (items != null && !items.isEmpty()) {
             JsonObject volumeInfo = items.getJsonObject(0).getJsonObject("volumeInfo");
             if (volumeInfo.containsKey("description")) {
-                bookDetailForm.setDescription(volumeInfo.getString("description"));
+                String description = volumeInfo.getString("description");
+                bookDetailForm.setDescription(description);
+                descriptionCache.putDescription(bookDetailForm.getIsbn(), description);
             }
         }
     }
