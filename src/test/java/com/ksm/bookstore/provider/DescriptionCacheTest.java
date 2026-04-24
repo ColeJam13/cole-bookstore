@@ -1,80 +1,79 @@
 package com.ksm.bookstore.provider;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
+
 /**
- * Unit tests for the DescriptionCache provider
+ * Unit tests for {@link DescriptionCache}
  */
 public class DescriptionCacheTest {
-    
-    private DescriptionCache descriptionCache;
 
-    /**
-     * Runs before all @Test methods in this class, Creates
-     * a fresh DescriptionCache and manually fires init() so
-     * the internal HashMap is initiated before each test runs
-     */
-    @BeforeMethod
-    public void setUp() {
-        descriptionCache = new DescriptionCache();
-        descriptionCache.init();
+    private static final class Mocking {
+
+        DescriptionCache cache;
+
+        public Mocking() {
+            cache = new DescriptionCache();
+            cache.init();
+        }
     }
 
-    /**
-     * Verifies that requesting a description for an ISBN that has
-     * never been cached returns null - as it should from an empty HashMap
-     */
-    @Test
-    public void testGetDescription_returnsNullForUnknownIsbn() {
-        String result = descriptionCache.getDescription("97800000000000");
-        Assert.assertNull(result, "Expected null for an ISBN that has not been cached");
+    // getDescription() tests
+
+    @Test(description = "getDescription() should return null for an ISBN that has never been cached")
+    public void getDescription_returnsNullForUnknownIsbn() {
+        // Arrange
+        Mocking m = new Mocking();
+
+        // Act
+        String result = m.cache.getDescription("97800000000000");
+
+        // Assert
+        assertNull(result);
     }
 
-    /**
-     * Verifies that after putting a description into the cache, the
-     * same value is returned when retrieved by the same ISBN
-     */
-    @Test
-    public void testGetDescription_returnsValueAfterPut() {
+    @Test(description = "getDescription() should return the correct value after putDescription() stores it")
+    public void getDescription_returnsValueAfterPut() {
+        // Arrange
+        Mocking m = new Mocking();
         String isbn = "9780132350884";
-        String description = "A book about the adventures of a nobel warrior.";
+        String description = "A book about the adventures of a noble warrior.";
 
-        descriptionCache.putDescription(isbn, description);
+        // Act
+        m.cache.putDescription(isbn, description);
+        String result = m.cache.getDescription(isbn);
 
-        String result = descriptionCache.getDescription(isbn);
-
-        Assert.assertEquals(result, description, "Expected to retrieve the same description that was stored");
+        // Assert
+        assertEquals(result, description);
     }
 
-    /**
-     * Verifies that putting a second description under an existing ISBN overwrites the original
-     * Cache should always hold the most recently store value for a given key
-     */
-    @Test
-    public void testPutDescription_overwritesExistingEntry() {
+    @Test(description = "putDescription() should overwrite an existing entry for the same ISBN")
+    public void putDescription_overwritesExistingEntry() {
+        //Arrange
+        Mocking m = new Mocking();
         String isbn = "9780132350884";
 
-        descriptionCache.putDescription(isbn, "Original description.");
-        descriptionCache.putDescription(isbn, "Updated description.");
+        // Act
+        m.cache.putDescription(isbn, "Original description.");
+        m.cache.putDescription(isbn, "Updated description.");
+        String result = m.cache.getDescription(isbn);
 
-        String result = descriptionCache.getDescription(isbn);
-
-        Assert.assertEquals(result, "Updated description.", "Expected the updated description to overwrite the original");
+        // Assert
+        assertEquals(result, "Updated description.");
     }
 
-    /**
-     * Verifies that storing a description for one ISBN does not interfere with
-     * lookups for a different ISBN. Each key in the HashMap should remain independent
-     */
-    @Test
-    public void testGetDescription_doesNotCrossContaminateEntries() {
-        descriptionCache.putDescription("978011111111", "Description for book one.");
+    @Test(description = "getDescription() should return null for an ISBN that was never cached")
+    public void getDescription_doesNotCrossContaminateEntries() {
+        // Arrange
+        Mocking m = new Mocking();
+        m.cache.putDescription("9780111111111", "Description for book one.");
 
-        String result = descriptionCache.getDescription("978022222222");
+        // Act
+        String result = m.cache.getDescription("9780222222222");
 
-        Assert.assertNull(result, "Expected null for an ISBN that was never cached, even when other ISBNs exist");
+        // Assert
+        assertNull(result);
     }
-
 }
