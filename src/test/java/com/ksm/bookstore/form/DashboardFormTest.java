@@ -6,102 +6,98 @@ import com.ksm.bookstore.dao.OrderManager;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertEquals;
 
 /**
- * Unit tests for the DashboardForm
+ * Unit tests for {@link DashboardForm}
  */
 public class DashboardFormTest {
 
-    @Mock
-    private BookManager bookManager;
+    private static final class Mocking {
 
-    @Mock
-    private OrderManager orderManager;
+        @InjectMocks
+        DashboardForm form;
 
-    @Mock
-    private AuthorManager authorManager;
+        @Mock
+        BookManager bookManager;
 
-    @InjectMocks
-    private DashboardForm dashboardForm;
+        @Mock
+        OrderManager orderManager;
 
-    @BeforeMethod
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
+        @Mock
+        AuthorManager authorManager;
+
+        public Mocking() {
+            openMocks(this);
+            when(bookManager.count()).thenReturn(10L);
+            when(orderManager.count()).thenReturn(20L);
+            when(authorManager.count()).thenReturn(30L);
+        }
     }
 
     // init() tests
 
-    /**
-     * Verifies that init() stores the value returned by bookManager.count()
-     * into the totalBooks field on the dashboard
-     */
-    @Test
-    public void testInit_totalBooksPopulatedFromManager() {
-        when(bookManager.count()).thenReturn(5L);
-        when(orderManager.count()).thenReturn(0L);
-        when(authorManager.count()).thenReturn(0L);
+    @Test(description = "init() should set totalBooks to the count returned by the book manager")
+    public void init_totalBooksSetFromManager() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        dashboardForm.init();
+        // Act
+        m.form.init();
 
-        Assert.assertEquals(dashboardForm.getTotalBooks(), 5L,
-            "totalBooks should reflect the count returned by bookManager.count()");
-    }
-    
-    /**
-     * Verifies that init() stores the value returned by orderManager.count() into
-     * the totalOrders field on the dashboard
-     */
-    @Test
-    public void testInit_totalOrdersPopulatedFromManager() {
-        when(bookManager.count()).thenReturn(0L);
-        when(orderManager.count()).thenReturn(12L);
-        when(authorManager.count()).thenReturn(0L);
+        // Assert
+        assertEquals(m.form.getTotalBooks(), 10L);
 
-        dashboardForm.init();
-
-        Assert.assertEquals(dashboardForm.getTotalOrders(), 12L,
-            "totalOrders should reflect the count returned by orderManager.count()");
+        // Verify
+        verify(m.bookManager).count();
     }
 
-    /**
-     * Verifies that init() stores the value returned by authorManager.count()
-     * into the totalAuthors field on the dashboard
-     */
-    @Test
-    public void testInit_totalAuthorsPopulatedFromManager() {
-        when(bookManager.count()).thenReturn(0L);
-        when(orderManager.count()).thenReturn(0L);
-        when(authorManager.count()).thenReturn(3L);
+    @Test(description = "init() should set totalOrders to the count returned by the order manager")
+    public void init_totalOrdersSetFromManager() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        dashboardForm.init();
+        // Act
+        m.form.init();
 
-        Assert.assertEquals(dashboardForm.getTotalAuthors(), 3L,
-            "totalAuthors should reflect the count returned by authorManager.count()");
+        // Assert
+        assertEquals(m.form.getTotalOrders(), 20L);
+
+        // Verify
+        verify(m.orderManager).count();
     }
 
-    /**
-     * Verifies that all three counts are populated correctly in a single
-     * init() call - confirms that they don't interfere with each other
-     */
-    @Test
-    public void testInit_allCountsPopulatedTogether() {
-        when(bookManager.count()).thenReturn(10L);
-        when(orderManager.count()).thenReturn(25L);
-        when(authorManager.count()).thenReturn(4L);
+    @Test(description = "init() should set totalAuthors to the count returned by author manager")
+    public void init_totalAuthorsSetFromManager() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        dashboardForm.init();
+        // Act
+        m.form.init();
 
-        Assert.assertEquals(dashboardForm.getTotalBooks(), 10L,
-            "totalBooks should be 10");
-        Assert.assertEquals(dashboardForm.getTotalOrders(), 25L,
-            "totalOrders should be 25");
-        Assert.assertEquals(dashboardForm.getTotalAuthors(), 4L,
-            "totalAuthors should be 4");
+        // Assert
+        assertEquals(m.form.getTotalAuthors(), 30L);
+
+        // Verify
+        verify(m.authorManager).count();
+    }
+
+    @Test(description = "init() should set all three totals correctly in a single call")
+    public void init_allTotalsSetCorrectly() {
+        // Arrange
+        Mocking m = new Mocking();
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertEquals(m.form.getTotalBooks(), 10L);
+        assertEquals(m.form.getTotalOrders(), 20L);
+        assertEquals(m.form.getTotalAuthors(), 30L);
     }
 }
