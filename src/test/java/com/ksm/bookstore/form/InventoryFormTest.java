@@ -1,291 +1,212 @@
 package com.ksm.bookstore.form;
 
-import com.ksm.bookstore.jpa.Book;
 import com.ksm.bookstore.dao.AuthorManager;
 import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.jpa.Author;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.ksm.bookstore.jpa.Book;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
- * Unit tests for InventoryForm
+ * Unit tests for {@link InventoryForm}
  */
 public class InventoryFormTest {
 
-    @Mock
-    private BookManager bookManager;
+    private static final class Mocking {
 
-    @Mock
-    private AuthorManager authorManager;
+        @InjectMocks
+        InventoryForm form;
 
-    @InjectMocks
-    private InventoryForm inventoryForm;
+        @Mock
+        BookManager bookManager;
 
-    /**
-     * Runs before every @Test method, creates a new inventory
-     * form and calls init() to initialize the fields
-     */
-    @BeforeMethod
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+        @Mock
+        AuthorManager authorManager;
 
-    // Helper Methods
+        List<Book> books = List.of(createBook("Book One"), createBook("Book Two"));
 
-    /**
-     * Creates an Author with a given name and active status
-     * @param name the authors name
-     * @param active whether the author is active
-     * @return a populated Author instance
-     */
-    private Author createAuthor(String name, boolean active) {
-        Author author = new Author();
-        author.setName(name);
-        author.setActive(active);
-        return author;
-    }
+        Author activeAuthorA = createAuthor("Mark Lawrence", true);
+        Author activeAuthorB = createAuthor("Eoin Colfer", true);
+        Author inactiveAuthor = createAuthor("Suzanne Collins", false);
 
-    /**
-     * Creates a Book with a given title
-     * @param title the book's title
-     * @return a populated Book instance
-     */
-    private Book createBook(String title) {
-        Book book = new Book();
-        book.setTitle(title);
-        return book;
-    }
+        List<Author> allAuthors = List.of(activeAuthorA, activeAuthorB, inactiveAuthor);
 
-    /**
-     * Method used in tests that stubs both managers with empty list
-     * which allows init to properlly run without exceptions
-     */
-    private void stubManagersWithEmptyLists() {
-        when(bookManager.findAll()).thenReturn(new ArrayList<>());
-        when(authorManager.findAll()).thenReturn(new ArrayList<>());
+        public Mocking() {
+            openMocks(this);
+            when(bookManager.findAll()).thenReturn(books);
+            when(authorManager.findAll()).thenReturn(allAuthors);
+        }
+
+        // Helper method to create a Book with only a title: other fields not needed
+        public Book createBook(String title) {
+            Book book = new Book();
+            book.setTitle(title);
+            return book;
+        }
+
+        // Helper method to create an Author with a name and status
+        public Author createAuthor(String name, boolean active) {
+            Author author = new Author();
+            author.setName(name);
+            author.setActive(active);
+            return author;
+        }
     }
 
     // init() tests
 
-    /**
-     * Verifies that BookManager actually populates the list of books
-     */
-    @Test
-    public void testInit_bookListIsPopulatedFromManager() {
-        ArrayList<Book> bookList = new ArrayList<>();
+    @Test(description = "init() should populate bookList with all books returned by the book manager")
+    public void init_bookListPopulatedFromManager() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        bookList.add(new Book());
-        bookList.add(new Book());
+        // Act
+        m.form.init();
 
-        when(bookManager.findAll()).thenReturn(bookList);
-
-        inventoryForm.init();
-
-        Assert.assertEquals(inventoryForm.getBookList(), bookList);
-    }
-
-    /**
-     * Verifies that AuthorManager actually populates the list of authors
-     */
-    @Test
-    public void testInit_authorListIsPopulatedFromManager() {
-        ArrayList<Author> authorList = new ArrayList<>();
-
-        authorList.add(new Author());
-        authorList.add(new Author());
-
-        when(authorManager.findAll()).thenReturn(authorList);
-
-        inventoryForm.init();
+        // Assert
+        assertEquals(m.form.getBookList(), m.books);
         
-        Assert.assertEquals(inventoryForm.getAuthorList(), authorList);
+        // Verify
+        verify(m.bookManager).findAll();
     }
 
-    /**
-     * Verifies that the selectedBook is not null
-     */
-    @Test
-    public void testInit_selectedBookIsNotNull() {
-        ArrayList<Book> bookList = new ArrayList<>();
-        ArrayList<Author> authorList = new ArrayList<>();
+    @Test(description = "init() should populate authorList with all authors returned by the author manager")
+    public void init_authorListPopulatedFromManager() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        when(bookManager.findAll()).thenReturn(bookList);
-        when(authorManager.findAll()).thenReturn(authorList);
+        // Act
+        m.form.init();
 
-        inventoryForm.init();
+        // Assert
+        assertEquals(m.form.getAuthorList(), m.allAuthors);
 
-        Assert.assertNotNull(inventoryForm.getSelectedBook());
+        // Verify
+        verify(m.authorManager).findAll();
     }
 
-    /**
-     * Verifies that the selectedAuthor is not null
-     */
-    @Test
-    public void testInit_selectedAuthorIsNotNull() {
-        ArrayList<Book> bookList = new ArrayList<>();
-        ArrayList<Author> authorList = new ArrayList<>();
-        
-        when(bookManager.findAll()).thenReturn(bookList);
-        when(authorManager.findAll()).thenReturn(authorList);
+    @Test(description = "init() should set selectedBook to a fresh non-null Book")
+    public void init_selectedBookInitializedAsNewBook() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        inventoryForm.init();
+        // Act
+        m.form.init();
 
-        Assert.assertNotNull(inventoryForm.getSelectedAuthor());
+        // Assert
+        assertNotNull(m.form.getSelectedBook());
     }
 
-    /**
-     * Verifies that activeAuthorList contains only authors where active = true
-     */
-    @Test
-    public void testInit_activeAuthorListContainsOnlyActiveAuthors() {
-        List<Author> allAuthors = Arrays.asList(
-            createAuthor("Active Author One", true),
-            createAuthor("Inactive Author", false),
-            createAuthor("Active Author Two", true)
-        );
+    @Test(description = "init() should set selectedAuthor to a fresh non-null Author")
+    public void init_selectedAuthorInitializedAsNewAuthor() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        when(bookManager.findAll()).thenReturn(new ArrayList<>());
-        when(authorManager.findAll()).thenReturn(allAuthors);
+        // Act
+        m.form.init();
 
-        inventoryForm.init();
+        // Assert
+        assertNotNull(m.form.getSelectedAuthor());
+    }
 
-        List<Author> activeAuthors = inventoryForm.getActiveAuthorList();
+    @Test(description = "init() should populate activeAuthorList with only authors who are active")
+    public void init_activeAuthorListContainsOnlyActiveAuthors() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        Assert.assertEquals(activeAuthors.size(), 2,
-            "activeAuthorList should only contain authors where active = true");
+        // Act
+        m.form.init();
 
-        for (Author author : activeAuthors) {
-            Assert.assertTrue(author.isActive(),
-                "Every author in activeAuthorList should have active = true");
-        }
+        // Assert
+        assertEquals(m.form.getActiveAuthorList().size(), 2);
+        assertTrue(m.form.getActiveAuthorList().contains(m.activeAuthorA));
+        assertTrue(m.form.getActiveAuthorList().contains(m.activeAuthorB));
+    }
+
+    @Test(description = "init() should produce an empty activeAuthorList when no authors are active")
+    public void init_activeAuthorListEmptyWhenNoActiveAuthors() {
+        // Arrange
+        Mocking m = new Mocking();
+        Author inactiveA = m.createAuthor("Inactive One", false);
+        Author inactiveB = m.createAuthor("Inactive Two", false);
+        when(m.authorManager.findAll()).thenReturn(List.of(inactiveA, inactiveB));
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertTrue(m.form.getActiveAuthorList().isEmpty());
     }
 
     // completeAuthor() tests
 
-    /**
-     * Verifies that completeAuthor() returns authos whose name contains
-     * the search query, case insensitive
-     */
-    @Test
-    public void testCompleteAuthor_returnsMatchingAuthors() {
-        List<Author> allAuthors = Arrays.asList(
-            createAuthor("Stephen King", true),
-            createAuthor("Stephen Hawking", true),
-            createAuthor("Mark Lawrence", true)
-        );
+    @Test(description = "completeAuthor() should return authors whose names contain the query string")
+    public void completeAuthor_returnsMatchingAuthors() {
+        // Arrange
+        Mocking m = new Mocking();
+        m.form.init();
 
-        when(bookManager.findAll()).thenReturn(new ArrayList<>());
-        when(authorManager.findAll()).thenReturn(allAuthors);
+        // Act
+        List<Author> result = m.form.completeAuthor("Mark");
 
-        inventoryForm.init();
-
-        List<Author> results = inventoryForm.completeAuthor("stephen");
-
-        Assert.assertEquals(results.size(), 2,
-            "completeAuthor() should return both authors whose name contains 'stephen'");
+        // Assert
+        assertEquals(result.size(), 1);
+        assertEquals(result.get(0).getName(), "Mark Lawrence");
     }
 
-    /**
-     * Verifies that completeAuthor() is fully case-insensitive - searching with all-caps
-     * should still find matches
-     */
-    @Test
-    public void testCompleteAuthor_isCaseInsensitive() {
-        List<Author> allAuthors = Arrays.asList(
-            createAuthor("Mark Lawrence", true)
-        );
+    @Test(description = "completeAuthor() should be case-insensitive when matching author names")
+    public void completeAuthor_isCaseInsensitive() {
+        // Arrange
+        Mocking m = new Mocking();
+        m.form.init();
 
-        when(bookManager.findAll()).thenReturn(new ArrayList<>());
-        when(authorManager.findAll()).thenReturn(allAuthors);
+        // Act
+        List<Author> result = m.form.completeAuthor("mark");
 
-        inventoryForm.init();
-
-        List<Author> results = inventoryForm.completeAuthor("MARK");
-
-        Assert.assertEquals(results.size(), 1,
-            "completeAuthor() shoudl match regardless of case");
+        // Assert
+        assertEquals(result.size(), 1);
+        assertEquals(result.get(0).getName(), "Mark Lawrence");
     }
 
-    /**
-     * Verifies that completeAuthor() returns an empty list when the query
-     * matches no active authors
-     */
-    @Test
-    public void testCompleteAuthor_returnsEmptyListWhenNoMatch() {
-        List<Author> allAuthors = Arrays.asList(
-            createAuthor("Mark Lawrence", true)
-        );
+    @Test(description = "completeAuthor() should return an empty list when no authors match the query")
+    public void completeAuthor_returnsEmptyListWhenNoMatch() {
+        // Arrange
+        Mocking m = new Mocking();
+        m.form.init();
 
-        when(bookManager.findAll()).thenReturn(new ArrayList<>());
-        when(authorManager.findAll()).thenReturn(allAuthors);
+        // Act
+        List<Author> result = m.form.completeAuthor("BingusBongus");
 
-        inventoryForm.init();
-
-        List<Author> results = inventoryForm.completeAuthor("Tolkien");
-
-        Assert.assertEquals(results.size(), 0,
-            "completeAuthor() should return an empty list when no authors match");
+        // Assert
+        assertTrue(result.isEmpty());
     }
 
-    /**
-     * Verifies that completeAuthor() returns results sorted alphabetically 
-     * by author name regardless of where they appear in the list
-     */
-    @Test
-    public void testCompleteAuthor_returnsSortedAlphabetically() {
-        List<Author> allAuthors = Arrays.asList(
-            createAuthor("Stephen King", true),
-            createAuthor("Stephen Crane", true),
-            createAuthor("Stephen Hawking", true)
-        );
+    @Test(description = "completeAuthor() should return results sorted alphabetically")
+    public void completeAuthor_resultsSortedAlphabetically() {
+        // Arrange
+        Mocking m = new Mocking();
+        Author authorZ = m.createAuthor("Zora Neale", true);
+        Author authorA = m.createAuthor("Aaron Blake", true);
+        when(m.authorManager.findAll()).thenReturn(List.of(authorZ, authorA));
+        m.form.init();
 
-        when(bookManager.findAll()).thenReturn(new ArrayList<>());
-        when(authorManager.findAll()).thenReturn(allAuthors);
+        // Act
+        List<Author> result = m.form.completeAuthor("a");
 
-        inventoryForm.init();
-
-        List<Author> results = inventoryForm.completeAuthor("stephen");
-
-        Assert.assertEquals(results.get(0).getName(), "Stephen Crane",
-            "First result should be Stephen Crane alphabetically");
-        Assert.assertEquals(results.get(1).getName(), "Stephen Hawking",
-            "Second Result should be Stephen Hawking alphabetically");
-        Assert.assertEquals(results.get(2).getName(), "Stephen King",
-            "Third result should be Stephen King alphabetically");
-    }
-
-    /**
-     * Verifies that inactive authors are excluded from completeAuthor() results even
-     * if their name matches the query
-     */
-    @Test
-    public void testCompleteAuthor_excludesInactiveAuthors() {
-        List<Author> allAuthors = Arrays.asList(
-            createAuthor("Stephen King", true),
-            createAuthor("Stephen Hawking", false)
-        );
-
-        when(bookManager.findAll()).thenReturn(new ArrayList<>());
-        when(authorManager.findAll()).thenReturn(allAuthors);
-
-        inventoryForm.init();
-
-        List<Author> results = inventoryForm.completeAuthor("stephen");
-
-        Assert.assertEquals(results.size(), 1,
-            "completeAuthor() should never return inactive authors");
-        Assert.assertEquals(results.get(0).getName(), "Stephen King",
-            "Only the active Stephen King should be returned");
+        // Assert
+        assertEquals(result.get(0).getName(), "Aaron Blake");
+        assertEquals(result.get(1).getName(), "Zora Neale");
     }
 }
