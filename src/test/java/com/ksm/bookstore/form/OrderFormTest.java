@@ -5,65 +5,79 @@ import com.ksm.bookstore.jpa.Order;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
- * Unit tests for the OrderForm
+ * Unit tests for {@link OrderForm}
  */
 public class OrderFormTest {
 
-    @Mock
-    private OrderManager orderManager;
+    private static final class Mocking {
 
-    @InjectMocks
-    private OrderForm orderForm;
+        @InjectMocks
+        OrderForm form;
 
-    @BeforeMethod
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
+        @Mock
+        OrderManager orderManager;
+
+        List<Order> orders = List.of(new Order(), new Order());
+
+        public Mocking() {
+            openMocks(this);
+            when(orderManager.findAll()).thenReturn(orders);
+        }
     }
 
     // init() tests
 
-    /**
-     * Verifies that init() populates orderList with the list 
-     * returned by orderManager.findAll()
-     */
-    @Test
-    public void testInit_orderListIsPopulatedFromManager() {
-        List<Order> orders = new ArrayList<>();
-        orders.add(new Order());
-        orders.add(new Order());
+    @Test(description = "init() should populate orderList with all the orders returned by the order manager")
+    public void init_orderListPopulatedFromManager() {
+        //Arrange
+        Mocking m = new Mocking();
 
-        when(orderManager.findAll()).thenReturn(orders);
+        // Act
+        m.form.init();
 
-        orderForm.init();
+        // Assert
+        assertEquals(m.form.getOrderList(), m.orders);
 
-        Assert.assertEquals(orderForm.getOrderList(), orders,
-            "orderList should be populated with the list returned by orderManager.findAll()");
+        // Verify
+        verify(m.orderManager).findAll();
     }
 
-    /**
-     * Verifies that init() handles an empty order list correctly
-     * orderList should be an empty list, not null
-     */
-    @Test
-    public void testInit_emptyListWhenNoOrders() {
-        when(orderManager.findAll()).thenReturn(new ArrayList<>());
+    @Test(description = "init() should set orderList to a non-null empty list when no orders exist")
+    public void init_emptyListWhenNoOrdersExist() {
+        // Arrange
+        Mocking m = new Mocking();
+        when(m.orderManager.findAll()).thenReturn(new ArrayList<>());
 
-        orderForm.init();
+        // Act
+        m.form.init();
 
-        Assert.assertNotNull(orderForm.getOrderList(),
-            "orderList should never be null even when no orders exist");
-        Assert.assertEquals(orderForm.getOrderList().size(), 0,
-            "orderList should be empty when no orders are returned");
+        // Assert
+        assertNotNull(m.form.getOrderList());
+        assertTrue(m.form.getOrderList().isEmpty());
     }
+
+    @Test(description = "init() should propagate exceptions thrown by the order manager",
+        expectedExceptions = RuntimeException.class)
+    public void init_propagatesExceptionFromManager() {
+        // Arrange
+        Mocking m = new Mocking();
+        when(m.orderManager.findAll()).thenThrow(new RuntimeException("Database error"));
+
+        // Act
+        m.form.init();
+    }
+
 }
