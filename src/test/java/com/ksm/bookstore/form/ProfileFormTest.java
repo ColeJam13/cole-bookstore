@@ -8,130 +8,149 @@ import com.ksm.bookstore.provider.UserProvider;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
- * Unit tests for the ProfileForm. Covers two branches:
- * 1) A customer record exists for the logged-in users email: load it.
- * 2) No customer record exists: createCustomer() is called as a fallback,
- * prepopulates the email field from the JAAS username
+ * Unit tests for {@link ProfileForm}
  */
 public class ProfileFormTest {
 
-    @Mock
-    private UserProvider userProvider;
+    private static final class Mocking {
 
-    @Mock
-    private CustomerManager customerManager;
+        @InjectMocks
+        ProfileForm form;
 
-    @Mock
-    private OrderManager orderManager;
+        @Mock
+        UserProvider userProvider;
 
-    @InjectMocks
-    private ProfileForm profileForm;
+        @Mock
+        CustomerManager customerManager;
 
-    @BeforeMethod
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+        @Mock
+        OrderManager orderManager;
 
-    // init() tests
-
-    /**
-     * Verifies that when a customer record exists for the logged-in user's email
-     * init() loads that customer and stores it on the form
-     */
-    @Test
-    public void testInit_existingCustomerLoadedWhenFound() {
-        String email = "jane.test@example.com";
+        String email = "testuser@example.com";
         Customer existingCustomer = new Customer();
-        existingCustomer.setEmail(email);
+        List<Order> orderHistory = List.of(new Order(), new Order());
 
-        when(userProvider.getUserName()).thenReturn(email);
-        when(customerManager.findByEmail(email)).thenReturn(existingCustomer);
-        when(orderManager.findByCustomer(existingCustomer)).thenReturn(new ArrayList<>());
-
-        profileForm.init();
-
-        Assert.assertEquals(profileForm.getCustomer(), existingCustomer,
-            "init() should load the existing customer when one is found by email");
+        public Mocking() {
+            openMocks(this);
+            when(userProvider.getUserName()).thenReturn(email);
+            when(customerManager.findByEmail(email)).thenReturn(existingCustomer);
+            when(orderManager.findByCustomer(existingCustomer)).thenReturn(orderHistory);
+        }
     }
 
-    /**
-     * Verifies the fallback branch: when no customer exists for the logged-in user's email, createCustomer()
-     * is called which builds a fresh Customer with the email pre-populated from the JAAS username
-     */
-    @Test
-    public void testInit_freshCustomerCreatedWhenNotFound() {
-        String email = "newuser@example.com";
+    // init() tests - existing customer
 
-        when(userProvider.getUserName()).thenReturn(email);
-        when(customerManager.findByEmail(email)).thenReturn(null);
-        when(orderManager.findByCustomer(null)).thenReturn(new ArrayList<>());
+    @Test(description = "init() should load the existing customer when customerManager finds one by email")
+    public void init_loadsExistingCustomerWhenFound() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        profileForm.init();
+        // Act
+        m.form.init();
 
-        Assert.assertNotNull(profileForm.getCustomer(),
-            "init() should create a fresh customer when none is found");
-        Assert.assertEquals(profileForm.getCustomer().getEmail(), email,
-            "The fresh customer's email should be pre-populated from the JAAS username");
-        Assert.assertNotNull(profileForm.getCustomer().getShippingAddress(),
-            "Shipping address should be initialized on a fresh customer");
-        Assert.assertNotNull(profileForm.getCustomer().getBillingAddress(),
-            "Billing address should be initialized on a fresh customer");
-    }
-    
-    /**
-     * Verifies that init() always loads the order history for the customer
-     * regardless of if they were found or newly created
-     */
-    @Test
-    public void testInit_orderHistoryIsLoaded() {
-        String email = "jane.test@example.com";
-        Customer existingCustomer = new Customer();
-        existingCustomer.setEmail(email);
+        // Assert
+        assertEquals(m.form.getCustomer(), m.existingCustomer);
 
-        List<Order> orders = new ArrayList<>();
-        orders.add(new Order());
-        orders.add(new Order());
-
-        when(userProvider.getUserName()).thenReturn(email);
-        when(customerManager.findByEmail(email)).thenReturn(existingCustomer);
-        when(orderManager.findByCustomer(existingCustomer)).thenReturn(orders);
-
-        profileForm.init();
-
-        Assert.assertEquals(profileForm.getOrderHistory(), orders,
-            "orderHistory should be populated with the customer's orders after init()");
+        // Verify
+        verify(m.customerManager).findByEmail(m.email);
     }
 
-    /**
-     * Verifies that init() handles a customer with no order history correctly
-     * orderHistory should be an empty list, not null
-     */
-    @Test
-    public void testInit_emptyOrderHistoryWhenNoOrders() {
-        String email = "jane.test@example.com";
-        Customer existingCustomer = new Customer();
-        existingCustomer.setEmail(email);
+    @Test(description = "init() should populate orderHistory with the orders returned by the order manager")
+    public void init_orderHistoryPopulatedFromManager() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        when(userProvider.getUserName()).thenReturn(email);
-        when(customerManager.findByEmail(email)).thenReturn(existingCustomer);
-        when(orderManager.findByCustomer(existingCustomer)).thenReturn(new ArrayList<>());
+        // Act
+        m.form.init();
 
-        profileForm.init();
+        // Assert
+        assertEquals(m.form.getOrderHistory(), m.orderHistory);
 
-        Assert.assertNotNull(profileForm.getOrderHistory(),
-            "orderHistory should never be null even when the customer has no orders");
-        Assert.assertEquals(profileForm.getOrderHistory().size(), 0,
-            "orderHistory should be empty when no orders exist for this customer");
+        // Verify
+        verify(m.orderManager).findByCustomer(m.existingCustomer);
+    }
+
+    @Test(description = "init() should set orderHistory to an empty list when the customer has no orders")
+    public void init_orderHistoryEmptyWhenNoOrders() {
+        // Arrange
+        Mocking m = new Mocking();
+        when(m.orderManager.findByCustomer(m.existingCustomer)).thenReturn(new ArrayList<>());
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertTrue(m.form.getOrderHistory().isEmpty());
+    }
+
+    // init() tests - new customer
+
+    @Test(description = "init() should create a new customer when no existing customer is found by email")
+    public void init_createsNewCustomerWhenNotFound() {
+        // Arrange
+        Mocking m = new Mocking();
+        when(m.customerManager.findByEmail(m.email)).thenReturn(null);
+        when(m.orderManager.findByCustomer(null)).thenReturn(new ArrayList<>());
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertNotNull(m.form.getCustomer());
+    }
+
+    @Test(description = "init() should pre-populate the new customer's email from the JAAS username")
+    public void init_newCustomerEmailPrePopulated() {
+        // Arrange
+        Mocking m = new Mocking();
+        when(m.customerManager.findByEmail(m.email)).thenReturn(null);
+        when(m.orderManager.findByCustomer(null)).thenReturn(new ArrayList<>());
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertEquals(m.form.getCustomer().getEmail(), m.email);
+    }
+
+    @Test(description = "init() should give the new customer a non-null shipping address")
+    public void init_newCustomerHasShippingAddress() {
+        // Arrange
+        Mocking m = new Mocking();
+        when(m.customerManager.findByEmail(m.email)).thenReturn(null);
+        when(m.orderManager.findByCustomer(null)).thenReturn(new ArrayList<>());
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertNotNull(m.form.getCustomer().getShippingAddress());
+    }
+
+    @Test(description = "init() should give the new customer a non-null billing address")
+    public void init_newCustomerHasBillingAddress() {
+        // Arrange
+        Mocking m = new Mocking();
+        when(m.customerManager.findByEmail(m.email)).thenReturn(null);
+        when(m.orderManager.findByCustomer(null)).thenReturn(new ArrayList<>());
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertNotNull(m.form.getCustomer().getBillingAddress());
     }
 }
