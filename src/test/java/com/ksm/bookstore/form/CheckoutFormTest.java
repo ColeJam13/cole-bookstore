@@ -1,99 +1,114 @@
 package com.ksm.bookstore.form;
 
 import com.ksm.bookstore.dao.CustomerManager;
-import com.ksm.bookstore.jpa.Address;
 import com.ksm.bookstore.jpa.Customer;
 import com.ksm.bookstore.provider.UserProvider;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertEquals;
 
 /**
- * Unit tests for the CheckoutForm: covers two branches
- * 1) a JAAS user is logged in
- * 2) no user is logged in
+ * Unit tests for {@link CheckoutForm}
  */
 public class CheckoutFormTest {
 
-    @Mock
-    private UserProvider userProvider;
+    private static final class Mocking {
 
-    @Mock
-    private CustomerManager customerManager;
+        @InjectMocks
+        CheckoutForm form;
 
-    @InjectMocks
-    private CheckoutForm checkoutForm;
+        @Mock
+        UserProvider userProvider;
 
-    @BeforeMethod
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-    
-    // init() tests
+        @Mock
+        CustomerManager customerManager;
 
-    /**
-     * Verifies that when a JAAS user if logged in, init() uses their username (email) to look up an
-     * existing Customer record and stores it in the form. No new customer is created.
-     */
-    @Test
-    public void testInit_existingCustomerLoadedWhenUserLoggedIn() {
-        String email = "jane.test@example.com";
         Customer existingCustomer = new Customer();
-        existingCustomer.setEmail(email);
 
-        when(userProvider.getUserName()).thenReturn(email);
-        when(customerManager.findByEmail(email)).thenReturn(existingCustomer);
-
-        checkoutForm.init();
-
-        Assert.assertEquals(checkoutForm.getCustomer(), existingCustomer,
-            "init() should load the existing customer when a user is logged in");
+        public Mocking() {
+            openMocks(this);
+            when(userProvider.getUserName()).thenReturn(null);
+        }
     }
 
-    /**
-     * Verifies the fallback branch: when no user is logged in, getUserName() returns null
-     * the Optional short-circuits, and createCustomer() is called instead which will create a
-     * fresh customer with empty information fields
-     */
-    @Test
-    public void testInit_freshCustomerCreatedWhenNoUserLoggedIn() {
-        when(userProvider.getUserName()).thenReturn(null);
+    // init() tests - No user logged in
 
-        checkoutForm.init();
+    @Test(description = "init() should create a fresh customer when no JAAS user is logged in")
+    public void init_createsNewCustomerWhenNotLoggedIn() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        Assert.assertNotNull(checkoutForm.getCustomer(),
-            "init() should create a fresh customer when no user is logged in");
-        Assert.assertNotNull(checkoutForm.getCustomer().getShippingAddress(),
-            "Shipping address should be initialized on a fresh customer");
-        Assert.assertNotNull(checkoutForm.getCustomer().getBillingAddress(),
-            "Billing address should be initialized on a fresh customer");
+        // Act
+        m.form.init();
+
+        // Assert
+        assertNotNull(m.form.getCustomer());
     }
 
-    /**
-     * Verifies that when a user is logged in but their email does not exist in the database
-     * customerManager.findByEmail() returns null and the Optional chain falls through to 
-     * createCustomer() as a fallback. Covers edge case of JAAS user having no matching customer record
-     */
-    @Test
-    public void testInit_freshCustomerCreatedWhenEmailNotFound() {
-        String email = "unknown@example.com";
+    @Test(description = "init() should give the new customer a non-null shipping address when not logged in")
+    public void init_newCustomerHasShippingAddress() {
+        // Arrange
+        Mocking m = new Mocking();
 
-        when(userProvider.getUserName()).thenReturn(email);
-        when(customerManager.findByEmail(email)).thenReturn(null);
+        // Act
+        m.form.init();
 
-        checkoutForm.init();
-
-        Assert.assertNotNull(checkoutForm.getCustomer(),
-            "init() should fall back to a fresh customer when email is not found");
-        Assert.assertNotNull(checkoutForm.getCustomer().getShippingAddress(),
-            "Shipping address should be initialized on the fallback customer");
-        Assert.assertNotNull(checkoutForm.getCustomer().getBillingAddress(),
-            "Billing address should be initialized on the fallback customer");
+        // Assert
+        assertNotNull(m.form.getCustomer().getShippingAddress());
     }
+
+    @Test(description = "init() should give the new customer a non-null billing address when not logged in")
+    public void init_newCustomerHasBillingAddress() {
+        // Arrange
+        Mocking m = new Mocking();
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertNotNull(m.form.getCustomer().getBillingAddress());
+    }
+
+    // init() test - user is logged in
+
+    @Test(description = "init() should loadthe existing customer from the manager when a user is logged in")
+    public void init_loadsExistingCustomerWhenLoggedIn() {
+        // Arrange
+        Mocking m = new Mocking();
+        String email = "testuser@example.com";
+        when(m.userProvider.getUserName()).thenReturn(email);
+        when(m.customerManager.findByEmail(email)).thenReturn(m.existingCustomer);
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertEquals(m.form.getCustomer(), m.existingCustomer);
+
+        // Verify
+        verify(m.customerManager).findByEmail(email);
+    }
+
+    // sameAsShipping default state test
+
+    @Test(description = "sameAsShipping should default to false on form initialization")
+    public void init_sameAsShippingDefaultsFalse() {
+        // Arrange
+        Mocking m = new Mocking();
+
+        // Act
+        m.form.init();
+
+        // Assert
+        assertFalse(m.form.isSameAsShipping());
+    }
+
 }
