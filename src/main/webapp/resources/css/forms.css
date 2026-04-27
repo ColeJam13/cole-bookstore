@@ -1,0 +1,33 @@
+/* Flex row for label + input + message on a single line */
+.formField {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+/* Section headings on checkout and profile forms */
+.formField h3,
+h3 {
+    color: #c9a84c;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+    font-weight: normal;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #3a0000;
+    padding-bottom: 6px;
+    margin-top: 20px;
+}
+
+/* Confirmation page order summary sections */
+#confirmation,
+#status,
+#orderTotal {
+    padding: 16px 20px;
+    font-size: 16px;
+    color: #e8d5b0;
+}
+
+/* Profile page outer container */
+#profileDetail {
+    padding: 20px;
+}

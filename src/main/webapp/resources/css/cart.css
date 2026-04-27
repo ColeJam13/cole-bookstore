@@ -1,0 +1,54 @@
+/* Two-column flex layout — table on the left, summary panel on the right */
+.cartLayout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+/* Left column — cart items table stretches to fill remaining space */
+.cartItems {
+    flex: 1;
+}
+
+/* Right column — fixed width summary panel, sticky as user scrolls */
+.cartSummaryPanel {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+/* Individual subtotal/tax/total rows */
+.summaryField {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #e8d5b0;
+}
+
+/* Total row gets a crimson divider and gold bold text */
+.summaryField:last-of-type {
+    border-top: 1px solid #3a0000;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #c9a84c;
+}
+
+/* Stacks the action buttons vertically */
+#cartActions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Full width buttons inside the summary panel */
+#cartActions .ui-button {
+    width: 100%;
+}

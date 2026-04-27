@@ -1,0 +1,50 @@
+/* Navbar background, borders, and padding */
+#navbar {
+    background-color: #1a0505;
+    border-top: 2px solid #8b0000;
+    border-bottom: 1px solid #3a0000;
+    padding: 10px 20px;
+    line-height: normal;
+}
+
+/* Flex row so the cart link can be pushed to the far right */
+#navbar form {
+    display: flex;
+    align-items: center;
+}
+
+/* Individual nav link color and spacing */
+#navbar .ui-commandlink {
+    display: inline-block;
+    margin-right: 40px;
+    color: #c9a84c;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* Nav link hover */
+#navbar .ui-commandlink:hover {
+    color: #e8d5b0;
+}
+
+/* Pushes cart link to the far right of the navbar */
+#navbar .cartLink {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* Pipe separator between nav links and welcome/cart section */
+.navSpacer {
+    color: #3a0000;
+    margin-right: 40px;
+    font-size: 14px;
+}
+
+/* Welcome label color and spacing */
+#navbar .ui-outputlabel {
+    display: inline-block;
+    margin-right: 20px;
+    color: #a09070;
+    font-size: 13px;
+}

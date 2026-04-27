@@ -1,29 +1,65 @@
 <ui:composition 
-	xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" 
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:pe="http://primefaces.org/ui/extensions"
-	xmlns:p="http://primefaces.org/ui">
+    xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:p="http://primefaces.org/ui">
 
-	<!-- Full width banner image -->
-	<div id="banner">
-		<p:graphicImage library="images" name="ColependiumHeader.png" />
+	<!-- Banner wrapper - relative positioned so candles can overlay it -->
+	<div id="banner-wrap">
+		<div id="banner">
+			<p:graphicImage library="images" name="ColependiumHeader.png" />
+		</div>
+
+		<!-- Left candle overlaid on top of the banner image -->
+		<div class="cubby cubby-left">
+			<div class="candle-wrap">
+				<div class="flame-wrap">
+					<div class="flame-outer"></div>
+					<div class="flame-mid"></div>
+					<div class="flame-core"></div>
+				</div>
+				<div class="wick"></div>
+				<div class="candle-body">
+					<div class="candle-drip"></div>
+					<div class="candle-drip2"></div>
+				</div>
+				<div class="candle-base"></div>
+			</div>
+		</div>
+
+		<!-- Right candle overlaid on top of the banner image -->
+		<div class="cubby cubby-right">
+			<div class="candle-wrap">
+				<div class="flame-wrap">
+					<div class="flame-outer" style="animation-delay: 0.17s"></div>
+					<div class="flame-mid" style="animation-delay: 0.25s"></div>
+					<div class="flame-core"></div>
+				</div>
+				<div class="wick"></div>
+				<div class="candle-body">
+					<div class="candle-drip"></div>
+					<div class="candle-drip2"></div>
+				</div>
+				<div class="candle-base"></div>
+			</div>
+		</div>
 	</div>
 
-	<!-- Navigation bar sitting below the banner -->
-	<div id="navbar">
-		<h:form id="navForm">
-			<p:commandLink value="Home" action="home" styleClass="navLink" ajax="false" />
-			<p:commandLink value="Login" onclick="PF('loginDialog').show()" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" />
-			<p:commandLink value="My Account" action="profile" styleClass="navLink" rendered="#{userProvider.generalUser}" ajax="false" />
-			<p:commandLink value="Logout" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false"/>
-			<p:commandLink value="Dashboard" action="dashboard" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-			<p:commandLink value="Orders" action="orders" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-			<p:commandLink value="Inventory" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-			<p:outputLabel value="Welcome: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="Cart (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink" ajax="false" />
-		</h:form>
-	</div>
+    <!-- Navigation bar sitting below the banner -->
+    <div id="navbar">
+        <h:form id="navForm">
+            <p:commandLink value="Home" action="home" styleClass="navLink" ajax="false" />
+            <p:commandLink value="Login" onclick="PF('loginDialog').show()" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" />
+            <p:commandLink value="My Account" action="profile" styleClass="navLink" rendered="#{userProvider.generalUser}" ajax="false" />
+            <p:commandLink value="Logout" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false"/>
+            <p:commandLink value="Dashboard" action="dashboard" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+            <p:commandLink value="Orders" action="orders" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+            <p:commandLink value="Inventory" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+            <span class="navSpacer">|</span>
+            <p:outputLabel value="Welcome: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
+			<p:commandLink value="Cart (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink cartLink" ajax="false" />        </h:form>
+    </div>
 </ui:composition>
