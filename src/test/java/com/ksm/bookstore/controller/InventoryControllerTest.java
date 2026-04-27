@@ -86,7 +86,7 @@ public class InventoryControllerTest {
 
     // selectBook() test
 
-    @Test(description = "selectBook() should set a deep clone of the book on the form, not the original referance")
+    @Test(description = "selectBook() should set a deep clone of the book on the form, not the original reference")
     public void selectBook_setsClonedBookOnForm() {
         // Arrange
         Mocking m = new Mocking();

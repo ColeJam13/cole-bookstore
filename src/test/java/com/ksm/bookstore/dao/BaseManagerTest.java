@@ -84,7 +84,7 @@ public class BaseManagerTest {
     }
 
     @Test(description = "findAll() should return an empty list when no entities exist")
-    public void findAll_resutnsEmptyListWhenNoEntitiesExist() {
+    public void findAll_returnsEmptyListWhenNoEntitiesExist() {
         // Arrange
         Mocking m = new Mocking();
         when(m.authorQuery.getResultList()).thenReturn(List.of());
