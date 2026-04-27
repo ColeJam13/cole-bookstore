@@ -8,13 +8,10 @@
     </f:metadata>
     <ui:define name="body">
         <h:form>
-            <!-- Outer flex row: cover on the left, info column on the right -->
             <div id="bookDetail" class="flex gap-5 p-4">
                 <div id="bookCover">
-                    <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailForm.book.isbn}-L.jpg"
-                        alt="#{bookDetailForm.book.title}"/>
+                    <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailForm.book.isbn}-L.jpg" alt="#{bookDetailForm.book.title}"/>
                 </div>
-                <!-- Right column stacks fields vertically -->
                 <div id="bookInfo" class="flex flex-column gap-2 pt-4">
                     <div class="bookField mb-2">
                         <h:outputText value="Title: " styleClass="fieldLabel"/>
