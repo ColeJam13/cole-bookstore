@@ -49,6 +49,15 @@ public class CheckoutControllerTest {
             when(cartForm.getCartItems()).thenReturn(cartItems);
             when(orderService.submitOrder(any())).thenReturn(orderNumber);
         }
+
+        // Helper method that wires up the FacesContext/ExternalContext mock chain that every mockStatic test needs
+        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
+            FacesContext facesContextMock = mock(FacesContext.class);
+            ExternalContext externalContextMock = mock(ExternalContext.class);
+            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
+            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            return externalContextMock;
+        }
     }
 
     // submitOrder() tests
@@ -59,10 +68,7 @@ public class CheckoutControllerTest {
         Mocking m = new Mocking();
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.submitOrder();
@@ -79,14 +85,12 @@ public class CheckoutControllerTest {
         m.cartItems.add(new Book());
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.submitOrder();
 
+            // Assert
             assertTrue(m.cartItems.isEmpty());
         }
     }
@@ -97,10 +101,7 @@ public class CheckoutControllerTest {
         Mocking m = new Mocking();
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.submitOrder();

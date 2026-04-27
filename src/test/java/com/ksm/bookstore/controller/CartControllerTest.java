@@ -44,6 +44,15 @@ public class CartControllerTest {
             openMocks(this);
             when(cartForm.getCartItems()).thenReturn(cartItems);
         }
+
+        // Method that wires up the FacesContext/ExternalContext mock chain that every mockStatic test needs
+        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
+            FacesContext facesContextMock = mock(FacesContext.class);
+            ExternalContext externalContextMock = mock(ExternalContext.class);
+            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
+            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            return externalContextMock;
+        }
     }
 
     // addToCart() test
@@ -69,10 +78,7 @@ public class CartControllerTest {
         m.cartItems.add(m.book);
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.removeFromCart(m.book);
@@ -89,10 +95,7 @@ public class CartControllerTest {
         m.cartItems.add(m.book);
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.removeFromCart(m.book);
@@ -112,10 +115,7 @@ public class CartControllerTest {
         m.cartItems.add(new Book());
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.clearCart();
@@ -131,10 +131,7 @@ public class CartControllerTest {
         Mocking m = new Mocking();
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.clearCart();

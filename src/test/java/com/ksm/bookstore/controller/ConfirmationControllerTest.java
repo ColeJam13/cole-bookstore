@@ -54,6 +54,15 @@ public class ConfirmationControllerTest {
             when(confirmationForm.getOrder()).thenReturn(order);
             when(orderItemManager.findByOrder(order)).thenReturn(orderItems);
         }
+
+        // helper method that wires up the FacesContext/ExternalContext mock chain
+        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
+            FacesContext facesContextMock = mock(FacesContext.class);
+            ExternalContext externalContextMock = mock(ExternalContext.class);
+            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
+            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            return externalContextMock;
+        }
     }
 
     // init() test - null order number
@@ -65,10 +74,7 @@ public class ConfirmationControllerTest {
         when(m.confirmationForm.getOrderNumber()).thenReturn(null);
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
             when(externalContextMock.getRequestContextPath()).thenReturn("");
 
             // Act

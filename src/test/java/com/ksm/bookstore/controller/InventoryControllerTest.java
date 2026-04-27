@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.testng.annotations.Test;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -58,6 +59,15 @@ public class InventoryControllerTest {
             when(inventoryForm.getSelectedBook()).thenReturn(selectedBook);
             when(inventoryForm.getSelectedAuthor()).thenReturn(selectedAuthor);
         }
+
+        // helper method that wires up the FacesContext/ExternalContext mock chain
+        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
+            FacesContext facesContextMock = mock(FacesContext.class);
+            ExternalContext externalContextMock = mock(ExternalContext.class);
+            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
+            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            return externalContextMock;
+        }
     }
 
     // newBook() test
@@ -86,7 +96,7 @@ public class InventoryControllerTest {
 
         // Act
         m.controller.selectBook(original);
-        
+
         // Verify
         verify(m.inventoryForm).setSelectedBook(captor.capture());
         Book captured = captor.getValue();
@@ -176,8 +186,7 @@ public class InventoryControllerTest {
         book.setActive(false);
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
+            m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.activateBook(book);
@@ -290,11 +299,11 @@ public class InventoryControllerTest {
 
     @Test(description = "deactivateAuthor() should delegate to the author service")
     public void deactivateAuthor_delegatesToAuthorService() {
-         // Arrange
-         Mocking m = new Mocking();
-         Author author = new Author();
+        // Arrange
+        Mocking m = new Mocking();
+        Author author = new Author();
 
-         // Act
+        // Act
         m.controller.deactivateAuthor(author);
 
         // Verify

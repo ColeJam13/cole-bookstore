@@ -41,6 +41,15 @@ public class HomeControllerTest {
             selectedBook.setIsbn(isbn);
             when(bookSearchForm.getSelectedBook()).thenReturn(selectedBook);
         }
+
+        // helper method that wires up the FacesContext/ExternalContext mock chain
+        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
+            FacesContext facesContextMock = mock(FacesContext.class);
+            ExternalContext externalContextMock = mock(ExternalContext.class);
+            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
+            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            return externalContextMock;
+        }
     }
 
     // navigate() test
@@ -51,10 +60,7 @@ public class HomeControllerTest {
         Mocking m = new Mocking();
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
+            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
 
             // Act
             m.controller.navigate();
