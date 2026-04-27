@@ -9,33 +9,23 @@
 
 <h:head>
     <title>The Colependium</title>
-    <!-- Google Fonts - Cinzel for headings/nav, EB Garamond for body text -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&amp;family=EB+Garamond:wght@400;500&amp;display=swap" />
 </h:head>
 <h:body>
-    <!-- PrimeFlex utility classes - bundled with PrimeFaces, no separate download needed -->
     <h:outputStylesheet library="primefaces" name="primeflex/primeflex.css" />
-
-    <!-- Global page skeleton -->
     <h:outputStylesheet library="css" name="bookstore.css" />
-
-    <!-- Component-scoped stylesheets -->
     <h:outputStylesheet library="css" name="banner.css" />
     <h:outputStylesheet library="css" name="navbar.css" />
     <h:outputStylesheet library="css" name="cart.css" />
     <h:outputStylesheet library="css" name="forms.css" />
     <h:outputStylesheet library="css" name="book-detail.css" />
-
     <div id="wrapper">
         <div id="header">
             <ui:include src="header.xhtml"/>
         </div>
-
         <ui:insert name="menu"/>
-
         <ui:insert name="body"/>
-
         <div id="footer" class="fullPage">
             <ui:insert name="footer">
                 <ui:include src="footer.xhtml" />
@@ -43,28 +33,20 @@
         </div>
     </div>
     <ui:insert name="scriptblock" />
-
-    <!-- Login dialog - modal popup triggered by the Login nav link -->
-    <p:dialog header="Login" widgetVar="loginDialog" modal="true"
-        appendTo="@none" closable="true">
+    <p:dialog header="Login" widgetVar="loginDialog" modal="true" appendTo="@none" closable="true">
         <h:form id="loginForm">
             <p:messages id="loginMessages" showDetail="true" />
-            <div class="formField">
+            <div class="flex align-items-center gap-3 mb-3">
                 <h:outputLabel value="Username: " />
                 <p:inputText value="#{loginForm.username}" />
             </div>
-            <div class="formField">
+            <div class="flex align-items-center gap-3 mb-3">
                 <h:outputLabel value="Password: " />
                 <p:password value="#{loginForm.password}" />
             </div>
-            <div class="formField">
-                <p:commandButton value="Login"
-                    action="#{loginController.login()}"
-                    update="loginMessages :navForm"
-                    process="@form @this" />
-                <p:commandButton value="Cancel"
-                    type="button"
-                    onclick="PF('loginDialog').hide()" />
+            <div class="flex align-items-center gap-3 mb-3">
+                <p:commandButton value="Login" action="#{loginController.login()}" update="loginMessages :navForm" process="@form @this" />
+                <p:commandButton value="Cancel" type="button" onclick="PF('loginDialog').hide()" />
             </div>
         </h:form>
     </p:dialog>

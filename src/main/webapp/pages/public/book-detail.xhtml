@@ -1,48 +1,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
-	template="/pages/layouts/customer-template.xhtml">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+    template="/pages/layouts/customer-template.xhtml">
 
     <f:metadata>
         <f:viewAction action="#{bookDetailController.init()}"/>
     </f:metadata>
-	<ui:define name="body">
+    <ui:define name="body">
         <h:form>
-            <div id="bookDetail">
+            <!-- Outer flex row: cover on the left, info column on the right -->
+            <div id="bookDetail" class="flex gap-5 p-4">
                 <div id="bookCover">
-                    <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailForm.book.isbn}-L.jpg" 
+                    <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailForm.book.isbn}-L.jpg"
                         alt="#{bookDetailForm.book.title}"/>
                 </div>
-                <div id="bookInfo">
-                    <div class="bookField">
+                <!-- Right column stacks fields vertically -->
+                <div id="bookInfo" class="flex flex-column gap-2 pt-4">
+                    <div class="bookField mb-2">
                         <h:outputText value="Title: " styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.title}" styleClass="fieldValue"/>
                     </div>
-                    <div class="bookField">
+                    <div class="bookField mb-2">
                         <h:outputText value="Author: " styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.author.name}" styleClass="fieldValue"/>
                     </div>
-                    <div class="bookField">
+                    <div class="bookField mb-2">
                         <h:outputText value="ISBN: " styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.isbn}" styleClass="fieldValue"/>
                     </div>
-                    <div class="bookField">
+                    <div class="bookField mb-2">
                         <h:outputText value="Price: " styleClass="fieldLabel"/>
-                        <h:outputText value="#{bookDetailForm.book.price}" styleClass="fieldValue"> 
+                        <h:outputText value="#{bookDetailForm.book.price}" styleClass="fieldValue">
                             <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                         </h:outputText>
                     </div>
-                    <div class="bookField">
-                        <p:commandButton value="Add to Cart" 
-                            action="#{cartController.addToCart(bookDetailForm.book)}"
-                            update=":navForm"/>
+                    <div class="bookField mb-2">
+                        <p:commandButton value="Add to Cart" action="#{cartController.addToCart(bookDetailForm.book)}" update=":navForm"/>
                     </div>
-                    <div id="bookDescription">
+                    <div id="bookDescription" class="p-4 mt-4">
                         <h:outputText value="Description: "/>
                         <h:outputText value="#{bookDetailForm.description}"/>
                     </div>
                 </div>
             </div>
         </h:form>
-	</ui:define>
+    </ui:define>
 </ui:composition>

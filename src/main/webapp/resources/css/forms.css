@@ -1,11 +1,3 @@
-/* Flex row for label + input + message on a single line */
-.formField {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-}
-
 /* Section headings on checkout and profile forms */
 .formField h3,
 h3 {
@@ -18,16 +10,9 @@ h3 {
     margin-top: 20px;
 }
 
-/* Confirmation page order summary sections */
+/* Confirmation page text size */
 #confirmation,
 #status,
 #orderTotal {
-    padding: 16px 20px;
     font-size: 16px;
-    color: #e8d5b0;
-}
-
-/* Profile page outer container */
-#profileDetail {
-    padding: 20px;
 }

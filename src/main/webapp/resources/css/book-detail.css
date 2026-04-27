@@ -1,26 +1,10 @@
-/* Two-column flex layout — cover image on the left, info on the right */
-#bookDetail {
-    display: flex;
-    gap: 40px;
-    padding: 20px;
-}
-
-/* Cover image fixed width */
+/* Fixed width for the cover image */
 #bookCover img {
     width: 300px;
 }
 
-/* Right column stacks the book fields vertically */
-#bookInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 20px;
-}
-
-/* Individual field rows */
+/* Font size for individual field rows */
 .bookField {
-    margin-bottom: 10px;
     font-size: 16px;
 }
 
@@ -30,11 +14,9 @@
     color: #c9a84c;
 }
 
-/* Description section below the info column */
+/* Description section brand styling — crimson top border */
 #bookDescription {
-    padding: 20px;
     font-size: 15px;
     line-height: 1.6;
     border-top: 1px solid #3a0000;
-    margin-top: 20px;
 }
