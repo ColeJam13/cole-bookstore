@@ -28,6 +28,9 @@ public class CheckoutController {
     @Inject
     private CartForm cartForm;
 
+    @Inject
+    private FacesContext facesContext;
+
     /**
      * Method that submits the order within the cart. Generates an order number
      * to search by later on, clears the card, redirects you to a confirmation screen
@@ -36,8 +39,7 @@ public class CheckoutController {
     public void submitOrder() throws IOException {
         Long orderNumber = orderService.submitOrder(cartForm.getCartItems());
         cartForm.getCartItems().clear();
-        FacesContext.getCurrentInstance()
-            .getExternalContext()
+        facesContext.getExternalContext()
             .redirect("confirmation.jsf?orderNumber=" + orderNumber);
     }
 }

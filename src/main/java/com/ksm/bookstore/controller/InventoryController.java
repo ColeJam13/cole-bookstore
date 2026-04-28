@@ -36,6 +36,9 @@ public class InventoryController {
     @Inject
     private AuthorService authorService;
 
+    @Inject
+    private FacesContext facesContext;
+
     /**
      * Creates a new book when an Admin calls it from InventoryForm
      */
@@ -76,9 +79,9 @@ public class InventoryController {
      */
     public void activateBook(Book book) {
         if (!book.getAuthor().isActive()) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Cannot activate book with an inactive author.", null));
+        facesContext.addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Cannot activate book with an inactive author.", null));
         } else {
         book.setActive(true);
         bookManager.update(book);
