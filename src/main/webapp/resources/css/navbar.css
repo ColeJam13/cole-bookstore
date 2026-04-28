@@ -7,16 +7,16 @@
     line-height: normal;
 }
 
-/* Flex row so the cart link can be pushed to the far right */
+/* Flex row spreading all links evenly across the full navbar width */
 #navbar form {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 /* Individual nav link color and spacing */
 #navbar .ui-commandlink {
     display: inline-block;
-    margin-right: 40px;
     color: #c9a84c;
     text-decoration: none;
     font-size: 14px;
@@ -28,23 +28,20 @@
     color: #e8d5b0;
 }
 
-/* Pushes cart link to the far right of the navbar */
+/* Cart link sits at the far right naturally via space-between */
 #navbar .cartLink {
-    margin-left: auto;
     margin-right: 0;
 }
 
 /* Pipe separator between nav links and welcome/cart section */
 .navSpacer {
     color: #3a0000;
-    margin-right: 40px;
     font-size: 14px;
 }
 
 /* Welcome label color and spacing */
 #navbar .ui-outputlabel {
     display: inline-block;
-    margin-right: 20px;
     color: #a09070;
     font-size: 13px;
 }
