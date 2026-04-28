@@ -9,10 +9,11 @@
     <ui:define name="body">
         <h:form id="invForm">
             <p:messages id="messages" showDetail="true" />
-            <p:commandButton value="Add Book" action="#{inventoryController.newBook()}" update="bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
             <p:dataTable var="book" value="#{inventoryForm.bookList}" id="tblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" rowKey="#{book.isbn}">
                 <f:facet name="header">
-                    <p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" placeholder="Search by title, author, or ISBN..." style="width: 400px" />
+                    <div class="flex align-items-center justify-content-center gap-3">
+                        <p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" placeholder="Search by title, author, or ISBN..." style="width: 400px" />
+						<p:commandButton value="Add Book" action="#{inventoryController.newBook()}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />                    </div>
                 </f:facet>
                 <p:column headerText="Cover" filterable="false" sortable="false">
                     <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" height="100" alt="#{book.title}"/>
@@ -32,10 +33,12 @@
                 <p:column headerText="Price" field="price" filterStyle="display:none">
                     <h:outputText value="#{book.price}" />
                 </p:column>
-                <p:column headerText="Inventory Actions">
-                    <p:commandButton value="Activate Book" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}"/>
-                    <p:commandButton value="Deactivate Book" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}"/>
-                    <p:commandButton value="Edit" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
+                <p:column headerText="Inventory Actions" style="text-align:center">
+                    <div class="flex flex-column align-items-center gap-2">
+                        <p:commandButton value="Activate Book" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}"/>
+                        <p:commandButton value="Deactivate Book" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}"/>
+                        <p:commandButton value="Edit" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
+                    </div>
                 </p:column>
             </p:dataTable>
             <p:dialog id="bookDialog" header="Book" widgetVar="bookDialog" modal="true">
@@ -53,15 +56,15 @@
                 </div>
                 <div class="flex align-items-center gap-3 mb-3">
                     <h:outputLabel value="Author" />
-                    <p:autoComplete id="bookAuthorInput" value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" />
+				<p:autoComplete id="bookAuthorInput" value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" scrollHeight="200" />
                 </div>
                 <p:commandButton value="Save" action="#{inventoryController.saveBook()}" process=":invForm:bookTitleInput :invForm:bookIsbnInput :invForm:bookPriceInput :invForm:bookAuthorInput @this" update=":invForm:messages :invForm:tblResults" oncomplete="PF('bookDialog').hide()" />
             </p:dialog>
-            <p:commandButton value="Add Author" action="#{inventoryController.newAuthor()}" update="authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
             <p:dataTable var="author" value="#{inventoryForm.authorList}" id="authorTblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="authorTblResultsVar">
                 <f:facet name="header">
-                    <p:inputText id="globalFilter" onkeyup="PF('authorTblResultsVar').filter()"
-                        placeholder="Search by name..." style="width: 300px" />
+                    <div class="flex align-items-center justify-content-center gap-3">
+                        <p:inputText id="globalFilter" onkeyup="PF('authorTblResultsVar').filter()" placeholder="Search by name..." style="width: 300px" />
+						<p:commandButton value="Add Author" action="#{inventoryController.newAuthor()}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />                    </div>
                 </f:facet>
                 <p:column headerText="Name" field="name" filterStyle="display:none">
                     <h:outputText value="#{author.name}"/>
@@ -69,10 +72,12 @@
                 <p:column headerText="Active?" field="active" filterStyle="display:none">
                     <h:outputText value="#{author.active}" />
                 </p:column>
-                <p:column headerText="Inventory Actions">
-                    <p:commandButton value="Activate Author" action="#{inventoryController.activateAuthor(author)}" process="@this" update=":invForm:authorTblResults" rendered="#{!author.active}"/>
-                    <p:commandButton value="Deactivate Author" action="#{inventoryController.deactivateAuthor(author)}" process="@this" update=":invForm:authorTblResults :invForm:tblResults" rendered="#{author.active}"/>
-                    <p:commandButton value="Edit" action="#{inventoryController.selectAuthor(author)}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
+                <p:column headerText="Inventory Actions" style="text-align:center">
+                    <div class="flex flex-column align-items-center gap-2">
+                        <p:commandButton value="Activate Author" action="#{inventoryController.activateAuthor(author)}" process="@this" update=":invForm:authorTblResults" rendered="#{!author.active}"/>
+                        <p:commandButton value="Deactivate Author" action="#{inventoryController.deactivateAuthor(author)}" process="@this" update=":invForm:authorTblResults :invForm:tblResults" rendered="#{author.active}"/>
+                        <p:commandButton value="Edit" action="#{inventoryController.selectAuthor(author)}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
+                    </div>
                 </p:column>
             </p:dataTable>
             <p:dialog id="authorDialog" header="Author" widgetVar="authorDialog" modal="true" appendTo="@none">

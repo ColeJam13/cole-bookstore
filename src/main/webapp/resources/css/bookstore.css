@@ -16,17 +16,6 @@ html, body {
     line-height: 0;
 }
 
-/* Centers the global search input in the header row of any dataTable */
-.ui-datatable-header {
-    text-align: center;
-}
-
-/* Forces the actual input element to center as a block within that header */
-.ui-datatable-header input {
-    display: block;
-    margin: 0 auto;
-}
-
 /* Footer text — muted antique gold, small and spaced */
 .bookstoreFooter {
     color: #5a4a30;
