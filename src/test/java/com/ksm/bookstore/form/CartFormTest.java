@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -90,12 +91,13 @@ public class CartFormTest {
     public void getTax_emptyCartReturnsZero() {
         // Arrange
         Mocking m = new Mocking();
+        m.form.setCartItems(Collections.emptyList());
 
         // Act
-        m.form.init();
+        double actual = m.form.getTax();
 
         // Assert
-        assertEquals(m.form.getTax(), 0.0, 0.001);
+        assertEquals(actual, 0.0, 0.001);
     }
 
     @Test(description = "getTax() should return exactly 6% of the subtotal")
