@@ -22,6 +22,9 @@ public class CartController {
     @Inject
     private CartForm cartForm;
 
+    @Inject
+    private FacesContext facesContext;
+
     /**
      * Method that adds the selected book to the cart when the user clicks "Add to Cart"
      * @param book
@@ -36,9 +39,7 @@ public class CartController {
      */
     public void removeFromCart(Book book) throws IOException {
         cartForm.getCartItems().remove(book);
-        FacesContext.getCurrentInstance()
-            .getExternalContext()
-            .redirect("cart.jsf");
+        facesContext.getExternalContext().redirect("cart.jsf");
     }
 
     /**
@@ -47,9 +48,7 @@ public class CartController {
      */
     public void clearCart() throws IOException {
         cartForm.getCartItems().clear();
-        FacesContext.getCurrentInstance()
-            .getExternalContext()
-            .redirect("cart.jsf");
+        facesContext.getExternalContext().redirect("cart.jsf");
     }
 
 }

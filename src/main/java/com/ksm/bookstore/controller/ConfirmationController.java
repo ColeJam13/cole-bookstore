@@ -29,6 +29,9 @@ public class ConfirmationController {
     @Inject
     private ConfirmationForm confirmationForm;
 
+    @Inject
+    private FacesContext facesContext;
+
     /**
      * Method that fills in the confirmation page with the completed
      * order determined via Order Number. Prevents edge case of admin login
@@ -36,8 +39,8 @@ public class ConfirmationController {
      */
     public void init() throws IOException {
         if (confirmationForm.getOrderNumber() == null) {
-            FacesContext.getCurrentInstance().getExternalContext()
-                .redirect(FacesContext.getCurrentInstance().getExternalContext()
+            facesContext.getExternalContext()
+                .redirect(facesContext.getExternalContext()
                 .getRequestContextPath() + "/pages/public/home.jsf");
             return;
         }

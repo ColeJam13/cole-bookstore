@@ -27,14 +27,16 @@ public class HomeController {
     @Inject
     private BookSearchForm bookSearchForm;
 
+    @Inject
+    private FacesContext facesContext;
+
     /**
      * Method that navigates to the book detail pages via ISBN when 
      * a user clicks that books row
      * @throws IOException
      */
     public void navigate() throws IOException {
-        FacesContext.getCurrentInstance()
-            .getExternalContext()
+        facesContext.getExternalContext()
             .redirect("book-detail.jsf?isbn=" + bookSearchForm.getSelectedBook().getIsbn());
     }
 
