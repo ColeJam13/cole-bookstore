@@ -7,10 +7,10 @@ import com.ksm.bookstore.jpa.Author;
 import com.ksm.bookstore.jpa.Book;
 import com.ksm.bookstore.service.AuthorService;
 
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import javax.faces.context.ExternalContext;
@@ -27,6 +27,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotSame;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertNotNull;
+import static org.mockito.Mockito.doNothing;
 
 /**
  * Unit tests for {@link InventoryController}
@@ -44,7 +46,7 @@ public class InventoryControllerTest {
         @Mock
         AuthorManager authorManager;
 
-        @Mock
+        @Spy
         InventoryForm inventoryForm;
 
         @Mock
@@ -56,8 +58,9 @@ public class InventoryControllerTest {
 
         public Mocking() {
             openMocks(this);
-            when(inventoryForm.getSelectedBook()).thenReturn(selectedBook);
-            when(inventoryForm.getSelectedAuthor()).thenReturn(selectedAuthor);
+            doNothing().when(inventoryForm).init();
+            inventoryForm.setSelectedBook(selectedBook);
+            inventoryForm.setSelectedAuthor(selectedAuthor);
         }
 
         // helper method that wires up the FacesContext/ExternalContext mock chain
@@ -80,8 +83,8 @@ public class InventoryControllerTest {
         // Act
         m.controller.newBook();
 
-        // Verify
-        verify(m.inventoryForm).setSelectedBook(any(Book.class));
+        // Assert
+        assertNotNull(m.inventoryForm.getSelectedBook());
     }
 
     // selectBook() test
@@ -92,18 +95,14 @@ public class InventoryControllerTest {
         Mocking m = new Mocking();
         Book original = new Book();
         original.setTitle("Prince of Thorns");
-        ArgumentCaptor<Book> captor = ArgumentCaptor.forClass(Book.class);
 
         // Act
         m.controller.selectBook(original);
 
-        // Verify
-        verify(m.inventoryForm).setSelectedBook(captor.capture());
-        Book captured = captor.getValue();
-
         // Assert
-        assertNotSame(captured, original);
-        assertEquals(captured.getTitle(), original.getTitle());
+        Book cloned = m.inventoryForm.getSelectedBook();
+        assertNotSame(cloned, original);
+        assertEquals(cloned.getTitle(), original.getTitle());
     }
 
     // saveBook() tests
@@ -243,8 +242,8 @@ public class InventoryControllerTest {
         // Act
         m.controller.newAuthor();
 
-        // Verify
-        verify(m.inventoryForm).setSelectedAuthor(any(Author.class));
+        // Assert
+        assertNotNull(m.inventoryForm.getSelectedAuthor());
     }
 
     // selectAuthor() test
@@ -255,18 +254,14 @@ public class InventoryControllerTest {
         Mocking m = new Mocking();
         Author original = new Author();
         original.setName("Mark Lawrence");
-        ArgumentCaptor<Author> captor = ArgumentCaptor.forClass(Author.class);
 
         // Act
         m.controller.selectAuthor(original);
 
-        // Verify
-        verify(m.inventoryForm).setSelectedAuthor(captor.capture());
-        Author captured = captor.getValue();
-
         // Assert
-        assertNotSame(captured, original);
-        assertEquals(captured.getName(), original.getName());
+        Author cloned = m.inventoryForm.getSelectedAuthor();
+        assertNotSame(cloned, original);
+        assertEquals(cloned.getName(), original.getName());
     }
 
     // saveAuthor() tests

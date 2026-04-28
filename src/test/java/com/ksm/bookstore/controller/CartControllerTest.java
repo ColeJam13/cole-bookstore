@@ -4,15 +4,14 @@ import com.ksm.bookstore.form.CartForm;
 import com.ksm.bookstore.jpa.Book;
 
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -33,16 +32,17 @@ public class CartControllerTest {
         @InjectMocks
         CartController controller;
 
-        @Mock
+        @Spy
         CartForm cartForm;
-
-        final List<Book> cartItems = new ArrayList<>();
 
         final Book book = new Book();
 
+        final List<Book> cartItems;
+
         public Mocking() {
             openMocks(this);
-            when(cartForm.getCartItems()).thenReturn(cartItems);
+            cartForm.init();
+            cartItems = cartForm.getCartItems();
         }
 
         // Method that wires up the FacesContext/ExternalContext mock chain that every mockStatic test needs

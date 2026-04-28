@@ -3,8 +3,8 @@ package com.ksm.bookstore.controller;
 import com.ksm.bookstore.form.LoginForm;
 
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
+import org.mockito.Spy;
 import org.primefaces.PrimeFaces;
 import org.testng.annotations.Test;
 
@@ -22,6 +22,8 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertNull;
 
 /**
  * Unit tests for {@link LoginController}
@@ -33,7 +35,7 @@ public class LoginControllerTest {
         @InjectMocks
         LoginController controller;
 
-        @Mock
+        @Spy
         LoginForm loginForm;
 
         final HttpServletRequest requestMock = mock(HttpServletRequest.class);
@@ -46,8 +48,8 @@ public class LoginControllerTest {
 
         public Mocking() {
             openMocks(this);
-            when(loginForm.getUsername()).thenReturn(username);
-            when(loginForm.getPassword()).thenReturn(password);
+            loginForm.setUsername(username);
+            loginForm.setPassword(password);
         }
 
         // Wires the full FacesContext chain that login() depends on
@@ -122,8 +124,8 @@ public class LoginControllerTest {
             // Act
             m.controller.login();
 
-            // Verify
-            verify(m.loginForm).setLoginFailed(true);
+            // Assert
+            assertTrue(m.loginForm.isLoginFailed());
         }
     }
 
@@ -141,8 +143,8 @@ public class LoginControllerTest {
             // Act
             m.controller.login();
 
-            // Verify 
-            verify(m.loginForm).setPassword(null);
+            // Assert 
+            assertNull(m.loginForm.getPassword());
         }
     }
 

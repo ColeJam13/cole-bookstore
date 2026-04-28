@@ -7,6 +7,7 @@ import com.ksm.bookstore.model.OrderStatus;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class OrderControllerTest {
         @Mock
         OrderManager orderManager;
 
-        @Mock
+        @Spy
         OrderForm orderForm;
 
         final Order order = new Order();
@@ -76,7 +77,7 @@ public class OrderControllerTest {
         // Act
         m.controller.updateOrderStatus(m.order, OrderStatus.SUBMITTED);
 
-        // Verify
-        verify(m.orderForm).setOrderList(m.refreshedOrders);
+        // Assert
+        assertEquals(m.orderForm.getOrderList(), m.refreshedOrders);
     }
 }

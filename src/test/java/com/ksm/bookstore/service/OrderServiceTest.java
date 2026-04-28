@@ -14,6 +14,7 @@ import com.ksm.bookstore.model.OrderStatus;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
@@ -47,7 +48,7 @@ public class OrderServiceTest {
         @Mock
         OrderItemManager orderItemManager;
 
-        @Mock
+        @Spy
         CheckoutForm checkoutForm;
 
         final Customer customer = new Customer();
@@ -62,8 +63,8 @@ public class OrderServiceTest {
 
         public Mocking() {
             openMocks(this);
-            when(checkoutForm.isSameAsShipping()).thenReturn(false);
-            when(checkoutForm.getCustomer()).thenReturn(customer);
+            checkoutForm.setSameAsShipping(false);
+            checkoutForm.setCustomer(customer);
             when(customerManager.update(customer)).thenReturn(customer);
             when(orderManager.update(any(Order.class))).thenReturn(savedOrder);
             when(savedOrder.getOrderNumber()).thenReturn(100L);
@@ -181,8 +182,8 @@ public class OrderServiceTest {
         Mocking m = new Mocking();
         Address shippingAddress = new Address();
         m.customer.setShippingAddress(shippingAddress);
-        when(m.checkoutForm.isSameAsShipping()).thenReturn(true);
-
+        m.checkoutForm.setSameAsShipping(true);
+        
         // Act
         m.orderService.submitOrder(m.cartItems);
 

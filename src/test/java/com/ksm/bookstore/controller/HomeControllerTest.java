@@ -4,8 +4,8 @@ import com.ksm.bookstore.form.BookSearchForm;
 import com.ksm.bookstore.jpa.Book;
 
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import javax.faces.context.ExternalContext;
@@ -29,7 +29,7 @@ public class HomeControllerTest {
         @InjectMocks
         HomeController controller;
 
-        @Mock
+        @Spy
         BookSearchForm bookSearchForm;
 
         final Book selectedBook = new Book();
@@ -39,7 +39,7 @@ public class HomeControllerTest {
         public Mocking() {
             openMocks(this);
             selectedBook.setIsbn(isbn);
-            when(bookSearchForm.getSelectedBook()).thenReturn(selectedBook);
+            bookSearchForm.setSelectedBook(selectedBook);
         }
 
         // helper method that wires up the FacesContext/ExternalContext mock chain

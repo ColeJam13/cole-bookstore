@@ -7,6 +7,7 @@ import com.ksm.bookstore.provider.DescriptionCache;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -14,6 +15,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Unit tests for {@link BookDetailController}
@@ -28,7 +30,7 @@ public class BookDetailControllerTest {
         @Mock
         BookManager bookManager;
 
-        @Mock
+        @Spy
         BookDetailForm bookDetailForm;
 
         @Mock
@@ -42,7 +44,7 @@ public class BookDetailControllerTest {
 
         public Mocking() {
             openMocks(this);
-            when(bookDetailForm.getIsbn()).thenReturn(isbn);
+            bookDetailForm.setIsbn(isbn);
             when(bookManager.findByIsbn(isbn)).thenReturn(book);
             when(descriptionCache.getDescription(isbn)).thenReturn(cachedDescription);
         }
@@ -54,7 +56,7 @@ public class BookDetailControllerTest {
     public void init_returnsEarlyWhenIsbnIsNull() {
         // Arrange
         Mocking m = new Mocking();
-        when(m.bookDetailForm.getIsbn()).thenReturn(null);
+        m.bookDetailForm.setIsbn(null);
 
         // Act
         m.controller.init();
@@ -73,7 +75,9 @@ public class BookDetailControllerTest {
 
         // Verify
         verify(m.bookManager).findByIsbn(m.isbn);
-        verify(m.bookDetailForm).setBook(m.book);
+
+        // Assert
+        assertEquals(m.bookDetailForm.getBook(), m.book);
     }
 
     @Test(description = "init() should write the cached description to the form when the cache has one")
@@ -86,6 +90,8 @@ public class BookDetailControllerTest {
 
         // Verify
         verify(m.descriptionCache).getDescription(m.isbn);
-        verify(m.bookDetailForm).setDescription(m.cachedDescription);
+
+        // Assert
+        assertEquals(m.bookDetailForm.getDescription(), m.cachedDescription);
     }
 }

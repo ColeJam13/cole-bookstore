@@ -9,6 +9,7 @@ import com.ksm.bookstore.jpa.OrderItem;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import javax.faces.context.ExternalContext;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Unit tests for {@link ConfirmationController}
@@ -39,7 +41,7 @@ public class ConfirmationControllerTest {
         @Mock
         OrderItemManager orderItemManager;
 
-        @Mock
+        @Spy
         ConfirmationForm confirmationForm;
 
         final Order order = new Order();
@@ -50,9 +52,9 @@ public class ConfirmationControllerTest {
 
         public Mocking() {
             openMocks(this);
-            when(confirmationForm.getOrderNumber()).thenReturn(orderNumber);
+            confirmationForm.setOrderNumber(orderNumber);
             when(orderManager.findById(orderNumber)).thenReturn(order);
-            when(confirmationForm.getOrder()).thenReturn(order);
+            confirmationForm.setOrder(order);
             when(orderItemManager.findByOrder(order)).thenReturn(orderItems);
         }
 
@@ -72,7 +74,7 @@ public class ConfirmationControllerTest {
     public void init_redirectsToHomeWhenOrderNumberIsNull() throws IOException {
         // Arrange
         Mocking m = new Mocking();
-        when(m.confirmationForm.getOrderNumber()).thenReturn(null);
+        m.confirmationForm.setOrderNumber(null);
 
         try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
             ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
@@ -98,7 +100,9 @@ public class ConfirmationControllerTest {
 
         // Verify
         verify(m.orderManager).findById(m.orderNumber);
-        verify(m.confirmationForm).setOrder(m.order);
+        
+        // Assert
+        assertEquals(m.confirmationForm.getOrder(), m.order);
     }
 
     @Test(description = "init() should load the order items for the retrieved order")
@@ -111,6 +115,8 @@ public class ConfirmationControllerTest {
 
         // Verify
         verify(m.orderItemManager).findByOrder(m.order);
-        verify(m.confirmationForm).setOrderItems(m.orderItems);
+        
+        // Assert
+        assertEquals(m.confirmationForm.getOrderItems(), m.orderItems);
     }
 }

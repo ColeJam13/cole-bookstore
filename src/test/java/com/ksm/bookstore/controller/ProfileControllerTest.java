@@ -6,10 +6,10 @@ import com.ksm.bookstore.jpa.Customer;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
@@ -25,14 +25,14 @@ public class ProfileControllerTest {
         @Mock
         CustomerManager customerManager;
 
-        @Mock
+        @Spy
         ProfileForm profileForm;
 
         final Customer customer = new Customer();
 
         public Mocking() {
             openMocks(this);
-            when(profileForm.getCustomer()).thenReturn(customer);
+            profileForm.setCustomer(customer);
         }
     }
 
