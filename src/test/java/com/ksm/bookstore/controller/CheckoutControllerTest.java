@@ -107,7 +107,7 @@ public class CheckoutControllerTest {
             m.controller.submitOrder();
 
             // Verify
-            verify(externalContextMock).redirect("confirmation.jsf?orderNumber=" + m.orderNumber);
+            verify(externalContextMock).redirect("confirmation.jsf?orderNumber=42");
         }
     }
 }

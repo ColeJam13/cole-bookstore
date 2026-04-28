@@ -66,7 +66,7 @@ public class HomeControllerTest {
             m.controller.navigate();
 
             // Verify
-            verify(externalContextMock).redirect("book-detail.jsf?isbn=" + m.isbn);
+            verify(externalContextMock).redirect("book-detail.jsf?isbn=9780132350884");
         }
     }
 }
