@@ -2,12 +2,14 @@ package com.ksm.bookstore.form;
 
 import com.ksm.bookstore.jpa.Book;
 
+import org.mockito.InjectMocks;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
  * Unit tests for {@link CartForm}
@@ -15,11 +17,11 @@ import static org.testng.Assert.assertTrue;
 public class CartFormTest {
     private static final class Mocking {
 
+        @InjectMocks
         CartForm form;
 
         public Mocking() {
-            form = new CartForm();
-            form.init();
+            openMocks(this);
         }
 
         // Helper method that creates a Book with only a price set
@@ -37,6 +39,9 @@ public class CartFormTest {
         // Arrange
         Mocking m = new Mocking();
 
+        // Act
+        m.form.init();
+
         // Assert
         assertTrue(m.form.getCartItems().isEmpty());
     }
@@ -48,6 +53,9 @@ public class CartFormTest {
         // Arrange
         Mocking m = new Mocking();
 
+        // Act
+        m.form.init();
+
         // Assert
         assertEquals(m.form.getSubTotal(), 0.0, 0.001);
     }
@@ -56,11 +64,12 @@ public class CartFormTest {
     public void getSubTotal_returnsCorrectSumForMultipleBooks() {
         // Arrange
         Mocking m = new Mocking();
+        m.form.init();
         m.form.getCartItems().add(m.createBookWithPrice("10.00"));
         m.form.getCartItems().add(m.createBookWithPrice("15.50"));
         m.form.getCartItems().add(m.createBookWithPrice("9.99"));
 
-        // Act & Assert
+        // Assert
         assertEquals(m.form.getSubTotal(), 35.49, 0.001);
     }
 
@@ -68,6 +77,7 @@ public class CartFormTest {
     public void getSubTotal_singleBookReturnsItsPrice() {
         // Arrange
         Mocking m = new Mocking();
+        m.form.init();
         m.form.getCartItems().add(m.createBookWithPrice("24.99"));
 
         // Assert
@@ -81,6 +91,9 @@ public class CartFormTest {
         // Arrange
         Mocking m = new Mocking();
 
+        // Act
+        m.form.init();
+
         // Assert
         assertEquals(m.form.getTax(), 0.0, 0.001);
     }
@@ -89,9 +102,10 @@ public class CartFormTest {
     public void getTax_returnsCorrectTaxAmount() {
         // Arrange
         Mocking m = new Mocking();
+        m.form.init();
         m.form.getCartItems().add(m.createBookWithPrice("100.00"));
 
-        // Act & Assert
+        // Assert
         assertEquals(m.form.getTax(), 6.0,0.001);
     }
 
@@ -102,6 +116,9 @@ public class CartFormTest {
         // Arrange
         Mocking m = new Mocking();
 
+        // Act
+        m.form.init();
+        
         // Assert
         assertEquals(m.form.getTotal(), 0.0, 0.001);
     }
@@ -110,9 +127,10 @@ public class CartFormTest {
     public void getTotal_equalsSubtotalPlusTax() {
         // Arrange
         Mocking m = new Mocking();
+        m.form.init();
         m.form.getCartItems().add(m.createBookWithPrice("100.00"));
 
-        // Act & Assert
+        // Assert
         assertEquals(m.form.getTotal(), 106.0, 0.001);
     }
 
@@ -121,6 +139,7 @@ public class CartFormTest {
     public void getTotal_consistentWithSubtotalAndTax() {
         // Arrange
         Mocking m = new Mocking();
+        m.form.init();
         m.form.getCartItems().add(m.createBookWithPrice("20.00"));
         m.form.getCartItems().add(m.createBookWithPrice("30.00"));
 
