@@ -50,9 +50,9 @@ public class InventoryControllerTest {
         @Mock
         AuthorService authorService;
 
-        Book selectedBook = new Book();
+        final Book selectedBook = new Book();
 
-        Author selectedAuthor = new Author();
+        final Author selectedAuthor = new Author();
 
         public Mocking() {
             openMocks(this);

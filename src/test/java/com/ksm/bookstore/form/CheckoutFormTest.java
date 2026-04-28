@@ -31,7 +31,7 @@ public class CheckoutFormTest {
         @Mock
         CustomerManager customerManager;
 
-        Customer existingCustomer = new Customer();
+        final Customer existingCustomer = new Customer();
 
         public Mocking() {
             openMocks(this);

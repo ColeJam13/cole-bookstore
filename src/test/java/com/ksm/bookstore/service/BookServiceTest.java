@@ -35,9 +35,11 @@ public class BookServiceTest {
         @Mock
         BookManager bookManager;
 
-        String authorName = "Mark Lawrence";
-        Author author = createAuthor(authorName);
-        List<Book> books = List.of(new Book(), new Book());
+        final String authorName = "Mark Lawrence";
+
+        final Author author = createAuthor(authorName);
+
+        final List<Book> books = List.of(new Book(), new Book());
 
         public Mocking() {
             openMocks(this);

@@ -28,7 +28,7 @@ public class ProfileControllerTest {
         @Mock
         ProfileForm profileForm;
 
-        Customer customer = new Customer();
+        final Customer customer = new Customer();
 
         public Mocking() {
             openMocks(this);

@@ -34,11 +34,11 @@ public class BookDetailControllerTest {
         @Mock
         DescriptionCache descriptionCache;
 
-        Book book = new Book();
+        final Book book = new Book();
 
-        String isbn = "9780132350884";
+        final String isbn = "9780132350884";
 
-        String cachedDescription = "A tale of a prince turned beggar turned legend.";
+        final String cachedDescription = "A tale of a prince turned beggar turned legend.";
 
         public Mocking() {
             openMocks(this);

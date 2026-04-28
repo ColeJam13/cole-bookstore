@@ -39,7 +39,7 @@ public class BaseManagerTest {
         @Mock
         TypedQuery<Long> countQuery;
 
-        Author author = new Author();
+        final Author author = new Author();
 
         public Mocking() {
             openMocks(this);

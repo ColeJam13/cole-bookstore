@@ -34,11 +34,13 @@ public class InventoryFormTest {
         @Mock
         AuthorManager authorManager;
 
-        List<Book> books = List.of(createBook("Book One"), createBook("Book Two"));
+        final List<Book> books = List.of(createBook("Book One"), createBook("Book Two"));
 
-        Author activeAuthorA = createAuthor("Mark Lawrence", true);
-        Author activeAuthorB = createAuthor("Eoin Colfer", true);
-        Author inactiveAuthor = createAuthor("Suzanne Collins", false);
+        final Author activeAuthorA = createAuthor("Mark Lawrence", true);
+
+        final Author activeAuthorB = createAuthor("Eoin Colfer", true);
+
+        final Author inactiveAuthor = createAuthor("Suzanne Collins", false);
 
         List<Author> allAuthors = List.of(activeAuthorA, activeAuthorB, inactiveAuthor);
 

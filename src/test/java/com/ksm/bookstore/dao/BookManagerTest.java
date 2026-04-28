@@ -39,8 +39,9 @@ public class BookManagerTest {
         @Mock
         TypedQuery<Book> bookQuery;
 
-        Author author = new Author();
-        Book book = createBook("Prince of Thorns", "9780756404079");
+        final Author author = new Author();
+
+        final Book book = createBook("Prince of Thorns", "9780756404079");
 
         public Mocking() {
             openMocks(this);

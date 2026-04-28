@@ -31,7 +31,7 @@ public class BookSearchFormTest {
         @Mock
         BookManager bookManager;
 
-        List<Book> activeBooks = List.of(createBook("Book 1"), createBook("Book 2"));
+        final List<Book> activeBooks = List.of(createBook("Book 1"), createBook("Book 2"));
 
         public Mocking() {
             openMocks(this);

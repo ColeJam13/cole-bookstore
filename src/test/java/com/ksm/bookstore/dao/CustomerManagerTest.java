@@ -34,7 +34,7 @@ public class CustomerManagerTest {
         @Mock
         TypedQuery<Customer> customerQuery;
 
-        Customer customer = createCustomer("jane@example.com");
+        final Customer customer = createCustomer("jane@example.com");
 
         public Mocking() {
             openMocks(this);

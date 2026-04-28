@@ -30,7 +30,7 @@ public class OrderFormTest {
         @Mock
         OrderManager orderManager;
 
-        List<Order> orders = List.of(new Order(), new Order());
+        final List<Order> orders = List.of(new Order(), new Order());
 
         public Mocking() {
             openMocks(this);

@@ -36,9 +36,9 @@ public class CartControllerTest {
         @Mock
         CartForm cartForm;
 
-        List<Book> cartItems = new ArrayList<>();
+        final List<Book> cartItems = new ArrayList<>();
 
-        Book book = new Book();
+        final Book book = new Book();
 
         public Mocking() {
             openMocks(this);

@@ -38,7 +38,7 @@ public class AuthorManagerTest {
         @Mock
         TypedQuery<Author> authorQuery;
 
-        Author author = createAuthor("Mark Lawrence");
+        final Author author = createAuthor("Mark Lawrence");
 
         public Mocking() {
             openMocks(this);

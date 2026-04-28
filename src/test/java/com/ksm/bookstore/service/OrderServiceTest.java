@@ -50,14 +50,15 @@ public class OrderServiceTest {
         @Mock
         CheckoutForm checkoutForm;
 
-        Customer customer = new Customer();
+        final Customer customer = new Customer();
 
-        Order savedOrder = mock(Order.class);
+        final Order savedOrder = mock(Order.class);
 
-        Book bookOne = createBook(new BigDecimal("10.00"));
-        Book bookTwo = createBook(new BigDecimal("15.00"));
+        final Book bookOne = createBook(new BigDecimal("10.00"));
 
-        List<Book> cartItems = List.of(bookOne, bookTwo);
+        final Book bookTwo = createBook(new BigDecimal("15.00"));
+
+        final List<Book> cartItems = List.of(bookOne, bookTwo);
 
         public Mocking() {
             openMocks(this);

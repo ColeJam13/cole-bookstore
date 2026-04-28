@@ -12,7 +12,7 @@ public class DescriptionCacheTest {
 
     private static final class Mocking {
 
-        DescriptionCache cache;
+        final DescriptionCache cache;
 
         public Mocking() {
             cache = new DescriptionCache();

@@ -32,9 +32,9 @@ public class HomeControllerTest {
         @Mock
         BookSearchForm bookSearchForm;
 
-        Book selectedBook = new Book();
+        final Book selectedBook = new Book();
 
-        String isbn = "9780132350884";
+        final String isbn = "9780132350884";
 
         public Mocking() {
             openMocks(this);

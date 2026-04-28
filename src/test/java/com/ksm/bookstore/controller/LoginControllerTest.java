@@ -36,12 +36,13 @@ public class LoginControllerTest {
         @Mock
         LoginForm loginForm;
 
-        HttpServletRequest requestMock = mock(HttpServletRequest.class);
+        final HttpServletRequest requestMock = mock(HttpServletRequest.class);
 
-        UIViewRoot viewRootMock = mock(UIViewRoot.class);
+        final UIViewRoot viewRootMock = mock(UIViewRoot.class);
 
-        String username = "test@example.com";
-        String password = "password123";
+        final String username = "test@example.com";
+
+        final String password = "password123";
 
         public Mocking() {
             openMocks(this);

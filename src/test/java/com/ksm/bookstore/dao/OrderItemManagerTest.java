@@ -37,8 +37,9 @@ public class OrderItemManagerTest {
         @Mock
         TypedQuery<OrderItem> orderItemQuery;
 
-        Order order = new Order();
-        OrderItem orderItem = new OrderItem();
+        final Order order = new Order();
+
+        final OrderItem orderItem = new OrderItem();
 
         public Mocking() {
             openMocks(this);

@@ -33,10 +33,13 @@ public class AuthorServiceTest {
         @Mock
         BookManager bookManager;
 
-        Author author = createAuthor("Mark Lawrence", true);
-        Book bookOne = createBook("Book One", true);
-        Book bookTwo = createBook("Book Two", true);
-        List<Book> authorBooks = List.of(bookOne, bookTwo);
+        final Author author = createAuthor("Mark Lawrence", true);
+
+        final Book bookOne = createBook("Book One", true);
+
+        final Book bookTwo = createBook("Book Two", true);
+
+        final List<Book> authorBooks = List.of(bookOne, bookTwo);
 
         public Mocking() {
             openMocks(this);

@@ -39,9 +39,11 @@ public class ProfileFormTest {
         @Mock
         OrderManager orderManager;
 
-        String email = "testuser@example.com";
-        Customer existingCustomer = new Customer();
-        List<Order> orderHistory = List.of(new Order(), new Order());
+        final String email = "testuser@example.com";
+
+        final Customer existingCustomer = new Customer();
+
+        final List<Order> orderHistory = List.of(new Order(), new Order());
 
         public Mocking() {
             openMocks(this);

@@ -38,8 +38,9 @@ public class OrderManagerTest {
         @Mock
         TypedQuery<Order> orderQuery;
 
-        Customer customer = new Customer();
-        Order order = new Order();
+        final Customer customer = new Customer();
+
+        final Order order = new Order();
 
         public Mocking() {
             openMocks(this);

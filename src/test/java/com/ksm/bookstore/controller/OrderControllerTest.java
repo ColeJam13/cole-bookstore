@@ -32,9 +32,9 @@ public class OrderControllerTest {
         @Mock
         OrderForm orderForm;
 
-        Order order = new Order();
+        final Order order = new Order();
 
-        List<Order> refreshedOrders = List.of(new Order(), new Order());
+        final List<Order> refreshedOrders = List.of(new Order(), new Order());
 
         public Mocking() {
             openMocks(this);

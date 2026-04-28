@@ -27,9 +27,9 @@ public class AuthorConverterTest {
         @InjectMocks
         AuthorConverter converter;
 
-        Author authorMock = mock(Author.class);
+        final Author authorMock = mock(Author.class);
 
-        AuthorManager authorManagerMock = mock(AuthorManager.class);
+        final AuthorManager authorManagerMock = mock(AuthorManager.class);
 
         public Mocking() {
             openMocks(this);

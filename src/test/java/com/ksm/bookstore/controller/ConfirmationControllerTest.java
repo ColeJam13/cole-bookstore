@@ -42,10 +42,11 @@ public class ConfirmationControllerTest {
         @Mock
         ConfirmationForm confirmationForm;
 
-        Order order = new Order();
-        List<OrderItem> orderItems = List.of(new OrderItem(), new OrderItem());
+        final Order order = new Order();
 
-        Long orderNumber = 123L;
+        final List<OrderItem> orderItems = List.of(new OrderItem(), new OrderItem());
+
+        final Long orderNumber = 123L;
 
         public Mocking() {
             openMocks(this);

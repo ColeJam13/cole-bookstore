@@ -40,9 +40,9 @@ public class CheckoutControllerTest {
         @Mock
         CartForm cartForm;
 
-        List<Book> cartItems = new ArrayList<>();
+        final List<Book> cartItems = new ArrayList<>();
 
-        Long orderNumber = 42L;
+        final Long orderNumber = 42L;
 
         public Mocking() {
             openMocks(this);
