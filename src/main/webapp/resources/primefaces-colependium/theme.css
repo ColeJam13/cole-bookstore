@@ -422,3 +422,8 @@
 .ui-dialog .ui-dialog-titlebar-close:hover::before {
     color: #e8d5b0;
 }
+
+/* Hide the empty header bar on the order history table */
+#orderHistoryForm .ui-datatable .ui-datatable-header {
+    display: none;
+}

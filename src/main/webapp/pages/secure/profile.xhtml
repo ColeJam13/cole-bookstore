@@ -4,110 +4,131 @@
     template="/pages/layouts/customer-template.xhtml">
 
     <ui:define name="body">
-        <h:form>
-            <div id="profileDetail" class="p-4">
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="Username/Email" styleClass="fieldLabel" />
-                    <h:outputText value="#{profileForm.customer.email}" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="First Name: " />
-                    <p:inputText id="firstName" value="#{profileForm.customer.firstName}" required="true" />
-                    <p:message for="firstName" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="Last Name:" />
-                    <p:inputText id="lastName" value="#{profileForm.customer.lastName}" required="true" />
-                    <p:message for="lastName" />
-                </div>
-                <h3>Shipping Address</h3>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="Street Address: " />
-                    <p:inputText id="streetAddress" value="#{profileForm.customer.shippingAddress.street}" required="true" />
-                    <p:message for="streetAddress" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="City: " />
-                    <p:inputText id="city" value="#{profileForm.customer.shippingAddress.city}" required="true" />
-                    <p:message for="city" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="State: " />
-                    <p:inputText id="state" value="#{profileForm.customer.shippingAddress.state}" required="true" />
-                    <p:message for="state" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="Zip: " />
-                    <p:inputText id="zip" value="#{profileForm.customer.shippingAddress.zip}" required="true" />
-                    <p:message for="zip" />
-                </div>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <h:outputLabel value="Billing Address same as shipping?" />
-                    <p:selectBooleanCheckbox value="#{profileForm.sameAsShipping}">
-                        <p:ajax update="billingPanel" />
-                    </p:selectBooleanCheckbox>
-                </div>
-                <h:panelGroup id="billingPanel" layout="block">
-                    <p:outputPanel rendered="#{!profileForm.sameAsShipping}">
-                        <h3>Billing Address</h3>
+        <div style="padding:20px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:30px; padding-bottom:30px;">
+                <div>
+                    <h3>Account</h3>
+                    <h:form>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Billing Address: " />
-                            <p:inputText id="billingStreetAddress" value="#{profileForm.customer.billingAddress.street}" required="true" />
-                            <p:message for="billingStreetAddress" />
+                            <h:outputLabel value="Username/Email" styleClass="fieldLabel" />
+                            <h:outputText value="#{profileForm.customer.email}" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Billing City: " />
-                            <p:inputText id="billingCity" value="#{profileForm.customer.billingAddress.city}" required="true" />
-                            <p:message for="billingCity" />
+                            <h:outputLabel value="First Name:" />
+                            <p:inputText id="firstName" value="#{profileForm.customer.firstName}" required="true" />
+                            <p:message for="firstName" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Billing State: " />
-                            <p:inputText id="billingState" value="#{profileForm.customer.billingAddress.state}" required="true" />
-                            <p:message for="billingState" />
+                            <h:outputLabel value="Last Name:" />
+                            <p:inputText id="lastName" value="#{profileForm.customer.lastName}" required="true" />
+                            <p:message for="lastName" />
+                        </div>
+                        <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
+                    </h:form>
+                </div>
+                <div style="border-left:1px solid #3a0000; padding-left:30px;">
+                    <h:form>
+                        <h3>Shipping Address</h3>
+                        <div class="flex align-items-center gap-3 mb-3">
+                            <h:outputLabel value="Street:" />
+                            <p:inputText id="streetAddress" value="#{profileForm.customer.shippingAddress.street}" required="true" />
+                            <p:message for="streetAddress" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Billing Zip: " />
-                            <p:inputText id="billingZip" value="#{profileForm.customer.billingAddress.zip}" required="true" />
-                            <p:message for="billingZip" />
+                            <h:outputLabel value="City:" />
+                            <p:inputText id="city" value="#{profileForm.customer.shippingAddress.city}" required="true" />
+                            <p:message for="city" />
                         </div>
-                    </p:outputPanel>
-                </h:panelGroup>
-                <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" />
+                        <div class="flex align-items-center gap-3 mb-3">
+                            <h:outputLabel value="State:" />
+                            <p:inputText id="state" value="#{profileForm.customer.shippingAddress.state}" required="true" />
+                            <p:message for="state" />
+                        </div>
+                        <div class="flex align-items-center gap-3 mb-3">
+                            <h:outputLabel value="Zip:" />
+                            <p:inputText id="zip" value="#{profileForm.customer.shippingAddress.zip}" required="true" />
+                            <p:message for="zip" />
+                        </div>
+                        <div class="flex align-items-center gap-3 mb-3">
+                            <h:outputLabel value="Billing same as shipping?" />
+                            <p:selectBooleanCheckbox value="#{profileForm.sameAsShipping}">
+                                <p:ajax update="billingPanel" />
+                            </p:selectBooleanCheckbox>
+                        </div>
+                        <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
+                    </h:form>
+                </div>
+                <div style="border-left:1px solid #3a0000; padding-left:30px;">
+                    <h:panelGroup id="billingPanel" layout="block">
+                        <p:outputPanel rendered="#{!profileForm.sameAsShipping}">
+                            <h:form>
+                                <h3>Billing Address</h3>
+                                <div class="flex align-items-center gap-3 mb-3">
+                                    <h:outputLabel value="Street:" />
+                                    <p:inputText id="billingStreetAddress" value="#{profileForm.customer.billingAddress.street}" required="true" />
+                                    <p:message for="billingStreetAddress" />
+                                </div>
+                                <div class="flex align-items-center gap-3 mb-3">
+                                    <h:outputLabel value="Billing City:" />
+                                    <p:inputText id="billingCity" value="#{profileForm.customer.billingAddress.city}" required="true" />
+                                    <p:message for="billingCity" />
+                                </div>
+                                <div class="flex align-items-center gap-3 mb-3">
+                                    <h:outputLabel value="Billing State:" />
+                                    <p:inputText id="billingState" value="#{profileForm.customer.billingAddress.state}" required="true" />
+                                    <p:message for="billingState" />
+                                </div>
+                                <div class="flex align-items-center gap-3 mb-3">
+                                    <h:outputLabel value="Billing Zip:" />
+                                    <p:inputText id="billingZip" value="#{profileForm.customer.billingAddress.zip}" required="true" />
+                                    <p:message for="billingZip" />
+                                </div>
+                                <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
+                            </h:form>
+                        </p:outputPanel>
+                        <p:outputPanel rendered="#{profileForm.sameAsShipping}">
+                            <h3 style="color:#5a4a30;">Billing Address</h3>
+                            <p style="color:#5a4a30; font-style:italic;">Same as shipping address.</p>
+                        </p:outputPanel>
+                    </h:panelGroup>
+                </div>
             </div>
-            </h:form>
-            <h:form id="orderHistoryForm">
-                <p:dataTable var="order" value="#{profileForm.orderHistory}" rowKey="#{order.orderNumber}">
-                    <p:column style="width:30px">
-                        <p:rowToggler />
-                    </p:column>
-                    <p:column headerText="Order Number" field="orderNumber" filterable="true" sortable="true">
-                        <h:outputText value="#{order.orderNumber}" />
-                    </p:column>
-                    <p:column headerText="Order Status" field="orderStatus" filterable="true" sortable="true">
-                        <h:outputText value="#{order.orderStatus}" />
-                    </p:column>
-                    <p:column headerText="Order Total" field="orderTotal" filterable="true" sortable="true">
-                        <h:outputText value="#{order.orderTotal}">
-                            <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
-                        </h:outputText>
-                    </p:column>
-                <p:rowExpansion>
-                    <p:dataTable var="item" value="#{order.orderItems}">
-                        <p:column headerText="Cover" style="width:60px">
-                            <img src="https://covers.openlibrary.org/b/isbn/#{item.book.isbn}-M.jpg"
-                                 alt="#{item.book.title}" style="height:60px;" />
+            <div style="margin-top:20px;">                
+                <h3 style="border-bottom:1px solid #3a0000; padding-bottom:8px; margin-bottom:0;">Order History</h3>
+                <h:form id="orderHistoryForm">
+                    <p:dataTable id="orderHistoryTable" var="order" value="#{profileForm.orderHistory}" rowKey="#{order.orderNumber}">
+                        <p:column style="width:30px">
+                            <p:rowToggler />
                         </p:column>
-                        <p:column headerText="Title">
-                            <h:outputText value="#{item.book.title}" />
+                        <p:column headerText="Order Number" field="orderNumber" filterable="true" sortable="true">
+                            <h:outputText value="#{order.orderNumber}" />
                         </p:column>
-                        <p:column headerText="Price">
-                            <h:outputText value="#{item.price}">
+                        <p:column headerText="Order Status" field="orderStatus" filterable="true" sortable="true">
+                            <h:outputText value="#{order.orderStatus}" />
+                        </p:column>
+                        <p:column headerText="Order Total" field="orderTotal" filterable="true" sortable="true">
+                            <h:outputText value="#{order.orderTotal}">
                                 <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                             </h:outputText>
                         </p:column>
+                        <p:rowExpansion>
+                            <p:dataTable var="item" value="#{order.orderItems}">
+                                <p:column headerText="Cover" style="width:60px">
+                                    <img src="https://covers.openlibrary.org/b/isbn/#{item.book.isbn}-M.jpg" alt="#{item.book.title}" style="height:60px;" />
+                                </p:column>
+                                <p:column headerText="Title">
+                                    <h:outputText value="#{item.book.title}" />
+                                </p:column>
+                                <p:column headerText="Price">
+                                    <h:outputText value="#{item.price}">
+                                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:rowExpansion>
                     </p:dataTable>
-                </p:rowExpansion>
-            </p:dataTable>
-        </h:form>
+                </h:form>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>
