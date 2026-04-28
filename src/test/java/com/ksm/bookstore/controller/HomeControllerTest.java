@@ -4,7 +4,7 @@ import com.ksm.bookstore.form.BookSearchForm;
 import com.ksm.bookstore.jpa.Book;
 
 import org.mockito.InjectMocks;
-import org.mockito.MockedStatic;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.testng.annotations.Test;
 
@@ -13,8 +13,6 @@ import javax.faces.context.FacesContext;
 
 import java.io.IOException;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -29,6 +27,12 @@ public class HomeControllerTest {
         @InjectMocks
         HomeController controller;
 
+        @Mock
+        FacesContext facesContext;
+
+        @Mock
+        ExternalContext externalContext;
+
         @Spy
         BookSearchForm bookSearchForm;
 
@@ -38,17 +42,9 @@ public class HomeControllerTest {
 
         public Mocking() {
             openMocks(this);
+            when(facesContext.getExternalContext()).thenReturn(externalContext);
             selectedBook.setIsbn(isbn);
             bookSearchForm.setSelectedBook(selectedBook);
-        }
-
-        // helper method that wires up the FacesContext/ExternalContext mock chain
-        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
-            return externalContextMock;
         }
     }
 
@@ -59,14 +55,10 @@ public class HomeControllerTest {
         // Arrange
         Mocking m = new Mocking();
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.navigate();
 
-            // Act
-            m.controller.navigate();
-
-            // Verify
-            verify(externalContextMock).redirect("book-detail.jsf?isbn=9780132350884");
+        // Verify
+        verify(m.externalContext).redirect("book-detail.jsf?isbn=9780132350884");
         }
     }
-}

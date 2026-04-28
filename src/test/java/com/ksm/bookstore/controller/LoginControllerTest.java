@@ -3,6 +3,7 @@ package com.ksm.bookstore.controller;
 import com.ksm.bookstore.form.LoginForm;
 
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Spy;
 import org.primefaces.PrimeFaces;
@@ -35,6 +36,12 @@ public class LoginControllerTest {
         @InjectMocks
         LoginController controller;
 
+        @Mock
+        FacesContext facesContext;
+
+        @Mock
+        ExternalContext externalContext;
+
         @Spy
         LoginForm loginForm;
 
@@ -48,22 +55,13 @@ public class LoginControllerTest {
 
         public Mocking() {
             openMocks(this);
+            when(facesContext.getExternalContext()).thenReturn(externalContext);
+            when(externalContext.getRequest()).thenReturn(requestMock);
+            when(externalContext.getRequestContextPath()).thenReturn("");
+            when(facesContext.getViewRoot()).thenReturn(viewRootMock);
+            when(viewRootMock.getViewId()).thenReturn("/pages/public/home.xhtml");
             loginForm.setUsername(username);
             loginForm.setPassword(password);
-        }
-
-        // Wires the full FacesContext chain that login() depends on
-        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
-            when(externalContextMock.getRequest()).thenReturn(requestMock);
-            when(externalContextMock.getRequestContextPath()).thenReturn("");
-            when(facesContextMock.getViewRoot()).thenReturn(viewRootMock);
-            when(viewRootMock.getViewId()).thenReturn("/pages/public/home.xhtml");
-
-            return externalContextMock;
         }
 
         // Wires PrimeFaces.current() — only needed by failure-path tests
@@ -81,15 +79,11 @@ public class LoginControllerTest {
         // Arrange
         Mocking m = new Mocking();
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.login();
 
-            // Act
-            m.controller.login();
-
-            // Verify
-            verify(m.requestMock).login(m.username, m.password);
-        }
+        // Verify
+        verify(m.requestMock).login(m.username, m.password);
     }
 
     @Test(description = "login() should redirect to the current view as .jsf after a successful login")
@@ -97,15 +91,11 @@ public class LoginControllerTest {
         // Arrange
         Mocking m = new Mocking();
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.login();
 
-            // Act
-            m.controller.login();
-
-            // Verify
-            verify(externalContextMock).redirect("/pages/public/home.jsf");
-        }
+        // Verify
+        verify(m.externalContext).redirect("/pages/public/home.jsf");
     }
 
     // login() tests — failed login
@@ -116,9 +106,7 @@ public class LoginControllerTest {
         Mocking m = new Mocking();
         doThrow(new ServletException()).when(m.requestMock).login(m.username, m.password);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class);
-             MockedStatic<PrimeFaces> mockedPrimeFaces = mockStatic(PrimeFaces.class)) {
-            m.setupFacesMocks(mockedFaces);
+        try (MockedStatic<PrimeFaces> mockedPrimeFaces = mockStatic(PrimeFaces.class)) {
             m.setupPrimeFacesMocks(mockedPrimeFaces);
 
             // Act
@@ -135,9 +123,7 @@ public class LoginControllerTest {
         Mocking m = new Mocking();
         doThrow(new ServletException()).when(m.requestMock).login(m.username, m.password);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class);
-             MockedStatic<PrimeFaces> mockedPrimeFaces = mockStatic(PrimeFaces.class)) {
-            m.setupFacesMocks(mockedFaces);
+        try (MockedStatic<PrimeFaces> mockedPrimeFaces = mockStatic(PrimeFaces.class)) {
             m.setupPrimeFacesMocks(mockedPrimeFaces);
 
             // Act
@@ -154,11 +140,9 @@ public class LoginControllerTest {
         Mocking m = new Mocking();
         doThrow(new ServletException()).when(m.requestMock).login(m.username, m.password);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class);
-             MockedStatic<PrimeFaces> mockedPrimeFaces = mockStatic(PrimeFaces.class)) {
-            m.setupFacesMocks(mockedFaces);
+        try (MockedStatic<PrimeFaces> mockedPrimeFaces = mockStatic(PrimeFaces.class)) {
             PrimeFaces primeFacesMock = m.setupPrimeFacesMocks(mockedPrimeFaces);
-
+            
             // Act
             m.controller.login();
 

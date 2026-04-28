@@ -1,7 +1,8 @@
 package com.ksm.bookstore.provider;
 
 import org.mockito.InjectMocks;
-import org.mockito.MockedStatic;
+import org.mockito.Mock;
+
 import org.testng.annotations.Test;
 
 import javax.faces.context.ExternalContext;
@@ -9,8 +10,6 @@ import javax.faces.context.FacesContext;
 
 import java.io.IOException;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -29,17 +28,15 @@ public class UserProviderTest {
         @InjectMocks
         UserProvider userProvider;
 
+        @Mock
+        FacesContext facesContext;
+
+        @Mock
+        ExternalContext externalContext;
+
         public Mocking() {
             openMocks(this);
-        }
-
-        // Helper that sets up and returns the FacesContext/ExternalContext mock chain.
-        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
-            return externalContextMock;
+            when(facesContext.getExternalContext()).thenReturn(externalContext);
         }
     }
 
@@ -49,18 +46,14 @@ public class UserProviderTest {
     public void logout_invalidatesSessionAndRedirects() throws IOException {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.getRequestContextPath()).thenReturn("");
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.getRequestContextPath()).thenReturn("");
+        // Act
+        m.userProvider.logout();
 
-            // Act
-            m.userProvider.logout();
-
-            // Verify
-            verify(externalContextMock).invalidateSession();
-            verify(externalContextMock).redirect("/pages/public/home.xhtml");
-        }
+        // Verify
+        verify(m.externalContext).invalidateSession();
+        verify(m.externalContext).redirect("/pages/public/home.xhtml");
     }
 
     // getUserName() tests
@@ -69,34 +62,26 @@ public class UserProviderTest {
     public void getUserName_returnsRemoteUser() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.getRemoteUser()).thenReturn("test@example.com");
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.getRemoteUser()).thenReturn("test@example.com");
+        // Act
+        String result = m.userProvider.getUserName();
 
-            // Act
-            String result = m.userProvider.getUserName();
-
-            // Assert
-            assertEquals(result, "test@example.com");
-        }
+        // Assert
+        assertEquals(result, "test@example.com");
     }
 
     @Test(description = "getUserName() should return null when no user is logged in")
     public void getUserName_returnsNullWhenNoUserLoggedIn() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.getRemoteUser()).thenReturn(null);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.getRemoteUser()).thenReturn(null);
+        // Act
+        String result = m.userProvider.getUserName();
 
-            // Act
-            String result = m.userProvider.getUserName();
-
-            // Assert
-            assertNull(result);
-        }
+        // Assert
+        assertNull(result);
     }
 
     // isAdminUser() tests
@@ -105,34 +90,26 @@ public class UserProviderTest {
     public void isAdminUser_returnsTrueWhenUserIsAdmin() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.isUserInRole(AccessProvider.ADMIN)).thenReturn(true);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.isUserInRole(AccessProvider.ADMIN)).thenReturn(true);
+        // Act
+        boolean result = m.userProvider.isAdminUser();
 
-            // Act
-            boolean result = m.userProvider.isAdminUser();
-
-            // Assert
-            assertTrue(result);
-        }
+        // Assert
+        assertTrue(result);
     }
 
     @Test(description = "isAdminUser() should return false when the user is not in the Admin role")
     public void isAdminUser_returnsFalseWhenUserIsNotAdmin() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.isUserInRole(AccessProvider.ADMIN)).thenReturn(false);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.isUserInRole(AccessProvider.ADMIN)).thenReturn(false);
+        // Act
+        boolean result = m.userProvider.isAdminUser();
 
-            // Act
-            boolean result = m.userProvider.isAdminUser();
-
-            // Assert
-            assertFalse(result);
-        }
+        // Assert
+        assertFalse(result);
     }
 
     // isGeneralUser() tests
@@ -141,34 +118,26 @@ public class UserProviderTest {
     public void isGeneralUser_returnsTrueWhenUserIsGeneral() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.isUserInRole(AccessProvider.GENERAL)).thenReturn(true);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.isUserInRole(AccessProvider.GENERAL)).thenReturn(true);
+        // Act
+        boolean result = m.userProvider.isGeneralUser();
 
-            // Act
-            boolean result = m.userProvider.isGeneralUser();
-
-            // Assert
-            assertTrue(result);
-        }
+        // Assert
+        assertTrue(result);
     }
 
     @Test(description = "isGeneralUser() should return false when the user is not in the General role")
     public void isGeneralUser_returnsFalseWhenUserIsNotGeneral() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.isUserInRole(AccessProvider.GENERAL)).thenReturn(false);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.isUserInRole(AccessProvider.GENERAL)).thenReturn(false);
+        // Act
+        boolean result = m.userProvider.isGeneralUser();
 
-            // Act
-            boolean result = m.userProvider.isGeneralUser();
-
-            // Assert
-            assertFalse(result);
-        }
+        // Assert
+        assertFalse(result);
     }
 
     // isUserLoggedIn() tests
@@ -177,33 +146,25 @@ public class UserProviderTest {
     public void isUserLoggedIn_returnsTrueWhenUserIsPresent() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.getRemoteUser()).thenReturn("test@example.com");
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.getRemoteUser()).thenReturn("test@example.com");
+        // Act
+        boolean result = m.userProvider.isUserLoggedIn();
 
-            // Act
-            boolean result = m.userProvider.isUserLoggedIn();
-
-            // Assert
-            assertTrue(result);
-        }
+        // Assert
+        assertTrue(result);
     }
 
     @Test(description = "isUserLoggedIn() should return false when no remote user is present")
     public void isUserLoggedIn_returnsFalseWhenNoUserPresent() {
         // Arrange
         Mocking m = new Mocking();
+        when(m.externalContext.getRemoteUser()).thenReturn(null);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
-            when(externalContextMock.getRemoteUser()).thenReturn(null);
+        // Act
+        boolean result = m.userProvider.isUserLoggedIn();
 
-            // Act
-            boolean result = m.userProvider.isUserLoggedIn();
-
-            // Assert
-            assertFalse(result);
-        }
+        // Assert
+        assertFalse(result);
     }
 }

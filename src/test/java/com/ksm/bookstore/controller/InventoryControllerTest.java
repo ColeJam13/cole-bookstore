@@ -9,7 +9,6 @@ import com.ksm.bookstore.service.AuthorService;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.Spy;
 import org.testng.annotations.Test;
 
@@ -17,8 +16,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -46,6 +43,12 @@ public class InventoryControllerTest {
         @Mock
         AuthorManager authorManager;
 
+        @Mock
+        FacesContext facesContext;
+
+        @Mock
+        ExternalContext externalContext;
+
         @Spy
         InventoryForm inventoryForm;
 
@@ -58,18 +61,10 @@ public class InventoryControllerTest {
 
         public Mocking() {
             openMocks(this);
+            when(facesContext.getExternalContext()).thenReturn(externalContext);
             doNothing().when(inventoryForm).init();
             inventoryForm.setSelectedBook(selectedBook);
             inventoryForm.setSelectedAuthor(selectedAuthor);
-        }
-
-        // helper method that wires up the FacesContext/ExternalContext mock chain
-        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
-            return externalContextMock;
         }
     }
 
@@ -184,18 +179,14 @@ public class InventoryControllerTest {
         book.setAuthor(inactiveAuthor);
         book.setActive(false);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.activateBook(book);
 
-            // Act
-            m.controller.activateBook(book);
+        // Assert
+        assertFalse(book.isActive());
 
-            // Assert
-            assertFalse(book.isActive());
-
-            // Verify
-            verify(m.bookManager, never()).update(any());
-        }
+        // Verify
+        verify(m.bookManager, never()).update(any());
     }
 
     // activateBook() tests - active author

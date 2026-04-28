@@ -6,7 +6,6 @@ import com.ksm.bookstore.service.OrderService;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.Spy;
 import org.testng.annotations.Test;
 
@@ -17,8 +16,6 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -37,6 +34,12 @@ public class CheckoutControllerTest {
         @Mock
         OrderService orderService;
 
+        @Mock
+        FacesContext facesContext;
+
+        @Mock
+        ExternalContext externalContext;
+
         @Spy
         CartForm cartForm;
 
@@ -46,18 +49,10 @@ public class CheckoutControllerTest {
 
         public Mocking() {
             openMocks(this);
+            when(facesContext.getExternalContext()).thenReturn(externalContext);
             cartForm.init();
             cartItems = cartForm.getCartItems();
             when(orderService.submitOrder(any())).thenReturn(orderNumber);
-        }
-
-        // Helper method that wires up the FacesContext/ExternalContext mock chain that every mockStatic test needs
-        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
-            return externalContextMock;
         }
     }
 
@@ -68,15 +63,11 @@ public class CheckoutControllerTest {
         // Arrange
         Mocking m = new Mocking();
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.submitOrder();
 
-            // Act
-            m.controller.submitOrder();
-
-            // Verify
-            verify(m.orderService).submitOrder(m.cartItems);
-        }
+        // Verify
+        verify(m.orderService).submitOrder(m.cartItems);
     }
 
     @Test(description = "submitOrder() should clear the cart after the order is placed")
@@ -85,15 +76,11 @@ public class CheckoutControllerTest {
         Mocking m = new Mocking();
         m.cartItems.add(new Book());
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.submitOrder();
 
-            // Act
-            m.controller.submitOrder();
-
-            // Assert
-            assertTrue(m.cartItems.isEmpty());
-        }
+        // Assert
+        assertTrue(m.cartItems.isEmpty());
     }
 
     @Test(description = "submitOrder() should redirect to the confirmation page with the order number in the URL")
@@ -101,14 +88,10 @@ public class CheckoutControllerTest {
         // Arrange
         Mocking m = new Mocking();
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.submitOrder();
 
-            // Act
-            m.controller.submitOrder();
-
-            // Verify
-            verify(externalContextMock).redirect("confirmation.jsf?orderNumber=42");
-        }
+        // Verify
+        verify(m.externalContext).redirect("confirmation.jsf?orderNumber=42");
     }
 }

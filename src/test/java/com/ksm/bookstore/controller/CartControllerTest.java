@@ -4,7 +4,7 @@ import com.ksm.bookstore.form.CartForm;
 import com.ksm.bookstore.jpa.Book;
 
 import org.mockito.InjectMocks;
-import org.mockito.MockedStatic;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.testng.annotations.Test;
 
@@ -14,8 +14,6 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -32,6 +30,12 @@ public class CartControllerTest {
         @InjectMocks
         CartController controller;
 
+        @Mock
+        FacesContext facesContext;
+
+        @Mock
+        ExternalContext externalContext;
+
         @Spy
         CartForm cartForm;
 
@@ -41,17 +45,9 @@ public class CartControllerTest {
 
         public Mocking() {
             openMocks(this);
+            when(facesContext.getExternalContext()).thenReturn(externalContext);
             cartForm.init();
             cartItems = cartForm.getCartItems();
-        }
-
-        // Method that wires up the FacesContext/ExternalContext mock chain that every mockStatic test needs
-        ExternalContext setupFacesMocks(MockedStatic<FacesContext> mockedFaces) {
-            FacesContext facesContextMock = mock(FacesContext.class);
-            ExternalContext externalContextMock = mock(ExternalContext.class);
-            mockedFaces.when(FacesContext::getCurrentInstance).thenReturn(facesContextMock);
-            when(facesContextMock.getExternalContext()).thenReturn(externalContextMock);
-            return externalContextMock;
         }
     }
 
@@ -77,15 +73,11 @@ public class CartControllerTest {
         Mocking m = new Mocking();
         m.cartItems.add(m.book);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.removeFromCart(m.book);
 
-            // Act
-            m.controller.removeFromCart(m.book);
-
-            // Assert
-            assertFalse(m.cartItems.contains(m.book));
-        }
+        // Assert
+        assertFalse(m.cartItems.contains(m.book));
     }
 
     @Test(description = "removeFromCart() should redirect to the cart page after removing the book")
@@ -94,15 +86,11 @@ public class CartControllerTest {
         Mocking m = new Mocking();
         m.cartItems.add(m.book);
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.removeFromCart(m.book);
 
-            // Act
-            m.controller.removeFromCart(m.book);
-
-            // Verify
-            verify(externalContextMock).redirect("cart.jsf");
-        }
+        // Verify
+        verify(m.externalContext).redirect("cart.jsf");
     }
 
     // clearCart() tests
@@ -114,15 +102,11 @@ public class CartControllerTest {
         m.cartItems.add(new Book());
         m.cartItems.add(new Book());
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.clearCart();
 
-            // Act
-            m.controller.clearCart();
-
-            // Assert
-            assertTrue(m.cartItems.isEmpty());
-        }
+        // Assert
+        assertTrue(m.cartItems.isEmpty());
     }
 
     @Test(description = "clearCart() should redirect to the cart page after clearing")
@@ -130,14 +114,11 @@ public class CartControllerTest {
         // Arrange
         Mocking m = new Mocking();
 
-        try (MockedStatic<FacesContext> mockedFaces = mockStatic(FacesContext.class)) {
-            ExternalContext externalContextMock = m.setupFacesMocks(mockedFaces);
+        // Act
+        m.controller.clearCart();
 
-            // Act
-            m.controller.clearCart();
-
-            // Verify
-            verify(externalContextMock).redirect("cart.jsf");
-        }
+        // Verify
+        verify(m.externalContext).redirect("cart.jsf");
     }
+    
 }
