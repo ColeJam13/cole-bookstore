@@ -74,34 +74,40 @@
                 </h:panelGroup>
                 <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" />
             </div>
-        </h:form>
-        <p:dataTable var="order" value="#{profileForm.orderHistory}" rowKey="#{order.orderNumber}">
-            <p:column style="width:30px">
-                <p:rowToggler />
-            </p:column>
-            <p:column headerText="Order Number" field="orderNumber" filterable="true" sortable="true">
-                <h:outputText value="#{order.orderNumber}" />
-            </p:column>
-            <p:column headerText="Order Status" field="orderStatus" filterable="true" sortable="true">
-                <h:outputText value="#{order.orderStatus}" />
-            </p:column>
-            <p:column headerText="Order Total" field="orderTotal" filterable="true" sortable="true">
-                <h:outputText value="#{order.orderTotal}">
-                    <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
-                </h:outputText>
-            </p:column>
-            <p:rowExpansion>
-                <p:dataTable var="item" value="#{order.orderItems}">
-                    <p:column headerText="Title">
-                        <h:outputText value="#{item.book.title}" />
+            </h:form>
+            <h:form id="orderHistoryForm">
+                <p:dataTable var="order" value="#{profileForm.orderHistory}" rowKey="#{order.orderNumber}">
+                    <p:column style="width:30px">
+                        <p:rowToggler />
                     </p:column>
-                    <p:column headerText="Price">
-                        <h:outputText value="#{item.price}">
+                    <p:column headerText="Order Number" field="orderNumber" filterable="true" sortable="true">
+                        <h:outputText value="#{order.orderNumber}" />
+                    </p:column>
+                    <p:column headerText="Order Status" field="orderStatus" filterable="true" sortable="true">
+                        <h:outputText value="#{order.orderStatus}" />
+                    </p:column>
+                    <p:column headerText="Order Total" field="orderTotal" filterable="true" sortable="true">
+                        <h:outputText value="#{order.orderTotal}">
                             <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                         </h:outputText>
                     </p:column>
-                </p:dataTable>
-            </p:rowExpansion>
-        </p:dataTable>
+                <p:rowExpansion>
+                    <p:dataTable var="item" value="#{order.orderItems}">
+                        <p:column headerText="Cover" style="width:60px">
+                            <img src="https://covers.openlibrary.org/b/isbn/#{item.book.isbn}-M.jpg"
+                                 alt="#{item.book.title}" style="height:60px;" />
+                        </p:column>
+                        <p:column headerText="Title">
+                            <h:outputText value="#{item.book.title}" />
+                        </p:column>
+                        <p:column headerText="Price">
+                            <h:outputText value="#{item.price}">
+                                <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:rowExpansion>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>

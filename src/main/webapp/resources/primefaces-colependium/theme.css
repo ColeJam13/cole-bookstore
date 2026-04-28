@@ -90,6 +90,7 @@
 /* Table cell borders */
 .ui-datatable tbody td {
     border-color: #2a1010;
+    text-align: center;
 }
 
 /* Table footer if present */
@@ -338,20 +339,33 @@
     padding: 10px;
 }
 
-/* Row expander icon on the profile order history table */
-.ui-row-toggler {
+/* Both classes are on the same div — no space targets that correctly */
+.ui-row-toggler.ui-icon {
+    background-image: none;
+    text-indent: 0;
+    overflow: visible;
+    width: auto;
+    height: auto;
+}
+
+.ui-row-toggler::before {
+    content: '▶';
     color: #c9a84c;
+    font-size: 12px;
+}
+
+.ui-datatable tbody tr.ui-expanded-row .ui-row-toggler::before {
+    content: '▼';
+}
+
+.ui-row-toggler:hover::before {
+    color: #e8d5b0;
 }
 
 /* Expanded row content area - the order items sub-table */
 .ui-expanded-row-content td {
     background-color: #0f0707;
     border-color: #2a1010;
-}
-
-/* Row expander hover */
-.ui-row-toggler:hover {
-    color: #e8d5b0;
 }
 
 /* Output labels on forms - the text labels next to inputs */
