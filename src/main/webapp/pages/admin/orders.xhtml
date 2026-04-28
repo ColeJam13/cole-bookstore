@@ -1,10 +1,10 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	template="/pages/layouts/admin-template.xhtml">
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    template="/pages/layouts/admin-template.xhtml">
 
     <ui:define name="body">
         <h:form>
@@ -13,10 +13,10 @@
                 <p:column headerText="Order Number" field="orderNumber">
                     <h:outputText value="#{orders.orderNumber}" />
                 </p:column>
-                <p:column headerText="Customer First Name" field="customerFirstName">
+                <p:column headerText="Customer First Name" field="customer.firstName">
                     <h:outputText value="#{orders.customer.firstName}" />
                 </p:column>
-                <p:column headerText="Customer Last Name" field="customerLastName">
+                <p:column headerText="Customer Last Name" field="customer.lastName">
                     <h:outputText value="#{orders.customer.lastName}" />
                 </p:column>
                 <p:column headerText="Order Total" field="orderTotal">
@@ -25,10 +25,12 @@
                 <p:column headerText="Order Status" field="orderStatus">
                     <h:outputText value="#{orders.orderStatus}" />
                 </p:column>
-                <p:column headerText="Order Actions">
-                    <p:commandButton value="Change to Submitted" action="#{orderController.updateOrderStatus(orders, OrderStatus.SUBMITTED)}" update="orderTable" />
-                    <p:commandButton value="Change to Cancelled" action="#{orderController.updateOrderStatus(orders, OrderStatus.CANCELLED)}" update="orderTable" />
-                    <p:commandButton value="Change to Complete" action="#{orderController.updateOrderStatus(orders, OrderStatus.COMPLETE)}" update="orderTable" />
+                <p:column headerText="Order Actions" style="text-align:center">
+                    <p:menuButton value="Update Status">
+                        <p:menuitem value="Change to Submitted" action="#{orderController.updateOrderStatus(orders, OrderStatus.SUBMITTED)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.SUBMITTED}" />
+                        <p:menuitem value="Change to Cancelled" action="#{orderController.updateOrderStatus(orders, OrderStatus.CANCELLED)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.CANCELLED}" />
+                        <p:menuitem value="Change to Complete" action="#{orderController.updateOrderStatus(orders, OrderStatus.COMPLETE)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.COMPLETE}" />
+                    </p:menuButton>
                 </p:column>
             </p:dataTable>
         </h:form>
