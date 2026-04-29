@@ -60,7 +60,7 @@ public class InventoryForm implements Serializable {
      * Method that takes the input typed by the admin, searches active authors, and
      * returns a filtered, alphabetically sorted, and limited list of matching authors
      * @param query the author searched by the admin
-     * @return list of up to 20 matching authors
+     * @return list of up to 10 matching authors
      */
     public List<Author> completeAuthor(String query) {
         return activeAuthorList.stream()

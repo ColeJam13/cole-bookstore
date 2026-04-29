@@ -4,6 +4,7 @@
     template="/pages/layouts/customer-template.xhtml">
 
     <ui:define name ="body">
+        <h:outputStylesheet library="css" name="forms.css" />
         <h:form id="checkoutForm">
             <p:remoteCommand autoRun="true" oncomplete="PF('checkoutPrompt').show()" rendered="#{!userProvider.userLoggedIn}" />
             <div class="flex align-items-center gap-3 mb-3">

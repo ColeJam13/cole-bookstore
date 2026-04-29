@@ -1,5 +1,5 @@
 /* Fixed width for the cover image */
-#bookCover img {
+.bookCover img {
     width: 300px;
 }
 
@@ -15,7 +15,7 @@
 }
 
 /* Description section brand styling — crimson top border */
-#bookDescription {
+.bookDescription {
     font-size: 15px;
     line-height: 1.6;
     border-top: 1px solid #3a0000;

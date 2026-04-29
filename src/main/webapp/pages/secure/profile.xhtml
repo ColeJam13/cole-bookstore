@@ -4,7 +4,8 @@
     template="/pages/layouts/customer-template.xhtml">
 
     <ui:define name="body">
-        <div style="padding:20px;">
+        <h:outputStylesheet library="css" name="forms.css" />
+        <div class="profileDetail">
             <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:30px; padding-bottom:30px;">
                 <div>
                     <h3>Account</h3>
@@ -95,7 +96,7 @@
             </div>
             <div style="margin-top:20px;">                
                 <h3 style="border-bottom:1px solid #3a0000; padding-bottom:8px; margin-bottom:0;">Order History</h3>
-                <h:form id="orderHistoryForm">
+                <h:form id="orderHistoryForm" styleClass="orderHistoryForm">
                     <p:dataTable id="orderHistoryTable" var="order" value="#{profileForm.orderHistory}" rowKey="#{order.orderNumber}">
                         <p:column style="width:30px">
                             <p:rowToggler />

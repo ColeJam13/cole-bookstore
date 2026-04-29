@@ -7,12 +7,13 @@
         <f:viewAction action="#{bookDetailController.init()}"/>
     </f:metadata>
     <ui:define name="body">
+        <h:outputStylesheet library="css" name="book-detail.css" />
         <h:form>
-            <div id="bookDetail" class="flex gap-5 p-4">
-                <div id="bookCover">
+            <div class="bookDetail flex gap-5 p-4">
+                <div class="bookCover">
                     <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{bookDetailForm.book.isbn}-L.jpg" alt="#{bookDetailForm.book.title}"/>
                 </div>
-                <div id="bookInfo" class="flex flex-column gap-2 pt-4">
+                <div class="bookInfo flex flex-column gap-2 pt-4">
                     <div class="bookField mb-2">
                         <h:outputText value="Title: " styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.title}" styleClass="fieldValue"/>
@@ -34,7 +35,7 @@
                     <div class="bookField mb-2">
                         <p:commandButton value="Add to Cart" action="#{cartController.addToCart(bookDetailForm.book)}" update=":navForm"/>
                     </div>
-                    <div id="bookDescription" class="p-4 mt-4">
+                    <div class="bookDescription p-4 mt-4">
                         <h:outputText value="Description: "/>
                         <h:outputText value="#{bookDetailForm.description}"/>
                     </div>

@@ -11,22 +11,20 @@ h3 {
 }
 
 /* Confirmation page text size */
-#confirmation,
-#status,
-#orderTotal {
+.confirmation,
+.orderStatus,
+.orderTotal {
     font-size: 16px;
 }
 
 /* Profile form container — centered with max width and padding */
-#profileDetail {
-    max-width: 600px;
-    margin: 0 auto;
+.profileDetail {
     padding: 30px;
 }
 
 /* Consistent label width so all inputs line up in a clean column */
-#profileDetail .ui-outputlabel,
-#profileDetail label {
+.profileDetail .ui-outputlabel,
+.profileDetail label {
     min-width: 180px;
     color: #c9a84c;
     font-family: 'EB Garamond', 'Palatino Linotype', serif;
@@ -34,20 +32,13 @@ h3 {
 }
 
 /* Input fields fill remaining space */
-#profileDetail .ui-inputfield {
+.profileDetail .ui-inputfield {
     flex: 1;
     max-width: 300px;
 }
 
-/* Visual separator between form and order history table */
-#orderHistoryForm {
-    margin-top: 40px;
-    border-top: 1px solid #3a0000;
-    padding-top: 20px;
-}
-
 /* Save button spacing */
-#profileDetail .ui-button {
+.profileDetail .ui-button {
     margin-top: 20px;
 }
 
@@ -56,17 +47,13 @@ h3 {
     background-color: transparent;
 }
 
-/* Remove default top margin on the order history form */
-#orderHistoryForm {
-    margin-top: 0;
-}
-
-/* Remove margin from Order History heading so form sits flush below it */
-#orderHistoryForm {
+/* Order history section sits flush below the heading */
+.orderHistoryForm {
     margin-top: 0;
     padding-top: 0;
 }
 
-#orderHistoryForm h3 {
+/* Remove margin from Order History heading so table sits flush below */
+.orderHistoryForm h3 {
     margin-bottom: 0;
 }
