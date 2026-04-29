@@ -1,0 +1,59 @@
+/* Section headings on checkout and profile forms */
+.formField h3,
+h3 {
+    color: #c9a84c;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+    font-weight: normal;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #3a0000;
+    padding-bottom: 6px;
+    margin-top: 20px;
+}
+
+/* Confirmation page text size */
+.confirmation,
+.orderStatus,
+.orderTotal {
+    font-size: 16px;
+}
+
+/* Profile form container — centered with max width and padding */
+.profileDetail {
+    padding: 30px;
+}
+
+/* Consistent label width so all inputs line up in a clean column */
+.profileDetail .ui-outputlabel,
+.profileDetail label {
+    min-width: 180px;
+    color: #c9a84c;
+    font-family: 'EB Garamond', 'Palatino Linotype', serif;
+    font-size: 15px;
+}
+
+/* Input fields fill remaining space */
+.profileDetail .ui-inputfield {
+    flex: 1;
+    max-width: 300px;
+}
+
+/* Save button spacing */
+.profileDetail .ui-button {
+    margin-top: 20px;
+}
+
+/* Remove background tinge from outputPanel used in billing section */
+.ui-outputpanel {
+    background-color: transparent;
+}
+
+/* Order history section sits flush below the heading */
+.orderHistoryForm {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Remove margin from Order History heading so table sits flush below */
+.orderHistoryForm h3 {
+    margin-bottom: 0;
+}

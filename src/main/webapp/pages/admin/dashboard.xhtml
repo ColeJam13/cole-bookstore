@@ -1,22 +1,22 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	template="/pages/layouts/admin-template.xhtml">
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    template="/pages/layouts/admin-template.xhtml">
 
     <ui:define name="body">
-        <p:panelGrid columns="3">
-			<p:panel header="Total Books in Library">
-				<h:outputText value="#{dashboardForm.totalBooks}" />
-			</p:panel>
-			<p:panel header="Total Authors in Library">
-				<h:outputText value="#{dashboardForm.totalAuthors}" />
-			</p:panel>
-			<p:panel header="Total Current Orders">
-				<h:outputText value="#{dashboardForm.totalOrders}" />
-			</p:panel>
-		</p:panelGrid>
+        <div class="flex gap-3 mt-4 mx-3">
+            <p:panel header="Total Books in Library" styleClass="flex-1">
+                <h:outputText value="#{dashboardForm.totalBooks}" />
+            </p:panel>
+            <p:panel header="Total Authors in Library" styleClass="flex-1">
+                <h:outputText value="#{dashboardForm.totalAuthors}" />
+            </p:panel>
+            <p:panel header="Total Current Orders" styleClass="flex-1">
+                <h:outputText value="#{dashboardForm.totalOrders}" />
+            </p:panel>
+        </div>
     </ui:define>
 </ui:composition>

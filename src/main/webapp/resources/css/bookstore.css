@@ -1,10 +1,15 @@
+/* Base page styles — dark background and serif font inherited by all pages */
 html, body {
-	margin:0;
-	padding:0;
-	height:100%;
-	width:100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0d0a0e;
+    color: #e8d5b0;
+    font-family: 'EB Garamond', 'Palatino Linotype', serif;
 }
 
+/* Kills the small whitespace gap browsers add below the banner image */
 /* Fit the banner image to the height set in the header */
 #banner img {
 	width: 100%;
@@ -35,106 +40,9 @@ html, body {
     line-height: 0;
 }
 
-/* Center the global filter input in the table header */
-.ui-datatable-header {
-    text-align: center;
-}
-
-.ui-datatable-header input {
-    display: block;
-    margin: 0 auto;
-}
-
-/* Book detail page layout */
-#bookDetail {
-    display: flex;
-    gap: 40px;
-    padding: 20px;
-}
-
-#bookCover img {
-    width: 300px;
-}
-
-#bookInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 20px;
-}
-
-#bookDescription {
-    padding: 20px;
-}
-
-/* Individual field rows on book detail page */
-.bookField {
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-/* Bold label styling */
-.fieldLabel {
-    font-weight: bold;
-}
-
-/* Description section */
-#bookDescription {
-    padding: 20px;
-    font-size: 15px;
-    line-height: 1.6;
-    border-top: 1px solid #ccc;
-    margin-top: 20px;
-}
-
-/* Cart page two-column layout */
-.cartLayout {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    align-items: flex-start;
-}
-
-/* Left column - items table takes up most of the width */
-.cartItems {
-    flex: 1;
-}
-
-/* Right column - sticky summary panel */
-.cartSummaryPanel {
-    width: 280px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 20px;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 20px;
-}
-
-/* Summary field rows */
-.summaryField {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 15px;
-}
-
-/* Divider above total */
-.summaryField:last-of-type {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-    font-weight: bold;
-}
-
-/* Stack action buttons vertically in the panel */
-#cartActions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-#cartActions .ui-button {
-    width: 100%;
+/* Footer text — muted antique gold, small and spaced */
+.bookstoreFooter {
+    color: #5a4a30;
+    font-size: 11px;
+    letter-spacing: 1px;
 }

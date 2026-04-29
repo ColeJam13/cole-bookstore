@@ -1,0 +1,429 @@
+/* Base widget styles - applied to nearly every PrimeFaces component */
+.ui-widget {
+    background-color: #1a0505;
+    color: #e8d5b0;
+    font-family: 'EB Garamond', 'Palatino Linotype', serif;
+}
+
+/* Default state - inputs, buttons, and interactive elements at rest */
+.ui-state-default {
+    background-color: #1a0505;
+    color: #e8d5b0;
+    border-color: #5a0000;
+}
+
+/* Hover state - when mouse moves over an interactive element */
+.ui-state-hover {
+    background-color: #2a0a0a;
+    color: #c9a84c;
+    border-color: #8b0000;
+}
+
+/* Active/pressed state */
+.ui-state-active {
+    background-color: #8b0000;
+    color: #e8d5b0;
+    border-color: #8b0000;
+}
+
+/* Widget header bars - panel headers, dialog title bars, etc */
+.ui-widget-header {
+    background-color: #0d0a0e;
+    color: #c9a84c;
+    border-color: #5a0000;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+}
+
+/* Widget content areas - the body inside panels, dialogs, etc */
+.ui-widget-content {
+    background-color: #1a0505;
+    color: #e8d5b0;
+    border-color: #3a0000;
+}
+
+/* DataTable header row - the column title bar */
+.ui-datatable .ui-datatable-header {
+    background-color: #0d0a0e;
+    border-color: #5a0000;
+    color: #c9a84c;
+}
+
+/* Individual column header cells */
+.ui-datatable thead th {
+    background-color: #0d0a0e;
+    color: #c9a84c;
+    border-color: #5a0000;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+/* Column header hover state */
+.ui-datatable thead th.ui-state-hover {
+    background-color: #1a0505;
+    color: #e8d5b0;
+}
+
+/* Standard table body rows */
+.ui-datatable tbody tr {
+    background-color: #110808;
+    color: #e8d5b0;
+}
+
+/* Alternating row - the even rows get a slightly lighter shade */
+.ui-datatable tbody tr.ui-datatable-even {
+    background-color: #160a0a;
+}
+
+/* Odd rows */
+.ui-datatable tbody tr.ui-datatable-odd {
+    background-color: #110808;
+}
+
+/* Row hover - highlights the row when mouse moves over it */
+.ui-datatable tbody tr.ui-state-hover {
+    background-color: #2a0a0a;
+    color: #c9a84c;
+    cursor: pointer;
+}
+
+/* Table cell borders */
+.ui-datatable tbody td {
+    border-color: #2a1010;
+    text-align: center;
+}
+
+/* Table footer if present */
+.ui-datatable tfoot td {
+    background-color: #0d0a0e;
+    border-color: #3a0000;
+    color: #c9a84c;
+}
+
+/* Paginator bar sitting below the table */
+.ui-paginator {
+    background-color: #0d0a0e;
+    border-color: #3a0000;
+    color: #c9a84c;
+}
+
+/* Individual paginator page buttons */
+.ui-paginator .ui-paginator-page {
+    color: #c9a84c;
+}
+
+/* Active page number in paginator */
+.ui-paginator .ui-state-active {
+    background-color: #8b0000;
+    color: #e8d5b0;
+    border-color: #8b0000;
+
+}
+/* Base button style - applies to all PrimeFaces command buttons */
+.ui-button {
+    background-color: transparent;
+    color: #c9a84c;
+    border: 1px solid #8b0000;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Button hover - fills with crimson when mouse moves over */
+.ui-button:hover,
+.ui-button.ui-state-hover {
+    background-color: #8b0000;
+    color: #e8d5b0;
+    border-color: #8b0000;
+}
+
+/* Button active/pressed state */
+.ui-button:active,
+.ui-button.ui-state-active {
+    background-color: #6a0000;
+    color: #e8d5b0;
+    border-color: #6a0000;
+}
+
+/* Button text span inside the button element */
+.ui-button .ui-button-text {
+    color: inherit;
+}
+
+/* Input fields - text inputs, search boxes, password fields */
+.ui-inputfield {
+    background-color: #110808;
+    color: #e8d5b0;
+    border: 1px solid #5a0000;
+    font-family: 'EB Garamond', 'Palatino Linotype', serif;
+}
+
+/* Input field focused state - when user clicks into a field */
+.ui-inputfield:focus,
+.ui-state-focus {
+    background-color: #1a0505;
+    border-color: #8b0000;
+    outline: none;
+    color: #e8d5b0;
+}
+
+/* Input field hover state */
+.ui-inputfield:hover {
+    border-color: #8b0000;
+}
+
+/* Dialog container - the popup box itself */
+.ui-dialog {
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+}
+
+/* Dialog title bar at the top of the popup */
+.ui-dialog .ui-dialog-titlebar {
+    background-color: #0d0a0e;
+    color: #c9a84c;
+    border-bottom: 1px solid #5a0000;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+}
+
+/* Dialog close button in the title bar */
+.ui-dialog .ui-dialog-titlebar-close {
+    color: #c9a84c;
+}
+
+/* Dialog close button hover */
+.ui-dialog .ui-dialog-titlebar-close:hover {
+    color: #e8d5b0;
+    background-color: #8b0000;
+}
+
+/* Dialog content area below the title bar */
+.ui-dialog .ui-dialog-content {
+    background-color: #1a0505;
+    color: #e8d5b0;
+}
+
+/* Overlay that darkens the page behind a modal dialog */
+.ui-widget-overlay {
+    background-color: #000000;
+    opacity: 0.7;
+}
+
+/* Panel container - the stat cards on the dashboard */
+.ui-panel {
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+}
+
+/* Panel header bar - the title strip at the top of a panel */
+.ui-panel .ui-panel-titlebar {
+    background-color: #0d0a0e;
+    color: #c9a84c;
+    border-bottom: 1px solid #5a0000;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+/* Panel content body */
+.ui-panel .ui-panel-content {
+    background-color: #1a0505;
+    color: #e8d5b0;
+}
+
+/* Messages component - validation errors and info messages */
+.ui-messages {
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+    color: #e8d5b0;
+}
+
+/* Error message specifically */
+.ui-messages-error {
+    background-color: #2a0000;
+    border-color: #8b0000;
+    color: #e8d5b0;
+}
+
+/* Info message */
+.ui-messages-info {
+    background-color: #0a1a0a;
+    border-color: #2a5a2a;
+    color: #e8d5b0;
+}
+
+/* Inline message next to a single field */
+.ui-message-error {
+    color: #c9a84c;
+    font-size: 12px;
+}
+
+/* Checkbox container */
+.ui-chkbox .ui-chkbox-box {
+    background-color: #110808;
+    border: 1px solid #5a0000;
+    color: #c9a84c;
+}
+
+/* Checkbox checked state */
+.ui-chkbox .ui-chkbox-box.ui-state-active {
+    background-color: #8b0000;
+    border-color: #8b0000;
+}
+
+/* Checkbox icon inside the box */
+.ui-chkbox .ui-chkbox-icon {
+    color: #e8d5b0;
+}
+
+/* Autocomplete dropdown panel that appears below the input */
+.ui-autocomplete-panel {
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+}
+
+/* Individual items in the autocomplete dropdown list */
+.ui-autocomplete-panel .ui-autocomplete-item {
+    color: #e8d5b0;
+    padding: 8px 12px;
+}
+
+/* Highlighted item when hovering in the dropdown */
+.ui-autocomplete-panel .ui-autocomplete-item.ui-state-hover {
+    background-color: #8b0000;
+    color: #e8d5b0;
+}
+
+/* Select one menu dropdown container */
+.ui-selectonemenu {
+    background-color: #110808;
+    border: 1px solid #5a0000;
+    color: #e8d5b0;
+}
+
+/* The dropdown trigger button on the right side of select menus */
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    background-color: #8b0000;
+    border-color: #8b0000;
+    color: #e8d5b0;
+}
+
+/* The dropdown panel that opens when select menu is clicked */
+.ui-selectonemenu-panel {
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+}
+
+/* Individual options inside the select menu dropdown */
+.ui-selectonemenu-panel .ui-selectonemenu-item {
+    color: #e8d5b0;
+}
+
+/* Hovered option in the select menu */
+.ui-selectonemenu-panel .ui-selectonemenu-item.ui-state-hover {
+    background-color: #8b0000;
+    color: #e8d5b0;
+}
+
+/* PanelGrid - the grid layout used on the dashboard stat cards */
+.ui-panelgrid {
+    background-color: transparent;
+    border: none;
+}
+
+/* Individual cells inside a panelGrid */
+.ui-panelgrid td {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+}
+
+/* Both classes are on the same div — no space targets that correctly */
+.ui-row-toggler.ui-icon {
+    background-image: none;
+    text-indent: 0;
+    overflow: visible;
+    width: auto;
+    height: auto;
+}
+
+.ui-row-toggler::before {
+    content: '▶';
+    color: #c9a84c;
+    font-size: 12px;
+}
+
+.ui-datatable tbody tr.ui-expanded-row .ui-row-toggler::before {
+    content: '▼';
+}
+
+.ui-row-toggler:hover::before {
+    color: #e8d5b0;
+}
+
+/* Expanded row content area - the order items sub-table */
+.ui-expanded-row-content td {
+    background-color: #0f0707;
+    border-color: #2a1010;
+}
+
+/* Output labels on forms - the text labels next to inputs */
+.ui-outputlabel {
+    color: #c9a84c;
+    font-family: 'EB Garamond', 'Palatino Linotype', serif;
+    font-size: 15px;
+}
+
+/* Growl/toast notification popup */
+.ui-growl {
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+}
+
+/* Individual growl message item */
+.ui-growl-item {
+    background-color: #1a0505;
+    color: #e8d5b0;
+}
+
+/* Growl message title */
+.ui-growl-title {
+    color: #c9a84c;
+    font-family: 'Cinzel', 'Palatino Linotype', serif;
+}
+
+/* Tooltip popup box */
+.ui-tooltip .ui-tooltip-text {
+    background-color: #1a0505;
+    color: #e8d5b0;
+    border: 1px solid #5a0000;
+    font-family: 'EB Garamond', 'Palatino Linotype', serif;
+}
+
+/* Separator/divider component */
+.ui-separator {
+    border-color: #3a0000;
+}
+
+/* Close button icon in dialog title bar */
+.ui-dialog .ui-dialog-titlebar-close .ui-icon {
+    background-image: none;
+}
+
+/* Close X rendered as a text character instead of a sprite image */
+.ui-dialog .ui-dialog-titlebar-close::before {
+    content: '✕';
+    color: #c9a84c;
+    font-size: 14px;
+}
+
+/* Close button hover */
+.ui-dialog .ui-dialog-titlebar-close:hover::before {
+    color: #e8d5b0;
+}
+
+/* Hide the empty header bar on the order history table */
+#orderHistoryForm .ui-datatable .ui-datatable-header {
+    display: none;
+}

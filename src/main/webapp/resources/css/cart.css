@@ -1,0 +1,29 @@
+/* Fixed width, sticky positioning, and brand colors for the summary panel */
+.cartSummaryPanel {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    background-color: #1a0505;
+    border: 1px solid #5a0000;
+    border-radius: 4px;
+}
+
+/* Brand color for summary row text */
+.summaryField {
+    font-size: 15px;
+    color: #e8d5b0;
+}
+
+/* Total row gets a crimson divider and gold bold text */
+.summaryField:last-of-type {
+    border-top: 1px solid #3a0000;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #c9a84c;
+}
+
+/* Full width buttons inside the summary panel */
+.cartSummaryPanel .ui-button {
+    width: 100%;
+}

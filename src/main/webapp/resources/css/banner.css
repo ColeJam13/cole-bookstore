@@ -1,0 +1,189 @@
+/* Wrapper div is relatively positioned so the candle divs can be
+   absolutely positioned on top of the banner image */
+#banner-wrap {
+    position: relative;
+    width: 100%;
+    min-width: 1920px;
+}
+
+/* Banner image fills the full width and is cropped to a fixed height */
+#banner img {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+/* Cubby is now a flex row so three candles sit side by side on the same baseline */
+.cubby {
+    position: absolute;
+    bottom: 35px;
+    width: 200px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cubby-left {
+    left: -15px;
+    bottom: 25px;
+}
+
+.cubby-right {
+    right: -5px;
+}
+
+/* Each candle stacks its own flame, wick, body, and holder vertically */
+.candle-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Contains all three flame layers */
+.flame-wrap {
+    position: relative;
+    width: 20px;
+    height: 32px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+/* Outermost flame layer */
+.flame-outer {
+    position: absolute;
+    bottom: 0;
+    width: 16px;
+    height: 28px;
+    background-color: #ff8c00;
+    border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+    animation: flicker 0.45s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+}
+
+/* Middle flame layer */
+.flame-mid {
+    position: absolute;
+    bottom: 2px;
+    width: 10px;
+    height: 18px;
+    background-color: #ffcc44;
+    border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+    animation: flicker2 0.38s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+}
+
+/* Innermost flame core — no animation, steady white-hot center */
+.flame-core {
+    position: absolute;
+    bottom: 3px;
+    width: 6px;
+    height: 11px;
+    background-color: #fff8cc;
+    border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+}
+
+/* Thin dark wick connecting flame to candle body */
+.wick {
+    width: 2px;
+    height: 6px;
+    background-color: #4a3010;
+    position: relative;
+    z-index: 3;
+}
+
+/* Wax column — height overridden by size modifier classes below */
+.candle-body {
+    width: 24px;
+    background-color: #f0e6c8;
+    border-radius: 2px 2px 1px 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Small candle body */
+.candle-sm .candle-body {
+    height: 50px;
+}
+
+/* Medium candle body */
+.candle-md .candle-body {
+    height: 80px;
+}
+
+/* Large candle body */
+.candle-lg .candle-body {
+    height: 115px;
+}
+
+/* Left-side wax drip */
+.candle-drip {
+    position: absolute;
+    top: 0;
+    left: 4px;
+    width: 7px;
+    height: 12px;
+    background-color: #e8d8b0;
+    border-radius: 0 0 50% 50%;
+}
+
+/* Right-side wax drip */
+.candle-drip2 {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    width: 5px;
+    height: 8px;
+    background-color: #e8d8b0;
+    border-radius: 0 0 50% 50%;
+}
+
+/* Cup that cradles the base of the candle body — dark bronze */
+.holder-cup {
+    width: 28px;
+    height: 8px;
+    background: linear-gradient(to bottom, #5a3a18, #2e1a08);
+    border-radius: 2px 2px 0 0;
+    border: 1px solid #3a2008;
+}
+
+/* Thin stem connecting cup to base plate */
+.holder-stem {
+    width: 6px;
+    height: 10px;
+    background: linear-gradient(to right, #6a4a20, #3a2008, #6a4a20);
+}
+
+/* Wide base plate the whole holder sits on */
+.holder-base {
+    width: 34px;
+    height: 6px;
+    background: linear-gradient(to bottom, #6a4a20, #2e1a08);
+    border-radius: 1px;
+    border: 1px solid #3a2008;
+}
+
+/* Primary flicker */
+@keyframes flicker {
+    0%   { transform: rotate(-4deg) scaleX(1)    scaleY(1);    opacity: 1;   }
+    20%  { transform: rotate(3deg)  scaleX(0.92) scaleY(1.08); opacity: 0.9; }
+    40%  { transform: rotate(-2deg) scaleX(1.05) scaleY(0.95); opacity: 1;   }
+    60%  { transform: rotate(4deg)  scaleX(0.88) scaleY(1.1);  opacity: 0.85;}
+    80%  { transform: rotate(-3deg) scaleX(1.03) scaleY(0.97); opacity: 0.95;}
+    100% { transform: rotate(2deg)  scaleX(0.95) scaleY(1.04); opacity: 1;   }
+}
+
+/* Secondary flicker for the middle flame layer */
+@keyframes flicker2 {
+    0%   { transform: rotate(3deg)  scaleX(0.95) scaleY(1.05); }
+    33%  { transform: rotate(-4deg) scaleX(1.08) scaleY(0.92); }
+    66%  { transform: rotate(2deg)  scaleX(0.9)  scaleY(1.1);  }
+    100% { transform: rotate(-3deg) scaleX(1.04) scaleY(0.96); }
+}

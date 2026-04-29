@@ -18,8 +18,8 @@ public class OrderManager extends BaseManager<Order>{
 
     private static final String QUERY_FIND_BY_STATUS = "SELECT o FROM Order o WHERE o.orderStatus = :status";
 
-    private static final String QUERY_FIND_BY_CUSTOMER = "SELECT DISTINCT o FROM Order o JOIN FETCH o.orderItems WHERE o.customer = :customer";
-
+    private static final String QUERY_FIND_BY_CUSTOMER = "SELECT DISTINCT o FROM Order o JOIN FETCH o.orderItems oi JOIN FETCH oi.book WHERE o.customer = :customer";
+    
     public OrderManager() {
         super(Order.class);
     }

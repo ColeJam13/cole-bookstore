@@ -59,6 +59,8 @@
 		<maven-site-plugin.version>3.21.0</maven-site-plugin.version>
 		<maven-spotbugs-plugin.version>4.9.8.2</maven-spotbugs-plugin.version>
 		<maven-taglist-plugin.version>3.2.2</maven-taglist-plugin.version>
+		<primeflex.version>4.0.0</primeflex.version>
+		<webjars-locator.version>0.52</webjars-locator.version>
 	</properties>	
 	<dependencies>
 		<dependency>
@@ -90,6 +92,16 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.core.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>primeflex</artifactId>
+			<version>${primeflex.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>${webjars-locator.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

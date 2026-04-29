@@ -1,50 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
-	template="/pages/layouts/customer-template.xhtml">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+    template="/pages/layouts/customer-template.xhtml">
 
     <ui:define name ="body">
+        <h:outputStylesheet library="css" name="forms.css" />
         <h:form id="checkoutForm">
             <p:remoteCommand autoRun="true" oncomplete="PF('checkoutPrompt').show()" rendered="#{!userProvider.userLoggedIn}" />
-            <div class="formField">
+            <div class="flex align-items-center gap-3 mb-3">
                 <h:outputLabel value="Email: " />
                 <p:inputText id="email" value="#{checkoutForm.customer.email}" required="true" />
                 <p:message for="email" />
             </div>
-            <div class="formField">
+            <div class="flex align-items-center gap-3 mb-3">
                 <h:outputLabel value="First Name: " />
                 <p:inputText id="firstName" value="#{checkoutForm.customer.firstName}" required="true" />
                 <p:message for="firstName" />
             </div>
-            <div class="formField">
+            <div class="flex align-items-center gap-3 mb-3">
                 <h:outputLabel value="Last Name:" />
                 <p:inputText id="lastName" value="#{checkoutForm.customer.lastName}" required="true" />
                 <p:message for="lastName" />
             </div>
             <h3>Shipping Address</h3>
-            <div class="shippingAddress">
-                <div class="formField">
-                    <h:outputLabel value="Street Address: " />
-                    <p:inputText id="streetAddress" value="#{checkoutForm.customer.shippingAddress.street}" required="true" />
-                    <p:message for="streetAddress" />
-                </div>
-                <div class="formField">
-                    <h:outputLabel value="City: " />
-                    <p:inputText id="city" value="#{checkoutForm.customer.shippingAddress.city}" required="true" />
-                    <p:message for="city" />
-                </div>
-                <div class="formField">
-                    <h:outputLabel value="State: " />
-                    <p:inputText id="state" value="#{checkoutForm.customer.shippingAddress.state}" required="true" />
-                    <p:message for="state" />
-                </div>
-                <div class="formField">
-                    <h:outputLabel value="Zip: " />
-                    <p:inputText id="zip" value="#{checkoutForm.customer.shippingAddress.zip}" required="true" />
-                    <p:message for="zip" />
-                </div>
+            <div class="flex align-items-center gap-3 mb-3">
+                <h:outputLabel value="Street Address: " />
+                <p:inputText id="streetAddress" value="#{checkoutForm.customer.shippingAddress.street}" required="true" />
+                <p:message for="streetAddress" />
             </div>
-            <div class="formField">
+            <div class="flex align-items-center gap-3 mb-3">
+                <h:outputLabel value="City: " />
+                <p:inputText id="city" value="#{checkoutForm.customer.shippingAddress.city}" required="true" />
+                <p:message for="city" />
+            </div>
+            <div class="flex align-items-center gap-3 mb-3">
+                <h:outputLabel value="State: " />
+                <p:inputText id="state" value="#{checkoutForm.customer.shippingAddress.state}" required="true" />
+                <p:message for="state" />
+            </div>
+            <div class="flex align-items-center gap-3 mb-3">
+                <h:outputLabel value="Zip: " />
+                <p:inputText id="zip" value="#{checkoutForm.customer.shippingAddress.zip}" required="true" />
+                <p:message for="zip" />
+            </div>
+            <div class="flex align-items-center gap-3 mb-3">
                 <h:outputLabel value="Billing Address same as shipping?" />
                 <p:selectBooleanCheckbox value="#{checkoutForm.sameAsShipping}">
                     <p:ajax update="billingPanel" />
@@ -53,33 +52,31 @@
             <h:panelGroup id="billingPanel" layout="block">
                 <p:outputPanel rendered="#{!checkoutForm.sameAsShipping}">
                     <h3>Billing Address</h3>
-                    <div class="billingAddress">
-                        <div class="formField">
-                            <h:outputLabel value="Billing Address: " />
-                            <p:inputText id="billingStreetAddress" value="#{checkoutForm.customer.billingAddress.street}" required="true" />
-                            <p:message for="billingStreetAddress" />
-                        </div>
-                        <div class="formField">
-                            <h:outputLabel value="Billing City: " />
-                            <p:inputText id="billingCity" value="#{checkoutForm.customer.billingAddress.city}" required="true" />
-                            <p:message for="billingCity" />
-                        </div>
-                        <div class="formField">
-                            <h:outputLabel value="Billing State: " />
-                            <p:inputText id="billingState" value="#{checkoutForm.customer.billingAddress.state}" required="true" />
-                            <p:message for="billingState" />
-                        </div>
-                        <div class="formField">
-                            <h:outputLabel value="Billing Zip: " />
-                            <p:inputText id="billingZip" value="#{checkoutForm.customer.billingAddress.zip}" required="true" />
-                            <p:message for="billingZip" />
-                        </div>
+                    <div class="flex align-items-center gap-3 mb-3">
+                        <h:outputLabel value="Billing Address: " />
+                        <p:inputText id="billingStreetAddress" value="#{checkoutForm.customer.billingAddress.street}" required="true" />
+                        <p:message for="billingStreetAddress" />
+                    </div>
+                    <div class="flex align-items-center gap-3 mb-3">
+                        <h:outputLabel value="Billing City: " />
+                        <p:inputText id="billingCity" value="#{checkoutForm.customer.billingAddress.city}" required="true" />
+                        <p:message for="billingCity" />
+                    </div>
+                    <div class="flex align-items-center gap-3 mb-3">
+                        <h:outputLabel value="Billing State: " />
+                        <p:inputText id="billingState" value="#{checkoutForm.customer.billingAddress.state}" required="true" />
+                        <p:message for="billingState" />
+                    </div>
+                    <div class="flex align-items-center gap-3 mb-3">
+                        <h:outputLabel value="Billing Zip: " />
+                        <p:inputText id="billingZip" value="#{checkoutForm.customer.billingAddress.zip}" required="true" />
+                        <p:message for="billingZip" />
                     </div>
                 </p:outputPanel>
             </h:panelGroup>
-            <p:commandButton value="Submit Order" 
-            action="#{checkoutController.submitOrder()}" 
-            ajax="false" />
+            <p:commandButton value="Submit Order"
+                action="#{checkoutController.submitOrder()}"
+                ajax="false" />
         </h:form>
         <p:dialog header="Welcome" widgetVar="checkoutPrompt" modal="true" closable="false" appendTo="@none">
             <p>Do you have an account?</p>
