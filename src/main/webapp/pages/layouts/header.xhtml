@@ -108,15 +108,16 @@
 	</div>
     <div id="navbar">
         <h:form id="navForm">
-            <p:commandLink value="Home" action="home" styleClass="navLink" ajax="false" />
-            <p:commandLink value="Login" onclick="PF('loginDialog').show()" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" />
-            <p:commandLink value="My Account" action="profile" styleClass="navLink" rendered="#{userProvider.generalUser}" ajax="false" />
-            <p:commandLink value="Logout" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false"/>
-            <p:commandLink value="Dashboard" action="dashboard" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-            <p:commandLink value="Orders" action="orders" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-            <p:commandLink value="Inventory" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+            <p:commandLink value="#{appmsg['label.nav.home']}" action="home" styleClass="navLink" ajax="false" />
+            <p:commandLink value="#{appmsg['label.nav.login']}" onclick="PF('loginDialog').show()" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" />
+            <p:commandLink value="#{appmsg['label.nav.myaccount']}" action="profile" styleClass="navLink" rendered="#{userProvider.generalUser}" ajax="false" />
+            <p:commandLink value="#{appmsg['label.nav.logout']}" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false"/>
+            <p:commandLink value="#{appmsg['label.nav.dashboard']}" action="dashboard" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+            <p:commandLink value="#{appmsg['label.nav.orders']}" action="orders" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+            <p:commandLink value="#{appmsg['label.nav.inventory']}" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
             <span class="navSpacer">|</span>
-            <p:outputLabel value="Welcome: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="Cart (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink cartLink" ajax="false" />        </h:form>
+			<p:outputLabel value="#{appmsg['label.nav.welcome']}: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
+			<p:commandLink value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink cartLink" ajax="false" />
+		</h:form>
     </div>
 </ui:composition>

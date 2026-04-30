@@ -8,7 +8,7 @@
     xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>The Colependium</title>
+    <title>#{appmsg['label.app.title']}</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&amp;family=EB+Garamond:wght@400;500&amp;display=swap" />
 </h:head>
@@ -30,20 +30,20 @@
         </div>
     </div>
     <ui:insert name="scriptblock" />
-    <p:dialog header="Login" widgetVar="loginDialog" modal="true" appendTo="@none" closable="true">
+    <p:dialog header="#{appmsg['label.login.dialog.header']}" widgetVar="loginDialog" modal="true" appendTo="@none" closable="true">
         <h:form id="loginForm">
             <p:messages id="loginMessages" showDetail="true" />
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="Username: " />
+                <h:outputLabel value="#{appmsg['label.login.username']}" />
                 <p:inputText value="#{loginForm.username}" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="Password: " />
+                <h:outputLabel value="#{appmsg['label.login.password']}" />
                 <p:password value="#{loginForm.password}" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <p:commandButton value="Login" action="#{loginController.login()}" update="loginMessages :navForm" process="@form @this" />
-                <p:commandButton value="Cancel" type="button" onclick="PF('loginDialog').hide()" />
+                <p:commandButton value="#{appmsg['label.login.submit']}" action="#{loginController.login()}" update="loginMessages :navForm" process="@form @this" />
+                <p:commandButton value="#{appmsg['label.login.cancel']}" type="button" onclick="PF('loginDialog').hide()" />
             </div>
         </h:form>
     </p:dialog>

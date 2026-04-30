@@ -12,28 +12,28 @@
 				<p:ajax event="rowSelect" listener="#{homeController.navigate()}"/>
 				<f:facet name="header">
 					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
-						placeholder="Search by title, author, or ISBN..." style="width: 400px" />
+						placeholder="#{appmsg['label.home.searchplaceholder']}" style="width: 400px" />
 				</f:facet>
-					<p:column headerText="Cover" filterable="false" sortable="false">
+					<p:column headerText="#{appmsg['label.col.cover']}" filterable="false" sortable="false">
 						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" 
 							height="100" alt="#{book.title}"/>
 					</p:column>
-					<p:column headerText="Title" field="title" filterStyle="display:none">
+					<p:column headerText="#{appmsg['label.col.title']}" field="title" filterStyle="display:none">
 						<h:outputText value="#{book.title}"/>
 					</p:column>
-					<p:column headerText="Author" field="author.name" filterStyle="display:none">
+					<p:column headerText="#{appmsg['label.col.author']}" field="author.name" filterStyle="display:none">
 						<h:outputText value="#{book.author.name}" />
 					</p:column>
-					<p:column headerText="ISBN" field="isbn" filterStyle="display:none">
+					<p:column headerText="#{appmsg['label.col.isbn']}" field="isbn" filterStyle="display:none">
 						<h:outputText value="#{book.isbn}" />
 					</p:column>
-					<p:column headerText="Price" field="price" filterStyle="display:none">
+					<p:column headerText="#{appmsg['label.col.price']}" field="price" filterStyle="display:none">
 						<h:outputText value="#{book.price}" > 
 							<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
 						</h:outputText>
 					</p:column>
-					<p:column headerText="Add to Cart">
-						<p:commandButton value="Add to Cart" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" />
+					<p:column headerText="#{appmsg['label.col.addtocart']}">
+						<p:commandButton value="#{appmsg['label.col.addtocart']}" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" />
 					</p:column>
 				</p:dataTable>
 		</h:form>

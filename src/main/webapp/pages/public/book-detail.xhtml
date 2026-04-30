@@ -15,28 +15,28 @@
                 </div>
                 <div class="bookInfo flex flex-column gap-2 pt-4">
                     <div class="bookField mb-2">
-                        <h:outputText value="Title: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{appmsg['label.bookdetail.title']}" styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.title}" styleClass="fieldValue"/>
                     </div>
                     <div class="bookField mb-2">
-                        <h:outputText value="Author: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{appmsg['label.bookdetail.author']}" styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.author.name}" styleClass="fieldValue"/>
                     </div>
                     <div class="bookField mb-2">
-                        <h:outputText value="ISBN: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{appmsg['label.bookdetail.isbn']}" styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.isbn}" styleClass="fieldValue"/>
                     </div>
                     <div class="bookField mb-2">
-                        <h:outputText value="Price: " styleClass="fieldLabel"/>
+                        <h:outputText value="#{appmsg['label.bookdetail.price']}" styleClass="fieldLabel"/>
                         <h:outputText value="#{bookDetailForm.book.price}" styleClass="fieldValue">
                             <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                         </h:outputText>
                     </div>
                     <div class="bookField mb-2">
-                        <p:commandButton value="Add to Cart" action="#{cartController.addToCart(bookDetailForm.book)}" update=":navForm"/>
+                        <p:commandButton value="#{appmsg['label.col.addtocart']}" action="#{cartController.addToCart(bookDetailForm.book)}" update=":navForm"/>
                     </div>
                     <div class="bookDescription p-4 mt-4">
-                        <h:outputText value="Description: "/>
+                        <h:outputText value="#{appmsg['label.bookdetail.description']}"/>
                         <h:outputText value="#{bookDetailForm.description}"/>
                     </div>
                 </div>
