@@ -7,13 +7,9 @@ import com.ksm.bookstore.model.OrderStatus;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static org.testng.Assert.assertEquals;
 
@@ -30,16 +26,13 @@ public class OrderControllerTest {
         @Mock
         OrderManager orderManager;
 
-        @Spy
+        @Mock
         OrderForm orderForm;
 
         final Order order = new Order();
 
-        final List<Order> refreshedOrders = List.of(new Order(), new Order());
-
         public Mocking() {
             openMocks(this);
-            when(orderManager.findAll()).thenReturn(refreshedOrders);
         }
     }
 
@@ -77,7 +70,7 @@ public class OrderControllerTest {
         // Act
         m.controller.updateOrderStatus(m.order, OrderStatus.SUBMITTED);
 
-        // Assert
-        assertEquals(m.orderForm.getOrderList(), m.refreshedOrders);
+        // Verify
+        verify(m.orderForm).init();
     }
 }

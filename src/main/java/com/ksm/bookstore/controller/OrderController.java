@@ -35,6 +35,6 @@ public class OrderController {
     public void updateOrderStatus(Order order, OrderStatus status) {
         order.setOrderStatus(status);
         orderManager.update(order);
-        orderForm.setOrderList(orderManager.findAll());
+        orderForm.init();
     }
 }
