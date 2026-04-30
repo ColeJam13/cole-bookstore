@@ -20,7 +20,9 @@
                     <h:outputText value="#{orders.customer.lastName}" />
                 </p:column>
                 <p:column headerText="#{appmsg['label.col.ordertotal']}" field="orderTotal">
-                    <h:outputText value="#{orders.orderTotal}" />
+                    <h:outputText value="#{orders.orderTotal}" >
+                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="#{appmsg['label.col.orderstatus']}" field="orderStatus">
                     <h:outputText value="#{orders.orderStatus}" />

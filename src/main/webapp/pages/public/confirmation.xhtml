@@ -22,14 +22,14 @@
             </p:column>
             <p:column headerText="#{appmsg['label.col.price']}">
                 <h:outputText value="#{item.price}">
-                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                    <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                 </h:outputText>
             </p:column>
         </p:dataTable>
         <div class="orderTotal py-3 px-4">
             <h:outputText value="#{appmsg['label.confirmation.ordertotal']}" />
             <h:outputText value="#{confirmationForm.order.orderTotal}">
-                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
             </h:outputText>
         </div>
     </ui:define>

@@ -31,7 +31,9 @@
                     <h:outputText value="#{book.active}" />
                 </p:column>
                 <p:column headerText="#{appmsg['label.col.price']}" field="price" filterStyle="display:none">
-                    <h:outputText value="#{book.price}" />
+                    <h:outputText value="#{book.price}" >
+                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="#{appmsg['label.inventory.actions']}" style="text-align:center">
                     <div class="flex flex-column align-items-center gap-2">
