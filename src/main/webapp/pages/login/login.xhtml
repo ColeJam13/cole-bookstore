@@ -1,21 +1,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
-	template="/pages/layouts/customer-template.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:h="http://java.sun.com/jsf/html" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui"
+    template="/pages/layouts/customer-template.xhtml">
 
     <h:head>
-        <title>Login Form</title>
+        <title>#{appmsg['label.login.heading']}</title>
     </h:head>
- 	<ui:define name="body">
-        <h2>Hello, please log in:</h2>
-        <form name="loginForm" method="post" action="j_security_check">
-            <p><strong>Please type your user name: </strong>
-                <input type="text" name="j_username" size="25"/></p>
-            <p><strong>Please type your password: </strong>
-                <input type="password" size="15" name="j_password"/></p>
-            <p>
-                <input type="submit" value="Submit"/>
-                <input type="reset" value="Reset"/></p>
-        </form>       
-	</ui:define>
+    <ui:define name="body">
+        <h:outputStylesheet library="css" name="forms.css" />
+        <div class="profileDetail" style="max-width:500px; margin:40px auto; padding:30px;">
+            <h3 style="text-align:center;">#{appmsg['label.login.heading']}</h3>
+            <form name="loginForm" method="post" action="j_security_check">
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label style="color:#c9a84c; font-family:'EB Garamond', serif; min-width:100px;">
+                        #{appmsg['label.login.username']}
+                    </label>
+                    <input type="text" name="j_username" class="ui-inputfield ui-widget ui-state-default ui-corner-all" style="flex:1;" />
+                </div>
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label style="color:#c9a84c; font-family:'EB Garamond', serif; min-width:100px;">
+                        #{appmsg['label.login.password']}
+                    </label>
+                    <input type="password" name="j_password" class="ui-inputfield ui-widget ui-state-default ui-corner-all" style="flex:1;" />
+                </div>
+                <div class="flex align-items-center justify-content-center gap-3 mb-3" style="margin-top:20px;">
+                    <input type="submit" value="#{appmsg['label.login.submit']}" class="ui-button ui-widget ui-state-default ui-corner-all" />
+                    <input type="reset" value="#{appmsg['label.login.cancel']}" class="ui-button ui-widget ui-state-default ui-corner-all" />
+                </div>
+            </form>
+        </div>
+    </ui:define>
 </ui:composition>

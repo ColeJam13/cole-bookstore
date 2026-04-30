@@ -72,4 +72,10 @@
 	  <role-name>General</role-name>
 	</security-role>
 
+	<!-- Gracefully handles a user without permissions trying to log in from an admin page (redirects home but still logs in the user) -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/pages/public/home.jsf</location>
+	</error-page>
+
 </web-app>
