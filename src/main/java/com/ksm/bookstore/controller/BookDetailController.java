@@ -17,6 +17,9 @@ import com.ksm.bookstore.dao.BookManager;
 import com.ksm.bookstore.form.BookDetailForm;
 import com.ksm.bookstore.provider.DescriptionCache;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Controller for the Book Details page. Handles fetching
  * book details via ISBN
@@ -25,6 +28,8 @@ import com.ksm.bookstore.provider.DescriptionCache;
 @Named
 @RequestScoped
 public class BookDetailController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(BookDetailController.class);
 
     @Inject
     private BookManager bookManager;
@@ -38,7 +43,7 @@ public class BookDetailController {
     /**
      * Fetches a description for each book by using the description field on GoogleBooks API
      * via the books ISBN. Key is located within the Standalone file
-     * @throws IOException
+     * @throws IOException if the API call fails or the response can't be read
      */
     private void fetchDescription() throws IOException {
 
@@ -51,30 +56,33 @@ public class BookDetailController {
         String urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + bookDetailForm.getIsbn() + "&key=" + System.getProperty("google.books.api.key");
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
+        try {
+            connection.setRequestMethod("GET");
 
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(connection.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-        }
-        reader.close();
-
-        JsonObject jsonResponse = Json.createReader(
-            new java.io.StringReader(response.toString())
-        ).readObject();
-
-        JsonArray items = jsonResponse.getJsonArray("items");
-
-        if (items != null && !items.isEmpty()) {
-            JsonObject volumeInfo = items.getJsonObject(0).getJsonObject("volumeInfo");
-            if (volumeInfo.containsKey("description")) {
-                String description = volumeInfo.getString("description");
-                bookDetailForm.setDescription(description);
-                descriptionCache.putDescription(bookDetailForm.getIsbn(), description);
+            StringBuilder response = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream()))) {
+                String line;
+                while((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
             }
+            JsonObject jsonResponse = Json.createReader(
+                new java.io.StringReader(response.toString())
+            ).readObject();
+
+            JsonArray items = jsonResponse.getJsonArray("items");
+
+            if (items != null && !items.isEmpty()) {
+                JsonObject volumeInfo = items.getJsonObject(0).getJsonObject("volumeInfo");
+                if (volumeInfo.containsKey("description")) {
+                    String description = volumeInfo.getString("description");
+                    bookDetailForm.setDescription(description);
+                    descriptionCache.putDescription(bookDetailForm.getIsbn(), description);
+                }
+            }
+        } finally {
+            connection.disconnect();
         }
     }
 
@@ -82,6 +90,7 @@ public class BookDetailController {
      * Loads the book details for the requested ISBN.
      * Triggered by f:viewAction after view parameters have been injected,
      * ensuring the ISBN is available before the book is fetched.
+     * Description fetch failures are logged
      */
     public void init() {
         if (bookDetailForm.getIsbn() == null) {
@@ -92,6 +101,7 @@ public class BookDetailController {
         try {
             fetchDescription();
         } catch (IOException e) {
+            LOG.warn("Failed to fetch book description for ISBN {}", bookDetailForm.getIsbn(), e);
             bookDetailForm.setDescription(null);
         }
     }
