@@ -30,8 +30,9 @@
         </div>
     </div>
     <ui:insert name="scriptblock" />
-    <p:dialog header="#{appmsg['label.login.dialog.header']}" widgetVar="loginDialog" modal="true" appendTo="@none" closable="true">
+    <p:dialog header="#{appmsg['label.login.dialog.header']}" widgetVar="loginDialog" modal="true" appendTo="@none" closable="true" onHide="clearLoginForm()">
         <h:form id="loginForm">
+            <p:remoteCommand name="clearLoginForm" action="#{loginController.clearForm()}" update="loginForm" />
             <p:messages id="loginMessages" showDetail="true" />
             <div class="flex align-items-center gap-3 mb-3">
                 <h:outputLabel value="#{appmsg['label.login.username']}" />

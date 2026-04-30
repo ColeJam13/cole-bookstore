@@ -13,6 +13,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import java.util.ResourceBundle;
+
 import org.apache.commons.lang3.SerializationUtils;
 
 /**
@@ -44,6 +46,16 @@ public class InventoryController {
      */
     public void newBook() {
         inventoryForm.setSelectedBook(new Book());
+    }
+
+    /**
+     * Helper method which looks up a localized message from appmsg resource bundle
+     * @param key the message key to look up in the bundle
+     * @return the localized message string
+     */
+    private String getMessage(String key) {
+        return ResourceBundle.getBundle("com.ksm.web.ui.application",
+            facesContext.getViewRoot().getLocale()).getString(key);
     }
 
     /**
@@ -79,13 +91,13 @@ public class InventoryController {
      */
     public void activateBook(Book book) {
         if (!book.getAuthor().isActive()) {
-        facesContext.addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                "Cannot activate book with an inactive author.", null));
+            facesContext.addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    getMessage("message.inventory.book.activate.inactive.author"), null));
         } else {
-        book.setActive(true);
-        bookManager.update(book);
-        inventoryForm.init();
+            book.setActive(true);
+            bookManager.update(book);
+            inventoryForm.init();
         }
     }
 

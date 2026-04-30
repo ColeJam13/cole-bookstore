@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertFalse;
 
 /**
  * Unit tests for {@link LoginController}
@@ -42,12 +44,13 @@ public class LoginControllerTest {
         @Mock
         ExternalContext externalContext;
 
+        @Mock
+        UIViewRoot viewRoot;
+
         @Spy
         LoginForm loginForm;
 
         final HttpServletRequest requestMock = mock(HttpServletRequest.class);
-
-        final UIViewRoot viewRootMock = mock(UIViewRoot.class);
 
         final String username = "test@example.com";
 
@@ -58,8 +61,9 @@ public class LoginControllerTest {
             when(facesContext.getExternalContext()).thenReturn(externalContext);
             when(externalContext.getRequest()).thenReturn(requestMock);
             when(externalContext.getRequestContextPath()).thenReturn("");
-            when(facesContext.getViewRoot()).thenReturn(viewRootMock);
-            when(viewRootMock.getViewId()).thenReturn("/pages/public/home.xhtml");
+            when(viewRoot.getViewId()).thenReturn("/pages/public/home.xhtml");
+            when(facesContext.getViewRoot()).thenReturn(viewRoot);
+            when(viewRoot.getLocale()).thenReturn(Locale.ENGLISH);
             loginForm.setUsername(username);
             loginForm.setPassword(password);
         }
@@ -149,5 +153,20 @@ public class LoginControllerTest {
             // Verify 
             verify(primeFacesMock).executeScript("PF('loginDialog').show()");
         }
+    }
+
+    @Test(description = "clearForm() should null username, password and reset loginFailed")
+    public void clearForm_resetsAllFields() {
+        // Arrange
+        Mocking m = new Mocking();
+        m.loginForm.setLoginFailed(true);
+
+        // Act
+        m.controller.clearForm();
+
+        // Assert
+        assertNull(m.loginForm.getUsername());
+        assertNull(m.loginForm.getPassword());
+        assertFalse(m.loginForm.isLoginFailed());
     }
 }

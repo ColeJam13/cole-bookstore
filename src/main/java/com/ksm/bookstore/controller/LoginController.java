@@ -1,6 +1,7 @@
 package com.ksm.bookstore.controller;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -31,7 +32,27 @@ public class LoginController {
     private LoginForm loginForm;
 
     /**
+     * Helper method which looks up a localized message from appmsg resource bundle
+     * @param key the message key to look up in the bundle
+     * @return the localized message string
+     */
+    private String getMessage(String key) {
+        return ResourceBundle.getBundle("com.ksm.web.ui.application",
+            facesContext.getViewRoot().getLocale()).getString(key);
+    }
+
+    /**
+     * Resets the login form fields when the dialog is closed
+     */
+    public void clearForm() {
+        loginForm.setUsername(null);
+        loginForm.setPassword(null);
+        loginForm.setLoginFailed(false);
+    }
+
+    /**
      * Attempts a login via the inputted username and password, throws error message in incorrect or null
+     * @throws IOException if the post-login redirect fails
      */
     public void login() throws IOException {
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
@@ -45,7 +66,7 @@ public class LoginController {
             loginForm.setPassword(null);
             PrimeFaces.current().executeScript("PF('loginDialog').show()");
             facesContext.addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid username or password, please try again.", null));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, getMessage("message.login.invalid.credentials"), null));
         }
     }
 }

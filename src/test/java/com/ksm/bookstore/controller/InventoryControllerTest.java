@@ -14,6 +14,10 @@ import org.testng.annotations.Test;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.component.UIViewRoot;
+import javax.faces.application.FacesMessage;
+
+import java.util.Locale;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -26,6 +30,7 @@ import static org.testng.Assert.assertNotSame;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertNotNull;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.ArgumentMatchers.eq;
 
 /**
  * Unit tests for {@link InventoryController}
@@ -49,11 +54,14 @@ public class InventoryControllerTest {
         @Mock
         ExternalContext externalContext;
 
-        @Spy
-        InventoryForm inventoryForm;
-
         @Mock
         AuthorService authorService;
+
+        @Mock
+        UIViewRoot viewRoot;
+
+        @Spy
+        InventoryForm inventoryForm;
 
         final Book selectedBook = new Book();
 
@@ -63,6 +71,8 @@ public class InventoryControllerTest {
             openMocks(this);
             when(facesContext.getExternalContext()).thenReturn(externalContext);
             doNothing().when(inventoryForm).init();
+            when(facesContext.getViewRoot()).thenReturn(viewRoot);
+            when(viewRoot.getLocale()).thenReturn(Locale.ENGLISH);
             inventoryForm.setSelectedBook(selectedBook);
             inventoryForm.setSelectedAuthor(selectedAuthor);
         }
@@ -187,6 +197,7 @@ public class InventoryControllerTest {
 
         // Verify
         verify(m.bookManager, never()).update(any());
+        verify(m.facesContext).addMessage(eq(null), any(FacesMessage.class));
     }
 
     // activateBook() tests - active author
