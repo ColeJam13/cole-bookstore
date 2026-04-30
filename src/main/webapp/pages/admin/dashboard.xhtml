@@ -8,13 +8,13 @@
 
     <ui:define name="body">
         <div class="flex gap-3 mt-4 mx-3">
-            <p:panel header="Total Books in Library" styleClass="flex-1">
+            <p:panel header="#{appmsg['label.dashboard.totalbooks']}" styleClass="flex-1">
                 <h:outputText value="#{dashboardForm.totalBooks}" />
             </p:panel>
-            <p:panel header="Total Authors in Library" styleClass="flex-1">
+            <p:panel header="#{appmsg['label.dashboard.totalauthors']}" styleClass="flex-1">
                 <h:outputText value="#{dashboardForm.totalAuthors}" />
             </p:panel>
-            <p:panel header="Total Current Orders" styleClass="flex-1">
+            <p:panel header="#{appmsg['label.dashboard.totalorders']}" styleClass="flex-1">
                 <h:outputText value="#{dashboardForm.totalOrders}" />
             </p:panel>
         </div>

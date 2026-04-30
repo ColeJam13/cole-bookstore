@@ -8,119 +8,119 @@
         <div class="profileDetail">
             <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:30px; padding-bottom:30px;">
                 <div>
-                    <h3>Account</h3>
+                    <h3>#{appmsg['label.profile.account']}</h3>
                     <h:form>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Username/Email" styleClass="fieldLabel" />
+                            <h:outputLabel value="#{appmsg['label.profile.usernameemail']}" styleClass="fieldLabel" />
                             <h:outputText value="#{profileForm.customer.email}" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="First Name:" />
+                            <h:outputLabel value="#{appmsg['label.checkout.firstname']}" />
                             <p:inputText id="firstName" value="#{profileForm.customer.firstName}" required="true" />
                             <p:message for="firstName" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Last Name:" />
+                            <h:outputLabel value="#{appmsg['label.checkout.lastname']}" />
                             <p:inputText id="lastName" value="#{profileForm.customer.lastName}" required="true" />
                             <p:message for="lastName" />
                         </div>
-                        <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
+                        <p:commandButton value="#{appmsg['label.common.save']}" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
                     </h:form>
                 </div>
                 <div style="border-left:1px solid #3a0000; padding-left:30px;">
                     <h:form>
-                        <h3>Shipping Address</h3>
+                        <h3>#{appmsg['label.checkout.shippingaddress']}</h3>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Street:" />
+                            <h:outputLabel value="#{appmsg['label.checkout.street']}" />
                             <p:inputText id="streetAddress" value="#{profileForm.customer.shippingAddress.street}" required="true" />
                             <p:message for="streetAddress" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="City:" />
+                            <h:outputLabel value="#{appmsg['label.checkout.city']}" />
                             <p:inputText id="city" value="#{profileForm.customer.shippingAddress.city}" required="true" />
                             <p:message for="city" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="State:" />
+                            <h:outputLabel value="#{appmsg['label.checkout.state']}" />
                             <p:inputText id="state" value="#{profileForm.customer.shippingAddress.state}" required="true" />
                             <p:message for="state" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Zip:" />
+                            <h:outputLabel value="#{appmsg['label.checkout.zip']}" />
                             <p:inputText id="zip" value="#{profileForm.customer.shippingAddress.zip}" required="true" />
                             <p:message for="zip" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
-                            <h:outputLabel value="Billing same as shipping?" />
+                            <h:outputLabel value="#{appmsg['label.profile.sameasshipping']}" />
                             <p:selectBooleanCheckbox value="#{profileForm.sameAsShipping}">
                                 <p:ajax update="billingPanel" />
                             </p:selectBooleanCheckbox>
                         </div>
-                        <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
+                        <p:commandButton value="#{appmsg['label.common.save']}" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
                     </h:form>
                 </div>
                 <div style="border-left:1px solid #3a0000; padding-left:30px;">
                     <h:panelGroup id="billingPanel" layout="block">
                         <p:outputPanel rendered="#{!profileForm.sameAsShipping}">
                             <h:form>
-                                <h3>Billing Address</h3>
+                                <h3>#{appmsg['label.checkout.billingaddress']}</h3>
                                 <div class="flex align-items-center gap-3 mb-3">
-                                    <h:outputLabel value="Street:" />
+                                    <h:outputLabel value="#{appmsg['label.checkout.billingstreet']}" />
                                     <p:inputText id="billingStreetAddress" value="#{profileForm.customer.billingAddress.street}" required="true" />
                                     <p:message for="billingStreetAddress" />
                                 </div>
                                 <div class="flex align-items-center gap-3 mb-3">
-                                    <h:outputLabel value="Billing City:" />
+                                    <h:outputLabel value="#{appmsg['label.checkout.billingcity']}" />
                                     <p:inputText id="billingCity" value="#{profileForm.customer.billingAddress.city}" required="true" />
                                     <p:message for="billingCity" />
                                 </div>
                                 <div class="flex align-items-center gap-3 mb-3">
-                                    <h:outputLabel value="Billing State:" />
+                                    <h:outputLabel value="#{appmsg['label.checkout.billingstate']}" />
                                     <p:inputText id="billingState" value="#{profileForm.customer.billingAddress.state}" required="true" />
                                     <p:message for="billingState" />
                                 </div>
                                 <div class="flex align-items-center gap-3 mb-3">
-                                    <h:outputLabel value="Billing Zip:" />
+                                    <h:outputLabel value="#{appmsg['label.checkout.billingzip']}" />
                                     <p:inputText id="billingZip" value="#{profileForm.customer.billingAddress.zip}" required="true" />
                                     <p:message for="billingZip" />
                                 </div>
-                                <p:commandButton value="Save" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
+                                <p:commandButton value="#{appmsg['label.common.save']}" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
                             </h:form>
                         </p:outputPanel>
                         <p:outputPanel rendered="#{profileForm.sameAsShipping}">
-                            <h3 style="color:#5a4a30;">Billing Address</h3>
-                            <p style="color:#5a4a30; font-style:italic;">Same as shipping address.</p>
+                            <h3 style="color:#5a4a30;">#{appmsg['label.checkout.billingaddress']}</h3>
+                            <p style="color:#5a4a30; font-style:italic;">#{appmsg['label.profile.sameasshipping.text']}</p>
                         </p:outputPanel>
                     </h:panelGroup>
                 </div>
             </div>
             <div style="margin-top:20px;">                
-                <h3 style="border-bottom:1px solid #3a0000; padding-bottom:8px; margin-bottom:0;">Order History</h3>
+                <h3 style="border-bottom:1px solid #3a0000; padding-bottom:8px; margin-bottom:0;">#{appmsg['label.profile.orderhistory']}</h3>                
                 <h:form id="orderHistoryForm" styleClass="orderHistoryForm">
                     <p:dataTable id="orderHistoryTable" var="order" value="#{profileForm.orderHistory}" rowKey="#{order.orderNumber}">
                         <p:column style="width:30px">
                             <p:rowToggler />
                         </p:column>
-                        <p:column headerText="Order Number" field="orderNumber" filterable="true" sortable="true">
+                        <p:column headerText="#{appmsg['label.col.ordernumber']}" field="orderNumber" filterable="true" sortable="true">
                             <h:outputText value="#{order.orderNumber}" />
                         </p:column>
-                        <p:column headerText="Order Status" field="orderStatus" filterable="true" sortable="true">
+                        <p:column headerText="#{appmsg['label.col.orderstatus']}" field="orderStatus" filterable="true" sortable="true">
                             <h:outputText value="#{order.orderStatus}" />
                         </p:column>
-                        <p:column headerText="Order Total" field="orderTotal" filterable="true" sortable="true">
+                        <p:column headerText="#{appmsg['label.col.ordertotal']}" field="orderTotal" filterable="true" sortable="true">
                             <h:outputText value="#{order.orderTotal}">
                                 <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                             </h:outputText>
                         </p:column>
                         <p:rowExpansion>
                             <p:dataTable var="item" value="#{order.orderItems}">
-                                <p:column headerText="Cover" style="width:60px">
+                                <p:column headerText="#{appmsg['label.col.cover']}" style="width:60px">
                                     <img src="https://covers.openlibrary.org/b/isbn/#{item.book.isbn}-M.jpg" alt="#{item.book.title}" style="height:60px;" />
                                 </p:column>
-                                <p:column headerText="Title">
+                                <p:column headerText="#{appmsg['label.col.title']}">
                                     <h:outputText value="#{item.book.title}" />
                                 </p:column>
-                                <p:column headerText="Price">
+                                <p:column headerText="#{appmsg['label.col.price']}">
                                     <h:outputText value="#{item.price}">
                                         <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                                     </h:outputText>

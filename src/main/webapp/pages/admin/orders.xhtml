@@ -10,26 +10,28 @@
         <h:form>
             <p:importEnum type="com.ksm.bookstore.model.OrderStatus" />
             <p:dataTable var="orders" value="#{orderForm.orderList}" id="orderTable">
-                <p:column headerText="Order Number" field="orderNumber">
+                <p:column headerText="#{appmsg['label.col.ordernumber']}" field="orderNumber">
                     <h:outputText value="#{orders.orderNumber}" />
                 </p:column>
-                <p:column headerText="Customer First Name" field="customer.firstName">
+                <p:column headerText="#{appmsg['label.col.customerfirstname']}" field="customer.firstName">
                     <h:outputText value="#{orders.customer.firstName}" />
                 </p:column>
-                <p:column headerText="Customer Last Name" field="customer.lastName">
+                <p:column headerText="#{appmsg['label.col.customerlastname']}" field="customer.lastName">
                     <h:outputText value="#{orders.customer.lastName}" />
                 </p:column>
-                <p:column headerText="Order Total" field="orderTotal">
-                    <h:outputText value="#{orders.orderTotal}" />
+                <p:column headerText="#{appmsg['label.col.ordertotal']}" field="orderTotal">
+                    <h:outputText value="#{orders.orderTotal}" >
+                        <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+                    </h:outputText>
                 </p:column>
-                <p:column headerText="Order Status" field="orderStatus">
+                <p:column headerText="#{appmsg['label.col.orderstatus']}" field="orderStatus">
                     <h:outputText value="#{orders.orderStatus}" />
                 </p:column>
-                <p:column headerText="Order Actions" style="text-align:center">
-                    <p:menuButton value="Update Status">
-                        <p:menuitem value="Change to Submitted" action="#{orderController.updateOrderStatus(orders, OrderStatus.SUBMITTED)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.SUBMITTED}" />
-                        <p:menuitem value="Change to Cancelled" action="#{orderController.updateOrderStatus(orders, OrderStatus.CANCELLED)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.CANCELLED}" />
-                        <p:menuitem value="Change to Complete" action="#{orderController.updateOrderStatus(orders, OrderStatus.COMPLETE)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.COMPLETE}" />
+                <p:column headerText="#{appmsg['label.orders.actions']}" style="text-align:center">
+                    <p:menuButton value="#{appmsg['label.orders.updatestatus']}">
+                        <p:menuitem value="#{appmsg['label.orders.tosubmitted']}" action="#{orderController.updateOrderStatus(orders, OrderStatus.SUBMITTED)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.SUBMITTED}" />
+                        <p:menuitem value="#{appmsg['label.orders.tocancelled']}" action="#{orderController.updateOrderStatus(orders, OrderStatus.CANCELLED)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.CANCELLED}" />
+                        <p:menuitem value="#{appmsg['label.orders.tocomplete']}" action="#{orderController.updateOrderStatus(orders, OrderStatus.COMPLETE)}" update="orderTable" rendered="#{orders.orderStatus != OrderStatus.COMPLETE}" />
                     </p:menuButton>
                 </p:column>
             </p:dataTable>

@@ -9,48 +9,48 @@
             <div class="flex gap-3 p-4 align-items-start">
                 <div class="flex-1">
                     <p:dataTable var="cart" value="#{cartForm.cartItems}" id="cartTable">
-                        <p:column headerText="Cover" filterable="false" sortable="false">
+                        <p:column headerText="#{appmsg['label.col.cover']}" filterable="false" sortable="false">
                             <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{cart.isbn}-M.jpg"
                                 height="100" alt="#{cart.title}"/>
                         </p:column>
-                        <p:column headerText="Title" field="title" filterStyle="display:none">
+                        <p:column headerText="#{appmsg['label.col.title']}" field="title" filterStyle="display:none">
                             <h:outputText value="#{cart.title}"/>
                         </p:column>
-                        <p:column headerText="Price" field="price" filterStyle="display:none">
+                        <p:column headerText="#{appmsg['label.col.price']}" field="price" filterStyle="display:none">
                             <h:outputText value="#{cart.price}">
                                 <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                             </h:outputText>
                         </p:column>
-                        <p:column headerText="Remove" filterable="false" sortable="false">
-                            <p:commandButton value="Remove" action="#{cartController.removeFromCart(cart)}"/>
+                        <p:column headerText="#{appmsg['label.col.remove']}" filterable="false" sortable="false">
+                            <p:commandButton value="#{appmsg['label.col.remove']}" action="#{cartController.removeFromCart(cart)}"/>
                         </p:column>
                     </p:dataTable>
                 </div>
                 <div class="cartSummaryPanel p-4">
                     <h:panelGroup id="cartSummary">
                         <div class="summaryField flex justify-content-between mb-2">
-                            <h:outputText value="Subtotal: "/>
+                            <h:outputText value="#{appmsg['label.cart.subtotal']}"/>
                             <h:outputText value="#{cartForm.subTotal}">
                                 <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2"/>
                             </h:outputText>
                         </div>
                         <div class="summaryField flex justify-content-between mb-2">
-                            <h:outputText value="Tax: "/>
+                            <h:outputText value="#{appmsg['label.cart.tax']}"/>
                             <h:outputText value="#{cartForm.tax}">
                                 <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2"/>
                             </h:outputText>
                         </div>
                         <div class="summaryField flex justify-content-between mb-2">
-                            <h:outputText value="Total: "/>
+                            <h:outputText value="#{appmsg['label.cart.total']}"/>
                             <h:outputText value="#{cartForm.total}">
                                 <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2"/>
                             </h:outputText>
                         </div>
                     </h:panelGroup>
                     <div class="flex flex-column gap-2 mt-3">
-                        <p:commandButton value="Complete Purchase" action="checkout?faces-redirect=true"/>
-                        <p:commandButton value="Continue Shopping" action="home?faces-redirect=true"/>
-                        <p:commandButton value="Cancel Order" action="#{cartController.clearCart()}"/>
+                        <p:commandButton value="#{appmsg['label.cart.completepurchase']}" action="checkout?faces-redirect=true"/>
+                        <p:commandButton value="#{appmsg['label.cart.continueshopping']}" action="home?faces-redirect=true"/>
+                        <p:commandButton value="#{appmsg['label.cart.cancelorder']}" action="#{cartController.clearCart()}"/>
                     </div>
                 </div>
             </div>

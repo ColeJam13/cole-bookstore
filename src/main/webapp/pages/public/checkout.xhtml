@@ -8,80 +8,80 @@
         <h:form id="checkoutForm">
             <p:remoteCommand autoRun="true" oncomplete="PF('checkoutPrompt').show()" rendered="#{!userProvider.userLoggedIn}" />
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="Email: " />
+                <h:outputLabel value="#{appmsg['label.checkout.email']}" />
                 <p:inputText id="email" value="#{checkoutForm.customer.email}" required="true" />
                 <p:message for="email" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="First Name: " />
+                <h:outputLabel value="#{appmsg['label.checkout.firstname']}" />
                 <p:inputText id="firstName" value="#{checkoutForm.customer.firstName}" required="true" />
                 <p:message for="firstName" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="Last Name:" />
+                <h:outputLabel value="#{appmsg['label.checkout.lastname']}" />
                 <p:inputText id="lastName" value="#{checkoutForm.customer.lastName}" required="true" />
                 <p:message for="lastName" />
             </div>
-            <h3>Shipping Address</h3>
+            <h3>#{appmsg['label.checkout.shippingaddress']}</h3>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="Street Address: " />
+                <h:outputLabel value="#{appmsg['label.checkout.street']}" />
                 <p:inputText id="streetAddress" value="#{checkoutForm.customer.shippingAddress.street}" required="true" />
                 <p:message for="streetAddress" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="City: " />
+                <h:outputLabel value="#{appmsg['label.checkout.city']}" />
                 <p:inputText id="city" value="#{checkoutForm.customer.shippingAddress.city}" required="true" />
                 <p:message for="city" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="State: " />
+                <h:outputLabel value="#{appmsg['label.checkout.state']}" />
                 <p:inputText id="state" value="#{checkoutForm.customer.shippingAddress.state}" required="true" />
                 <p:message for="state" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="Zip: " />
+                <h:outputLabel value="#{appmsg['label.checkout.zip']}" />
                 <p:inputText id="zip" value="#{checkoutForm.customer.shippingAddress.zip}" required="true" />
                 <p:message for="zip" />
             </div>
             <div class="flex align-items-center gap-3 mb-3">
-                <h:outputLabel value="Billing Address same as shipping?" />
+                <h:outputLabel value="#{appmsg['label.checkout.sameasshipping']}" />
                 <p:selectBooleanCheckbox value="#{checkoutForm.sameAsShipping}">
                     <p:ajax update="billingPanel" />
                 </p:selectBooleanCheckbox>
             </div>
             <h:panelGroup id="billingPanel" layout="block">
                 <p:outputPanel rendered="#{!checkoutForm.sameAsShipping}">
-                    <h3>Billing Address</h3>
+                    <h3>#{appmsg['label.checkout.billingaddress']}</h3>
                     <div class="flex align-items-center gap-3 mb-3">
-                        <h:outputLabel value="Billing Address: " />
+                        <h:outputLabel value="#{appmsg['label.checkout.billingstreet']}" />
                         <p:inputText id="billingStreetAddress" value="#{checkoutForm.customer.billingAddress.street}" required="true" />
                         <p:message for="billingStreetAddress" />
                     </div>
                     <div class="flex align-items-center gap-3 mb-3">
-                        <h:outputLabel value="Billing City: " />
+                        <h:outputLabel value="#{appmsg['label.checkout.billingcity']}" />
                         <p:inputText id="billingCity" value="#{checkoutForm.customer.billingAddress.city}" required="true" />
                         <p:message for="billingCity" />
                     </div>
                     <div class="flex align-items-center gap-3 mb-3">
-                        <h:outputLabel value="Billing State: " />
+                        <h:outputLabel value="#{appmsg['label.checkout.billingstate']}" />
                         <p:inputText id="billingState" value="#{checkoutForm.customer.billingAddress.state}" required="true" />
                         <p:message for="billingState" />
                     </div>
                     <div class="flex align-items-center gap-3 mb-3">
-                        <h:outputLabel value="Billing Zip: " />
+                        <h:outputLabel value="#{appmsg['label.checkout.billingzip']}" />
                         <p:inputText id="billingZip" value="#{checkoutForm.customer.billingAddress.zip}" required="true" />
                         <p:message for="billingZip" />
                     </div>
                 </p:outputPanel>
             </h:panelGroup>
-            <p:commandButton value="Submit Order"
+            <p:commandButton value="#{appmsg['label.checkout.submitorder']}"
                 action="#{checkoutController.submitOrder()}"
                 ajax="false" />
         </h:form>
-        <p:dialog header="Welcome" widgetVar="checkoutPrompt" modal="true" closable="false" appendTo="@none">
-            <p>Do you have an account?</p>
-            <p:commandButton value="Login" type="button" onclick="PF('checkoutPrompt').hide(); PF('loginDialog').show();" />
-            <p:commandButton value="Continue as Guest" type="button" onclick="PF('checkoutPrompt').hide();" />
+        <p:dialog header="#{appmsg['label.checkout.prompt.header']}" widgetVar="checkoutPrompt" modal="true" closable="false" appendTo="@none">
+            <p>#{appmsg['label.checkout.prompt.body']}</p>
+            <p:commandButton value="#{appmsg['label.checkout.prompt.login']}" type="button" onclick="PF('checkoutPrompt').hide(); PF('loginDialog').show();" />
+            <p:commandButton value="#{appmsg['label.checkout.prompt.guest']}" type="button" onclick="PF('checkoutPrompt').hide();" />
         </p:dialog>
     </ui:define>
 </ui:composition>

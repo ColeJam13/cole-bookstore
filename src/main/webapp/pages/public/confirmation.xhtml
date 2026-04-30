@@ -9,27 +9,27 @@
     <ui:define name="body">
         <h:outputStylesheet library="css" name="forms.css" />
         <div class="confirmation py-3 px-4">
-            <h:outputText value="Thank you for your order! Your order number is: " />
+            <h:outputText value="#{appmsg['label.confirmation.thankyou']}" />
             <h:outputText value="#{confirmationForm.order.orderNumber}" />
         </div>
         <div class="orderStatus py-3 px-4">
-            <h:outputText value="Order Status: " />
+            <h:outputText value="#{appmsg['label.confirmation.orderstatus']}" />
             <h:outputText value="#{confirmationForm.order.orderStatus}" />
         </div>
         <p:dataTable var="item" value="#{confirmationForm.orderItems}">
-            <p:column headerText="Title">
+            <p:column headerText="#{appmsg['label.col.title']}">
                 <h:outputText value="#{item.book.title}" />
             </p:column>
-            <p:column headerText="Price">
+            <p:column headerText="#{appmsg['label.col.price']}">
                 <h:outputText value="#{item.price}">
-                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                    <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                 </h:outputText>
             </p:column>
         </p:dataTable>
         <div class="orderTotal py-3 px-4">
-            <h:outputText value="Order Total: " />
+            <h:outputText value="#{appmsg['label.confirmation.ordertotal']}" />
             <h:outputText value="#{confirmationForm.order.orderTotal}">
-                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
             </h:outputText>
         </div>
     </ui:define>
