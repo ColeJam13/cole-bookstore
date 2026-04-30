@@ -16,12 +16,12 @@
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
                             <h:outputLabel value="#{appmsg['label.checkout.firstname']}" />
-                            <p:inputText id="firstName" value="#{profileForm.customer.firstName}" required="true" />
+                            <p:inputText id="firstName" value="#{profileForm.customer.firstName}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                             <p:message for="firstName" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
                             <h:outputLabel value="#{appmsg['label.checkout.lastname']}" />
-                            <p:inputText id="lastName" value="#{profileForm.customer.lastName}" required="true" />
+                            <p:inputText id="lastName" value="#{profileForm.customer.lastName}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                             <p:message for="lastName" />
                         </div>
                         <p:commandButton value="#{appmsg['label.common.save']}" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />
@@ -32,22 +32,22 @@
                         <h3>#{appmsg['label.checkout.shippingaddress']}</h3>
                         <div class="flex align-items-center gap-3 mb-3">
                             <h:outputLabel value="#{appmsg['label.checkout.street']}" />
-                            <p:inputText id="streetAddress" value="#{profileForm.customer.shippingAddress.street}" required="true" />
+                            <p:inputText id="streetAddress" value="#{profileForm.customer.shippingAddress.street}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                             <p:message for="streetAddress" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
                             <h:outputLabel value="#{appmsg['label.checkout.city']}" />
-                            <p:inputText id="city" value="#{profileForm.customer.shippingAddress.city}" required="true" />
+                            <p:inputText id="city" value="#{profileForm.customer.shippingAddress.city}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                             <p:message for="city" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
                             <h:outputLabel value="#{appmsg['label.checkout.state']}" />
-                            <p:inputText id="state" value="#{profileForm.customer.shippingAddress.state}" required="true" />
+                            <p:inputText id="state" value="#{profileForm.customer.shippingAddress.state}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                             <p:message for="state" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
                             <h:outputLabel value="#{appmsg['label.checkout.zip']}" />
-                            <p:inputText id="zip" value="#{profileForm.customer.shippingAddress.zip}" required="true" />
+                            <p:inputText id="zip" value="#{profileForm.customer.shippingAddress.zip}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                             <p:message for="zip" />
                         </div>
                         <div class="flex align-items-center gap-3 mb-3">
@@ -66,22 +66,22 @@
                                 <h3>#{appmsg['label.checkout.billingaddress']}</h3>
                                 <div class="flex align-items-center gap-3 mb-3">
                                     <h:outputLabel value="#{appmsg['label.checkout.billingstreet']}" />
-                                    <p:inputText id="billingStreetAddress" value="#{profileForm.customer.billingAddress.street}" required="true" />
+                                    <p:inputText id="billingStreetAddress" value="#{profileForm.customer.billingAddress.street}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                                     <p:message for="billingStreetAddress" />
                                 </div>
                                 <div class="flex align-items-center gap-3 mb-3">
                                     <h:outputLabel value="#{appmsg['label.checkout.billingcity']}" />
-                                    <p:inputText id="billingCity" value="#{profileForm.customer.billingAddress.city}" required="true" />
+                                    <p:inputText id="billingCity" value="#{profileForm.customer.billingAddress.city}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                                     <p:message for="billingCity" />
                                 </div>
                                 <div class="flex align-items-center gap-3 mb-3">
                                     <h:outputLabel value="#{appmsg['label.checkout.billingstate']}" />
-                                    <p:inputText id="billingState" value="#{profileForm.customer.billingAddress.state}" required="true" />
+                                    <p:inputText id="billingState" value="#{profileForm.customer.billingAddress.state}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                                     <p:message for="billingState" />
                                 </div>
                                 <div class="flex align-items-center gap-3 mb-3">
                                     <h:outputLabel value="#{appmsg['label.checkout.billingzip']}" />
-                                    <p:inputText id="billingZip" value="#{profileForm.customer.billingAddress.zip}" required="true" />
+                                    <p:inputText id="billingZip" value="#{profileForm.customer.billingAddress.zip}" required="true" requiredMessage="#{appmsg['message.validation.required']}" />
                                     <p:message for="billingZip" />
                                 </div>
                                 <p:commandButton value="#{appmsg['label.common.save']}" action="#{profileController.saveProfile()}" ajax="false" style="margin-top:10px;" />

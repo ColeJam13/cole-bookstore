@@ -32,6 +32,8 @@ public class CheckoutForm implements Serializable {
 
     private boolean sameAsShipping;
 
+    private boolean promptShown;
+
     @Inject
     private UserProvider userProvider;
 
@@ -49,10 +51,22 @@ public class CheckoutForm implements Serializable {
                     .orElseGet(this::createCustomer);
     }
 
+    /**
+     * Creates a new customer and initializes the address fields
+     * @return the new customer
+     */
     private Customer createCustomer() {
         Customer customer = new Customer();
         customer.setShippingAddress(new Address());
         customer.setBillingAddress(new Address());
         return customer;
+    }
+
+    /**
+     * Marks the welcome prompt as shown so it doesnt reappear on
+     * subsequent renders after a login error
+     */
+    public void markPromptShown() {
+        promptShown = true;
     }
 }

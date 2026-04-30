@@ -8,7 +8,7 @@
 
     <ui:define name="body">
         <h:form id="invForm">
-            <p:messages id="messages" showDetail="true" />
+            <p:messages id="messages" />
             <p:dataTable var="book" value="#{inventoryForm.bookList}" id="tblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" rowKey="#{book.isbn}">
                 <f:facet name="header">
                     <div class="flex align-items-center justify-content-center gap-3">
