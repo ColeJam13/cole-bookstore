@@ -7,6 +7,7 @@ html, body {
     background-color: #0d0a0e;
     color: #e8d5b0;
     font-family: 'EB Garamond', 'Palatino Linotype', serif;
+    font-size: 17px;
 }
 
 /* Kills the small whitespace gap browsers add below the banner image */

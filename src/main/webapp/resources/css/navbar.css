@@ -19,7 +19,7 @@
     display: inline-block;
     color: #c9a84c;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 1rem;
     letter-spacing: 1px;
 }
 
@@ -36,12 +36,12 @@
 /* Pipe separator between nav links and welcome/cart section */
 .navSpacer {
     color: #3a0000;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 /* Welcome label color and spacing */
 #navbar .ui-outputlabel {
     display: inline-block;
     color: #a09070;
-    font-size: 13px;
+    font-size: 1rem;
 }

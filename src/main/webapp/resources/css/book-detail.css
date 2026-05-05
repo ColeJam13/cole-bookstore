@@ -5,7 +5,7 @@
 
 /* Font size for individual field rows */
 .bookField {
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 /* Gold bold label text */
@@ -16,7 +16,7 @@
 
 /* Description section brand styling — crimson top border */
 .bookDescription {
-    font-size: 15px;
+    font-size: 1rem;
     line-height: 1.6;
     border-top: 1px solid #3a0000;
 }
