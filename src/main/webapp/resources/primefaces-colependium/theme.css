@@ -437,3 +437,9 @@
     margin-left: -0.5em !important;
     margin-top: -0.5em !important;
 }
+
+/* Cart preview overlay panel — gold border, min width, padding */
+.ui-overlaypanel {
+    border: 1px solid #c9a84c;
+    min-width: 280px;
+}

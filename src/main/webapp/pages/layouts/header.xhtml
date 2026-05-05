@@ -117,9 +117,41 @@
             <p:commandLink value="#{appmsg['label.nav.inventory']}" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
             <span class="navSpacer">|</span>
 			<p:outputLabel value="#{appmsg['label.nav.welcome']}: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink cartLink" ajax="false">
-				<i class="pi pi-shopping-cart" ></i>
+			<p:commandLink id="cartNavLink" value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" onclick="PF('cartPreviewPanel').show()" styleClass="navLink cartLink" >
+				<i class="pi pi-shopping-cart"></i>
 			</p:commandLink>
+			<p:overlayPanel id="cartPreviewPanel" for="cartNavLink" hideEffect="fade" dynamic="true">
+				<ui:repeat value="#{cartForm.cartItems}" var="item">
+					<div class="flex justify-content-between mb-2 pb-2" style="border-bottom: 1px solid #3a0000;">
+						<h:outputText value="#{item.title}" styleClass="mr-4" />
+						<h:outputText value="#{item.price}">
+							<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+						</h:outputText>
+					</div>
+				</ui:repeat>
+				<div class="flex justify-content-between mb-2 mt-3 pt-2" style="border-top: 1px solid #c9a84c;">
+					<h:outputText value="#{appmsg['label.cart.subtotal']}" />
+					<h:outputText value="#{cartForm.subTotal}">
+						<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</div>
+				<div class="flex justify-content-between mb-2">
+					<h:outputText value="#{appmsg['label.cart.tax']}" />
+					<h:outputText value="#{cartForm.tax}">
+						<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</div>
+				<div class="flex justify-content-between mb-2">
+					<h:outputText value="#{appmsg['label.cart.total']}" />
+					<h:outputText value="#{cartForm.total}">
+						<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+				</div>
+				<div class="flex gap-2 mt-3">
+					<p:commandButton value="#{appmsg['label.nav.cart.gotocart']}" action="cart?faces-redirect=true" ajax="false" />
+					<p:commandButton value="#{appmsg['label.nav.cart.gotocheckout']}" action="checkout?faces-redirect=true" ajax="false" />
+				</div>
+			</p:overlayPanel>
 		</h:form>
     </div>
 </ui:composition>
