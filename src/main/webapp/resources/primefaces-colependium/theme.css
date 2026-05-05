@@ -428,3 +428,12 @@
 #orderHistoryForm .ui-datatable .ui-datatable-header {
     display: none;
 }
+
+/* Center icon within icon-only buttons !important required to win specificity */
+.ui-button-icon-only .ui-button-icon-left {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    margin-left: -0.5em !important;
+    margin-top: -0.5em !important;
+}

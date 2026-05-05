@@ -33,8 +33,7 @@
 						</h:outputText>
 					</p:column>
 					<p:column headerText="#{appmsg['label.col.addtocart']}">
-						<p:commandButton value="#{appmsg['label.col.addtocart']}" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" />
-					</p:column>
+						<p:commandButton icon="pi pi-shopping-cart" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" style="font-size: 1.25rem" />					</p:column>
 				</p:dataTable>
 		</h:form>
 	</ui:define>

@@ -117,7 +117,9 @@
             <p:commandLink value="#{appmsg['label.nav.inventory']}" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
             <span class="navSpacer">|</span>
 			<p:outputLabel value="#{appmsg['label.nav.welcome']}: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink cartLink" ajax="false" />
+			<p:commandLink value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" action="cart" styleClass="navLink cartLink" ajax="false">
+				<i class="pi pi-shopping-cart" ></i>
+			</p:commandLink>
 		</h:form>
     </div>
 </ui:composition>
