@@ -11,9 +11,12 @@
             <p:messages id="messages" />
             <p:dataTable var="book" value="#{inventoryForm.bookList}" id="tblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" rowKey="#{book.isbn}">
                 <f:facet name="header">
-                    <div class="flex align-items-center justify-content-center gap-3">
-                        <p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" placeholder="#{appmsg['label.inventory.searchplaceholder.books']}" style="width: 400px" />
-						<p:commandButton value="#{appmsg['label.inventory.addbook']}" action="#{inventoryController.newBook()}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />                    </div>
+                    <div class="searchBarWrap">
+                        <span class="searchDecorLine"></span>
+                        <p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" placeholder="#{appmsg['label.inventory.searchplaceholder.books']}" styleClass="searchInput" />
+                        <p:commandButton value="#{appmsg['label.inventory.addbook']}" action="#{inventoryController.newBook()}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
+                        <span class="searchDecorLine"></span>
+                    </div>
                 </f:facet>
                 <p:column headerText="#{appmsg['label.col.cover']}" filterable="false" sortable="false">
                     <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" height="100" alt="#{book.title}"/>
@@ -36,10 +39,10 @@
                     </h:outputText>
                 </p:column>
                 <p:column headerText="#{appmsg['label.inventory.actions']}" style="text-align:center">
-                    <div class="flex flex-column align-items-center gap-2">
-                        <p:commandButton value="#{appmsg['label.inventory.activatebook']}" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}"/>
-                        <p:commandButton value="#{appmsg['label.inventory.deactivatebook']}" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}"/>
-                        <p:commandButton value="#{appmsg['label.common.edit']}" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
+                    <div class="flex flex-row align-items-center justify-content-center gap-2">
+                        <p:commandButton icon="pi pi-eye" title="#{appmsg['label.inventory.activatebook']}" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}" style="font-size: 1.25rem"/>
+                        <p:commandButton icon="pi pi-eye-slash" title="#{appmsg['label.inventory.deactivatebook']}" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}" style="font-size: 1.25rem"/>
+                        <p:commandButton icon="pi pi-pencil" title="#{appmsg['label.common.edit']}" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" style="font-size: 1.25rem"/>
                     </div>
                 </p:column>
             </p:dataTable>
@@ -58,15 +61,18 @@
                 </div>
                 <div class="flex align-items-center gap-3 mb-3">
                     <h:outputLabel value="#{appmsg['label.col.author']}" />
-				<p:autoComplete id="bookAuthorInput" value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" scrollHeight="200" />
+                    <p:autoComplete id="bookAuthorInput" value="#{inventoryForm.selectedBook.author}" completeMethod="#{inventoryForm.completeAuthor}" converter="authorConverter" var="author" itemLabel="#{author.name}" itemValue="#{author}" forceSelection="true" scrollHeight="200" />
                 </div>
                 <p:commandButton value="#{appmsg['label.common.save']}" action="#{inventoryController.saveBook()}" process=":invForm:bookTitleInput :invForm:bookIsbnInput :invForm:bookPriceInput :invForm:bookAuthorInput @this" update=":invForm:messages :invForm:tblResults" oncomplete="PF('bookDialog').hide()" />
             </p:dialog>
             <p:dataTable var="author" value="#{inventoryForm.authorList}" id="authorTblResults" paginator="true" rows="10" paginatorPosition="bottom" stripedRows="true" widgetVar="authorTblResultsVar">
                 <f:facet name="header">
-                    <div class="flex align-items-center justify-content-center gap-3">
-                        <p:inputText id="globalFilter" onkeyup="PF('authorTblResultsVar').filter()" placeholder="#{appmsg['label.inventory.searchplaceholder.authors']}" style="width: 300px" />
-						<p:commandButton value="#{appmsg['label.inventory.addauthor']}" action="#{inventoryController.newAuthor()}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />                    </div>
+                    <div class="searchBarWrap">
+                        <span class="searchDecorLine"></span>
+                        <p:inputText id="globalFilter" onkeyup="PF('authorTblResultsVar').filter()" placeholder="#{appmsg['label.inventory.searchplaceholder.authors']}" styleClass="searchInput" />
+                        <p:commandButton value="#{appmsg['label.inventory.addauthor']}" action="#{inventoryController.newAuthor()}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
+                        <span class="searchDecorLine"></span>
+                    </div>
                 </f:facet>
                 <p:column headerText="#{appmsg['label.col.name']}" field="name" filterStyle="display:none">
                     <h:outputText value="#{author.name}"/>
@@ -75,10 +81,10 @@
                     <h:outputText value="#{author.active}" />
                 </p:column>
                 <p:column headerText="#{appmsg['label.inventory.actions']}" style="text-align:center">
-                    <div class="flex flex-column align-items-center gap-2">
-                        <p:commandButton value="#{appmsg['label.inventory.activateauthor']}" action="#{inventoryController.activateAuthor(author)}" process="@this" update=":invForm:authorTblResults" rendered="#{!author.active}"/>
-                        <p:commandButton value="#{appmsg['label.inventory.deactivateauthor']}" action="#{inventoryController.deactivateAuthor(author)}" process="@this" update=":invForm:authorTblResults :invForm:tblResults" rendered="#{author.active}"/>
-                        <p:commandButton value="#{appmsg['label.common.edit']}" action="#{inventoryController.selectAuthor(author)}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
+                    <div class="flex flex-row align-items-center justify-content-center gap-2">
+                        <p:commandButton icon="pi pi-eye" title="#{appmsg['label.inventory.activateauthor']}" action="#{inventoryController.activateAuthor(author)}" process="@this" update=":invForm:authorTblResults" rendered="#{!author.active}" style="font-size: 1.25rem"/>
+                        <p:commandButton icon="pi pi-eye-slash" title="#{appmsg['label.inventory.deactivateauthor']}" action="#{inventoryController.deactivateAuthor(author)}" process="@this" update=":invForm:authorTblResults :invForm:tblResults" rendered="#{author.active}" style="font-size: 1.25rem"/>
+                        <p:commandButton icon="pi pi-pencil" title="#{appmsg['label.common.edit']}" action="#{inventoryController.selectAuthor(author)}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" style="font-size: 1.25rem"/>
                     </div>
                 </p:column>
             </p:dataTable>

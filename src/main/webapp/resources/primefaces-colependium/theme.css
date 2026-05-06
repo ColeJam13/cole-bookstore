@@ -443,3 +443,34 @@
     border: 1px solid #c9a84c;
     min-width: 280px;
 }
+
+/* Paginator number buttons — larger and more readable */
+.ui-paginator .ui-paginator-page {
+    color: #c9a84c;
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+}
+
+/* Paginator first/prev/next/last buttons — unicode arrows, no sprite */
+.ui-paginator .ui-paginator-first,
+.ui-paginator .ui-paginator-prev,
+.ui-paginator .ui-paginator-next,
+.ui-paginator .ui-paginator-last {
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    color: #c9a84c;
+}
+
+.ui-paginator .ui-paginator-first::before { content: '«'; }
+.ui-paginator .ui-paginator-prev::before { content: '‹'; }
+.ui-paginator .ui-paginator-next::before { content: '›'; }
+.ui-paginator .ui-paginator-last::before { content: '»'; }
+
+/* Breathing room between table rows and paginator */
+.ui-datatable .ui-paginator-bottom {
+    margin-top: 8px;
+}
