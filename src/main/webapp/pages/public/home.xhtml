@@ -5,18 +5,17 @@
 
 	<ui:define name="body">
 		<h:form>
-			<!-- The Data Table the results show up in -->
-			<p:dataTable var="book" value="#{bookSearchForm.searchResults}" id="tblResults" paginator="true" rows="15" 
-			paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" selectionMode="single" 
-			rowKey="#{book.isbn}" selection="#{bookSearchForm.selectedBook}">
+			<p:dataTable var="book" value="#{bookSearchForm.searchResults}" id="tblResults" paginator="true" rows="15" paginatorPosition="bottom" stripedRows="true" widgetVar="tblResultsVar" selectionMode="single" rowKey="#{book.isbn}" selection="#{bookSearchForm.selectedBook}">
 				<p:ajax event="rowSelect" listener="#{homeController.navigate()}"/>
-				<f:facet name="header">
-					<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" 
-						placeholder="#{appmsg['label.home.searchplaceholder']}" style="width: 400px" />
-				</f:facet>
+					<f:facet name="header">
+						<div class="searchBarWrap">
+							<span class="searchDecorLine"></span>
+							<p:inputText id="globalFilter" onkeyup="PF('tblResultsVar').filter()" placeholder="#{appmsg['label.home.searchplaceholder']}" styleClass="searchInput" />
+							<span class="searchDecorLine"></span>
+						</div>
+					</f:facet>
 					<p:column headerText="#{appmsg['label.col.cover']}" filterable="false" sortable="false">
-						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" 
-							height="100" alt="#{book.title}"/>
+						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" height="100" alt="#{book.title}"/>
 					</p:column>
 					<p:column headerText="#{appmsg['label.col.title']}" field="title" filterStyle="display:none">
 						<h:outputText value="#{book.title}"/>

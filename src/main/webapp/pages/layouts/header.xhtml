@@ -131,7 +131,7 @@
 			</h:panelGroup>
 			<h:panelGroup styleClass="navRight">
 			<span class="navSpacer">|</span>
-			<p:outputLabel value="#{appmsg['label.nav.welcome']}: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
+			<p:outputLabel value="#{userProvider.userLoggedIn ? appmsg['label.nav.welcome'].concat(': ').concat(userProvider.userName) : appmsg['label.nav.welcome'].concat(': ').concat(appmsg['label.nav.guest'])}" styleClass="navLink" />
 			<p:commandLink id="cartNavLink" value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" onclick="PF('cartPreviewPanel').toggle(this)" styleClass="navLink cartLink">
 				<i class="pi pi-shopping-cart"></i>
 			</p:commandLink>

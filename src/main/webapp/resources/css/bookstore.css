@@ -47,3 +47,24 @@ html, body {
     font-size: 11px;
     letter-spacing: 1px;
 }
+
+/* Flex wrapper centering the search bar with decorative lines either side */
+.searchBarWrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 40px;
+}
+
+/* Expanding decorative lines flanking the search input */
+.searchDecorLine {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #c9a84c, transparent);
+    display: block;
+}
+
+/* Search input sizing */
+.searchInput {
+    width: 600px;
+}
