@@ -22,7 +22,7 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="#{appmsg['label.col.remove']}" filterable="false" sortable="false">
-                            <p:commandButton value="#{appmsg['label.col.remove']}" action="#{cartController.removeFromCart(cart)}"/>
+                            <p:commandButton icon="pi pi-times" action="#{cartController.removeFromCart(cart)}" style="font-size: 1.25rem" />
                         </p:column>
                     </p:dataTable>
                 </div>
