@@ -26,6 +26,8 @@ public class BookManager extends BaseManager<Book> {
 
     private static final String QUERY_FIND_ALL_WITH_AUTHORS = "SELECT b FROM Book b JOIN FETCH b.author";
 
+    private static final String QUERY_COUNT_INACTIVE_BOOKS = "SELECT COUNT(b) FROM Book b WHERE b.active = false";
+
     public BookManager() {
         super(Book.class);
     }
@@ -83,6 +85,16 @@ public class BookManager extends BaseManager<Book> {
 
         return entityManager.createQuery(QUERY_FIND_ALL_ACTIVE_BOOKS, Book.class)
                 .getResultList();
+    }
+
+    /**
+     * Returns the count of all inactive books
+     *
+     * @return count of inactive books
+     */
+    public long countInactive() {
+        return entityManager.createQuery(QUERY_COUNT_INACTIVE_BOOKS, Long.class)
+                .getSingleResult();
     }
 
     /**

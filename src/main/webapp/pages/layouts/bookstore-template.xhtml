@@ -9,21 +9,20 @@
 
 <h:head>
     <title>#{appmsg['label.app.title']}</title>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&amp;family=EB+Garamond:wght@400;500&amp;display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&amp;family=EB+Garamond:wght@400;500&amp;display=swap" />
 </h:head>
 <h:body>
-	<h:outputStylesheet library="css" name="primeflex.min.css" />
+    <h:outputStylesheet library="css" name="primeflex.min.css" />
     <h:outputStylesheet library="css" name="bookstore.css" />
     <h:outputStylesheet library="css" name="banner.css" />
     <h:outputStylesheet library="css" name="navbar.css" />
-    <div id="wrapper">
-        <div id="header">
+    <div class="wrapper">
+        <div class="header">
             <ui:include src="header.xhtml"/>
         </div>
         <ui:insert name="menu"/>
         <ui:insert name="body"/>
-        <div id="footer" class="fullPage">
+        <div class="footer fullPage">
             <ui:insert name="footer">
                 <ui:include src="footer.xhtml" />
             </ui:insert>

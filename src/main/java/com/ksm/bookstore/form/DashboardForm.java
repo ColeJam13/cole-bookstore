@@ -35,8 +35,14 @@ public class DashboardForm implements Serializable {
     private AuthorManager authorManager;
 
     private long totalBooks;
+
     private long totalOrders;
+
     private long totalAuthors;
+
+    private long inactiveBooks;
+
+    private long inactiveAuthors;
 
     /**
      * On page view, gets the total for each of the specified fields and
@@ -47,6 +53,7 @@ public class DashboardForm implements Serializable {
         totalBooks = bookManager.count();
         totalOrders = orderManager.count();
         totalAuthors = authorManager.count();
+        inactiveBooks = bookManager.countInactive();
+        inactiveAuthors = authorManager.countInactive();
     }
-    
 }

@@ -35,7 +35,7 @@ html, body {
 }
 
 /* Eliminate white space around banner */
-#header {
+.header {
     margin: 0;
     padding: 0;
     line-height: 0;
@@ -67,4 +67,16 @@ html, body {
 /* Search input sizing */
 .searchInput {
     width: 600px;
+}
+
+/* Full viewport height flex column — pushes footer to bottom */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Footer always sticks to the bottom */
+.footer {
+    margin-top: auto;
 }

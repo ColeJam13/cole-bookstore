@@ -19,6 +19,8 @@ public class AuthorManager extends BaseManager<Author> {
 
     private static final String QUERY_FIND_ALL_ACTIVE_AUTHORS = "SELECT a FROM Author a WHERE a.active = true";
 
+    private static final String QUERY_COUNT_INACTIVE_AUTHORS = "SELECT COUNT(a) FROM Author a WHERE a.active = false";
+
 
     public AuthorManager() {
         super(Author.class);
@@ -48,5 +50,15 @@ public class AuthorManager extends BaseManager<Author> {
 
         return entityManager.createQuery(QUERY_FIND_ALL_ACTIVE_AUTHORS, Author.class)
                 .getResultList();
+    }
+
+    /**
+     * Returns the count of all inactive authors
+     *
+     * @return count of inactive authors
+     */
+    public long countInactive() {
+        return entityManager.createQuery(QUERY_COUNT_INACTIVE_AUTHORS, Long.class)
+                .getSingleResult();
     }
 }

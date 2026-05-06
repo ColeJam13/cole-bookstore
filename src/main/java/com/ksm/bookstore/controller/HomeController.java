@@ -6,9 +6,6 @@ import javax.faces.context.FacesContext;
 
 import com.ksm.bookstore.form.BookSearchForm;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,8 +17,6 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-@Getter
-@Setter
 public class HomeController {
 
     @Inject

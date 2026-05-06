@@ -17,6 +17,12 @@
             <p:panel header="#{appmsg['label.dashboard.totalorders']}" styleClass="flex-1">
                 <h:outputText value="#{dashboardForm.totalOrders}" />
             </p:panel>
+            <p:panel header="#{appmsg['label.dashboard.inactivebooks']}" styleClass="flex-1">
+                <h:outputText value="#{dashboardForm.inactiveBooks}" />
+            </p:panel>
+            <p:panel header="#{appmsg['label.dashboard.inactiveauthors']}" styleClass="flex-1">
+                <h:outputText value="#{dashboardForm.inactiveAuthors}" />
+            </p:panel>
         </div>
     </ui:define>
 </ui:composition>
