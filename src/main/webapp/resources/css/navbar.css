@@ -7,11 +7,19 @@
     line-height: normal;
 }
 
-/* Flex row spreading all links evenly across the full navbar width */
+/* Flex row with right side pushed over */
 #navbar form {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+/* Left nav group fills available space and distributes links evenly within it */
+.navLeft {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 /* Individual nav link color and spacing */
@@ -21,6 +29,7 @@
     text-decoration: none;
     font-size: 1rem;
     letter-spacing: 1px;
+    text-align: center;
 }
 
 /* Nav link hover */
@@ -44,4 +53,21 @@
     display: inline-block;
     color: #a09070;
     font-size: 1rem;
+}
+
+/* Decorative placeholder icons — hold nav spacing when conditional links are hidden */
+.navPlaceholder {
+    color: #5a3a1a;
+    font-size: 1rem;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Right nav group — fixed min-width prevents welcome/cart from getting squeezed */
+.navRight {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 320px;
+    justify-content: flex-end;
 }

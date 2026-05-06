@@ -108,18 +108,34 @@
 	</div>
     <div id="navbar">
         <h:form id="navForm">
-            <p:commandLink value="#{appmsg['label.nav.home']}" action="home" styleClass="navLink" ajax="false" />
-            <p:commandLink value="#{appmsg['label.nav.login']}" onclick="PF('loginDialog').show()" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" />
-            <p:commandLink value="#{appmsg['label.nav.myaccount']}" action="profile" styleClass="navLink" rendered="#{userProvider.generalUser}" ajax="false" />
-            <p:commandLink value="#{appmsg['label.nav.logout']}" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false"/>
-            <p:commandLink value="#{appmsg['label.nav.dashboard']}" action="dashboard" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-            <p:commandLink value="#{appmsg['label.nav.orders']}" action="orders" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-            <p:commandLink value="#{appmsg['label.nav.inventory']}" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
-            <span class="navSpacer">|</span>
+			<h:panelGroup styleClass="navLeft">
+				<p:commandLink value="#{appmsg['label.nav.home']}" action="home" styleClass="navLink" ajax="false" />
+				<p:commandLink value="#{appmsg['label.nav.login']}" onclick="PF('loginDialog').show()" styleClass="navLink" rendered="#{!userProvider.userLoggedIn}" />
+				<p:commandLink value="#{appmsg['label.nav.logout']}" action="#{userProvider.logout()}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}" ajax="false" />
+				<p:commandLink value="#{appmsg['label.nav.myaccount']}" action="profile" styleClass="navLink" rendered="#{userProvider.generalUser}" ajax="false" />
+				<h:panelGroup styleClass="navPlaceholder" rendered="#{!userProvider.generalUser}">
+					<i class="pi pi-book"></i>
+				</h:panelGroup>
+				<p:commandLink value="#{appmsg['label.nav.dashboard']}" action="dashboard" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+				<h:panelGroup styleClass="navPlaceholder" rendered="#{!userProvider.adminUser}">
+					<i class="pi pi-book"></i>
+				</h:panelGroup>
+				<p:commandLink value="#{appmsg['label.nav.orders']}" action="orders" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+				<h:panelGroup styleClass="navPlaceholder" rendered="#{!userProvider.adminUser}">
+					<i class="pi pi-book"></i>
+				</h:panelGroup>
+				<p:commandLink value="#{appmsg['label.nav.inventory']}" action="inventory" styleClass="navLink" rendered="#{userProvider.adminUser}" ajax="false" />
+				<h:panelGroup styleClass="navPlaceholder" rendered="#{!userProvider.adminUser}">
+					<i class="pi pi-book"></i>
+				</h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup styleClass="navRight">
+			<span class="navSpacer">|</span>
 			<p:outputLabel value="#{appmsg['label.nav.welcome']}: #{userProvider.userName}" styleClass="navLink" rendered="#{userProvider.userLoggedIn}"/>
-			<p:commandLink id="cartNavLink" value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" onclick="PF('cartPreviewPanel').show()" styleClass="navLink cartLink" >
+			<p:commandLink id="cartNavLink" value="#{appmsg['label.nav.cart']} (#{cartForm.cartItems.size()})" onclick="PF('cartPreviewPanel').toggle(this)" styleClass="navLink cartLink">
 				<i class="pi pi-shopping-cart"></i>
 			</p:commandLink>
+			</h:panelGroup>
 			<p:overlayPanel id="cartPreviewPanel" for="cartNavLink" hideEffect="fade" dynamic="true">
 				<ui:repeat value="#{cartForm.cartItems}" var="item">
 					<div class="flex justify-content-between mb-2 pb-2" style="border-bottom: 1px solid #3a0000;">
