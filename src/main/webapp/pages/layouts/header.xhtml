@@ -27,7 +27,7 @@
 				<div class="holder-stem"></div>
 				<div class="holder-base"></div>
 			</div>
-			<div class="candle-wrap candle-md">
+			<div id="candleLeftMid" class="candle-wrap candle-md">
 				<div class="flame-wrap">
 					<div class="flame-outer" style="animation-duration:0.45s; animation-delay:0.05s"></div>
 					<div class="flame-mid" style="animation-duration:0.38s; animation-delay:0.15s"></div>
@@ -74,7 +74,7 @@
 				<div class="holder-stem"></div>
 				<div class="holder-base"></div>
 			</div>
-			<div class="candle-wrap candle-md">
+			<div id="candleRightMid" class="candle-wrap candle-md">
 				<div class="flame-wrap">
 					<div class="flame-outer" style="animation-duration:0.47s; animation-delay:0.12s"></div>
 					<div class="flame-mid" style="animation-duration:0.36s; animation-delay:0.0s"></div>
@@ -171,4 +171,30 @@
 			</p:overlayPanel>
 		</h:form>
     </div>
+	<script>//<![CDATA[
+		(function() {
+			var leftOut = false;
+			var rightOut = false;
+			var leftCandle = document.getElementById('candleLeftMid');
+			var rightCandle = document.getElementById('candleRightMid');
+
+			if (!leftCandle || !rightCandle) return;
+
+			leftCandle.addEventListener('click', function() {
+				leftOut = !leftOut;
+				leftCandle.classList.toggle('candle-extinguished', leftOut);
+				updateMode();
+			});
+
+			rightCandle.addEventListener('click', function() {
+				rightOut = !rightOut;
+				rightCandle.classList.toggle('candle-extinguished', rightOut);
+				updateMode();
+			});
+
+			function updateMode() {
+				document.body.classList.toggle('notta-mode', leftOut && rightOut);
+			}
+		})();
+	//]]></script>
 </ui:composition>

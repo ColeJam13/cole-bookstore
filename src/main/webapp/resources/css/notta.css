@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* NOTTA MODE — easter egg palette swap
+   All rules scoped to .notta-mode on <body> — inert until activated */
+
+/* Base page */
+.notta-mode {
+    background-color: #0f0f1e !important;
+    color: #e0e0e0 !important;
+    font-family: 'Press Start 2P', monospace !important;
+    font-size: 11px !important;
+}
+
+.notta-mode .wrapper {
+    background-color: #1a1a2e;
+}
+
+/* Navbar */
+.notta-mode #navbar {
+    background-color: #0f0f1e;
+    border-top: 3px solid #b026ff;
+    border-bottom: 1px solid #b026ff;
+}
+
+.notta-mode #navbar .ui-commandlink {
+    color: #39ff14;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.notta-mode #navbar .ui-commandlink:hover {
+    color: #b026ff;
+}
+
+.notta-mode #navbar .ui-outputlabel {
+    color: #b026ff;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.notta-mode .navSpacer {
+    color: #b026ff;
+}
+
+.notta-mode .navPlaceholder {
+    color: #39ff14;
+}
+
+/* Search bars */
+.notta-mode .searchDecorLine {
+    background: linear-gradient(to right, transparent, #b026ff, transparent);
+}
+
+/* Footer */
+.notta-mode .bookstoreFooter {
+    color: #39ff14;
+    font-family: 'Press Start 2P', monospace;
+}
+
+/* PrimeFaces base widgets */
+.notta-mode .ui-widget {
+    background-color: #16213e !important;
+    color: #e0e0e0 !important;
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+.notta-mode .ui-widget-content {
+    background-color: #16213e !important;
+    border-color: #b026ff !important;
+    color: #e0e0e0 !important;
+}
+
+.notta-mode .ui-widget-header {
+    background-color: #0f0f1e !important;
+    border-color: #b026ff !important;
+    color: #39ff14 !important;
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+/* Buttons */
+.notta-mode .ui-button {
+    background-color: #b026ff !important;
+    border-color: #b026ff !important;
+    color: #0f0f1e !important;
+    font-family: 'Press Start 2P', monospace !important;
+    font-size: 0.7rem !important;
+}
+
+.notta-mode .ui-button:hover {
+    background-color: #39ff14 !important;
+    border-color: #39ff14 !important;
+    color: #0f0f1e !important;
+}
+
+/* Inputs */
+.notta-mode .ui-inputtext,
+.notta-mode .ui-inputfield {
+    background-color: #1a1a2e !important;
+    border-color: #b026ff !important;
+    color: #e0e0e0 !important;
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+/* Datatable */
+.notta-mode .ui-datatable th {
+    background-color: #0f0f1e !important;
+    border-color: #b026ff !important;
+    color: #39ff14 !important;
+}
+
+.notta-mode .ui-datatable .ui-datatable-even td,
+.notta-mode .ui-datatable .ui-datatable-odd td {
+    background-color: #16213e !important;
+    border-color: #b026ff !important;
+    color: #e0e0e0 !important;
+}
+
+/* Panels */
+.notta-mode .ui-panel .ui-panel-titlebar {
+    background-color: #0f0f1e !important;
+    border-color: #b026ff !important;
+    color: #39ff14 !important;
+}
+
+.notta-mode .ui-panel .ui-panel-content {
+    background-color: #16213e !important;
+    border-color: #b026ff !important;
+    color: #e0e0e0 !important;
+}
+
+/* Dialog */
+.notta-mode .ui-dialog .ui-dialog-titlebar {
+    background-color: #0f0f1e !important;
+    border-color: #b026ff !important;
+    color: #39ff14 !important;
+}
+
+.notta-mode .ui-dialog .ui-dialog-content {
+    background-color: #16213e !important;
+    border-color: #b026ff !important;
+    color: #e0e0e0 !important;
+}
+
+/* Banner swap — gothic banner hidden in NOTTA mode
+   When retro banner is ready, drop ColependiumHeaderRetro.png into
+   resources/images/ and uncomment the background-image lines below */
+.notta-mode #banner img {
+    display: none;
+}
+
+.notta-mode #banner {
+    background-color: #0f0f1e;
+    height: 400px;
+    background-image: url('/bookstore/resources/images/ColependiumNotta.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 8-bit candle flames — fires on all non-extinguished candles in NOTTA mode
+   steps(2) replaces smooth easing with hard frame jumps */
+.notta-mode .flame-outer {
+    background-color: #b026ff;
+    border-radius: 0;
+    box-shadow: 0 0 8px #b026ff, 0 0 16px rgba(176, 38, 255, 0.5);
+    animation-name: pixelFlicker;
+    animation-timing-function: steps(2);
+}
+
+.notta-mode .flame-mid {
+    background-color: #39ff14;
+    border-radius: 0;
+    box-shadow: 0 0 6px #39ff14;
+    animation-name: pixelFlicker2;
+    animation-timing-function: steps(2);
+}
+
+.notta-mode .flame-core {
+    background-color: #ffffff;
+    border-radius: 0;
+}
+
+.notta-mode .holder-cup,
+.notta-mode .holder-stem,
+.notta-mode .holder-base {
+    background: linear-gradient(to bottom, #b026ff, #7a0acc);
+    border-color: #39ff14;
+}
+
+@keyframes pixelFlicker {
+    0%   { transform: scaleX(1)   scaleY(1);   opacity: 1;   }
+    50%  { transform: scaleX(0.8) scaleY(1.2); opacity: 0.7; }
+    100% { transform: scaleX(1.1) scaleY(0.9); opacity: 1;   }
+}
+
+@keyframes pixelFlicker2 {
+    0%   { transform: scaleX(1)   scaleY(1);   }
+    50%  { transform: scaleX(1.2) scaleY(0.8); }
+    100% { transform: scaleX(0.9) scaleY(1.1); }
+}
+
+/* Extinguished candle state — applied by JS on the trigger candles */
+.candle-extinguished .flame-wrap {
+    display: none;
+}
+
+.candle-extinguished .wick {
+    background-color: #333;
+}
+
+/* Trigger candles get a pointer so they're discoverable */
+#candleLeftMid,
+#candleRightMid {
+    cursor: pointer;
+}
