@@ -14,26 +14,24 @@
 							<span class="searchDecorLine"></span>
 						</div>
 					</f:facet>
-					<p:column headerText="#{appmsg['label.col.cover']}" filterable="false" sortable="false">
-						<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" height="100" alt="#{book.title}"/>
-					</p:column>
-					<p:column headerText="#{appmsg['label.col.title']}" field="title" filterStyle="display:none">
-						<h:outputText value="#{book.title}"/>
-					</p:column>
-					<p:column headerText="#{appmsg['label.col.author']}" field="author.name" filterStyle="display:none">
-						<h:outputText value="#{book.author.name}" />
-					</p:column>
-					<p:column headerText="#{appmsg['label.col.isbn']}" field="isbn" filterStyle="display:none">
-						<h:outputText value="#{book.isbn}" />
-					</p:column>
-					<p:column headerText="#{appmsg['label.col.price']}" field="price" filterStyle="display:none">
-						<h:outputText value="#{book.price}" > 
+				<p:column headerText="#{appmsg['label.col.cover']}" filterable="false" sortable="false">
+					<h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" height="130" alt="#{book.title}"/>
+				</p:column>
+				<p:column headerText="#{appmsg['label.col.title']}" field="title" filterStyle="display:none">
+					<h:outputText value="#{book.title}" style="font-size: 1.1rem" />
+				</p:column>
+				<p:column headerText="#{appmsg['label.col.author']}" field="author.name" filterStyle="display:none">
+					<h:outputText value="#{book.author.name}" style="font-size: 1.1rem" />
+				</p:column>
+				<p:column headerText="#{appmsg['label.col.price']}" field="price" filterStyle="display:none">
+					<div class="flex align-items-center justify-content-center gap-4">
+						<h:outputText value="#{book.price}" style="font-size: 1.1rem" >
 							<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
 						</h:outputText>
-					</p:column>
-					<p:column headerText="#{appmsg['label.col.addtocart']}">
-						<p:commandButton icon="pi pi-shopping-cart" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" style="font-size: 1.25rem" />					</p:column>
-				</p:dataTable>
+						<p:commandButton icon="pi pi-shopping-cart" title="#{appmsg['label.col.addtocart']}" action="#{cartController.addToCart(book)}" process="@this" update=":navForm" onclick="event.stopPropagation()" style="font-size: 1.25rem" />
+					</div>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
