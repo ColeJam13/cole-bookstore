@@ -18,6 +18,13 @@
                         <span class="searchDecorLine"></span>
                     </div>
                 </f:facet>
+                <p:column headerText="#{appmsg['label.col.actions']}" style="text-align:center">
+                    <p:menuButton icon="pi pi-bars">
+                        <p:menuitem icon="pi pi-eye" value="#{appmsg['label.inventory.activatebook']}" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}" />
+                        <p:menuitem icon="pi pi-eye-slash" value="#{appmsg['label.inventory.deactivatebook']}" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}" />
+                        <p:menuitem icon="pi pi-pencil" value="#{appmsg['label.common.edit']}" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" />
+                    </p:menuButton>
+                </p:column>
                 <p:column headerText="#{appmsg['label.col.cover']}" filterable="false" sortable="false">
                     <h:graphicImage url="https://covers.openlibrary.org/b/isbn/#{book.isbn}-M.jpg" height="100" alt="#{book.title}"/>
                 </p:column>
@@ -37,13 +44,6 @@
                     <h:outputText value="#{book.price}" >
                         <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
                     </h:outputText>
-                </p:column>
-                <p:column headerText="#{appmsg['label.inventory.actions']}" style="text-align:center">
-                    <div class="flex flex-row align-items-center justify-content-center gap-2">
-                        <p:commandButton icon="pi pi-eye" title="#{appmsg['label.inventory.activatebook']}" action="#{inventoryController.activateBook(book)}" process="@this" update=":invForm:tblResults :invForm:messages" rendered="#{!book.active}" style="font-size: 1.25rem"/>
-                        <p:commandButton icon="pi pi-eye-slash" title="#{appmsg['label.inventory.deactivatebook']}" action="#{inventoryController.deactivateBook(book)}" process="@this" update=":invForm:tblResults" rendered="#{book.active}" style="font-size: 1.25rem"/>
-                        <p:commandButton icon="pi pi-pencil" title="#{appmsg['label.common.edit']}" action="#{inventoryController.selectBook(book)}" update=":invForm:bookDialog" oncomplete="PF('bookDialog').show()" process="@this" style="font-size: 1.25rem"/>
-                    </div>
                 </p:column>
             </p:dataTable>
             <p:dialog id="bookDialog" header="#{appmsg['label.inventory.bookdialog.header']}" widgetVar="bookDialog" modal="true">
@@ -74,18 +74,18 @@
                         <span class="searchDecorLine"></span>
                     </div>
                 </f:facet>
+                <p:column headerText="#{appmsg['label.col.actions']}" style="text-align:center">
+                    <p:menuButton icon="pi pi-bars">
+                        <p:menuitem icon="pi pi-eye" value="#{appmsg['label.inventory.activateauthor']}" action="#{inventoryController.activateAuthor(author)}" process="@this" update=":invForm:authorTblResults" rendered="#{!author.active}" />
+                        <p:menuitem icon="pi pi-eye-slash" value="#{appmsg['label.inventory.deactivateauthor']}" action="#{inventoryController.deactivateAuthor(author)}" process="@this" update=":invForm:authorTblResults :invForm:tblResults" rendered="#{author.active}" />
+                        <p:menuitem icon="pi pi-pencil" value="#{appmsg['label.common.edit']}" action="#{inventoryController.selectAuthor(author)}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" />
+                    </p:menuButton>
+                </p:column>
                 <p:column headerText="#{appmsg['label.col.name']}" field="name" filterStyle="display:none">
                     <h:outputText value="#{author.name}"/>
                 </p:column>
                 <p:column headerText="#{appmsg['label.col.active']}" field="active" filterStyle="display:none">
                     <h:outputText value="#{author.active}" />
-                </p:column>
-                <p:column headerText="#{appmsg['label.inventory.actions']}" style="text-align:center">
-                    <div class="flex flex-row align-items-center justify-content-center gap-2">
-                        <p:commandButton icon="pi pi-eye" title="#{appmsg['label.inventory.activateauthor']}" action="#{inventoryController.activateAuthor(author)}" process="@this" update=":invForm:authorTblResults" rendered="#{!author.active}" style="font-size: 1.25rem"/>
-                        <p:commandButton icon="pi pi-eye-slash" title="#{appmsg['label.inventory.deactivateauthor']}" action="#{inventoryController.deactivateAuthor(author)}" process="@this" update=":invForm:authorTblResults :invForm:tblResults" rendered="#{author.active}" style="font-size: 1.25rem"/>
-                        <p:commandButton icon="pi pi-pencil" title="#{appmsg['label.common.edit']}" action="#{inventoryController.selectAuthor(author)}" update=":invForm:authorDialog" oncomplete="PF('authorDialog').show()" process="@this" style="font-size: 1.25rem"/>
-                    </div>
                 </p:column>
             </p:dataTable>
             <p:dialog id="authorDialog" header="#{appmsg['label.inventory.authordialog.header']}" widgetVar="authorDialog" modal="true" appendTo="@none">
