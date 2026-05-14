@@ -48,7 +48,7 @@ public class Book implements Serializable {
 
     @NotNull(message = "Title {javax.validation.constraints.NotNull.message}")
     @Size(min = 1, max = 255)
-    @Column(name = "BOOK_TITLE", length = 255, nullable = false, unique = true)
+    @Column(name = "BOOK_TITLE", length = 255, nullable = false)
     private String title;
     
     @NotNull(message = "Author {javax.validation.constraints.NotNull.message}")

@@ -4,14 +4,14 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="BookstorePersistenceUnit" transaction-type="JTA">
-		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+		<jta-data-source>java:jboss/datasources/BookstoreDS</jta-data-source>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<!-- Properties for Hibernate -->
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.hbm2ddl.auto" value="none" />
 			<property name="hibernate.show_sql" value="${jpa.showsql}" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-			<!-- Reference the default schema to BOOKSTORE in standalone.xml -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>		
+		<!-- Reference the default schema to BOOKSTORE in standalone.xml -->
 			<property name="hibernate.default_schema" value="${bookstore.schema}"/>
 		</properties>
 	</persistence-unit>

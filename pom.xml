@@ -43,6 +43,8 @@
 		<testng.version>7.11.0</testng.version>
 		<war.plugin>3.2.0</war.plugin>
 		<lombok.version>1.18.36</lombok.version>
+		<postgresql.version>42.7.3</postgresql.version>
+		<liquibase.version>4.27.0</liquibase.version>
 		<javax.json.version>1.1.4</javax.json.version>
 		<jsf.version>2.3</jsf.version>
 		<!-- Code Cleanliness Reports -->
@@ -185,6 +187,17 @@
 			<artifactId>cdi-api</artifactId>
 			<version>2.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-cdi</artifactId>
+			<version>${liquibase.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
